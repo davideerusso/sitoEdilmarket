@@ -146,52 +146,83 @@
     background-color: #e5dbd1;
     height: 100%;
 
-    background-size: 500% 80%;
+    background-size: 100% 60%;
     background-repeat: no-repeat;
     background-position: center;
   }
 
-  .container-pitture {
-    margin-top: -2px;
-    padding: 0 30px;
-  }
   .flex-pitture {
     display: flex;
-    justify-content: space-between;
-    margin-top: 0px;
-    margin-bottom: 100px;
-    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 20px;
+    
+    /* Importante: padding laterale generoso per non tagliare */
+    padding: 20px 40px 60px 40px; 
+    
+    width: 100%;
     box-sizing: border-box;
-    flex-direction: column;
+    scrollbar-width: none;
     align-items: center;
+    padding-bottom: 80px; 
+    
+    /* Assicurati che l'overflow-y non sia hidden, altrimenti taglia comunque */
+    overflow-y: visible; 
+    
+    /* Questo aiuta a non tagliare gli elementi che debordano */
+    clip-path: inset(0px 0px -100px 0px); 
+  
   }
-  .box-image-pitt .img-pittura {
+
+  /* Rimuovi eventuali padding restrittivi dal contenitore padre se necessario */
+  .container-pitture {
+    padding: 0 !important; 
     width: 100%;
-    height: 400px;
-    object-fit: cover;
-    display: block;
-    border-radius: 30px;
+    max-width: 100vw;
   }
+  .flex-pitture::-webkit-scrollbar {
+    display: none;
+  }
+
   .box-image-pitt {
-    flex: 1;
-    width: 100%;
-    margin-top: 40px;
-    overflow: visible;
-    position: relative;
+    flex: 0 0 90%; /* Larghezza card mobile */
+    scroll-snap-align: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.4s;
+    opacity: 0.6; /* Le card non attive rimangono un po' spente */
+    transform: scale(0.9); /* Le card non attive sono più piccole */
+    margin-top: 0px;
+  }
+
+  /* LA CARD AL CENTRO (ATTIVA) */
+  .box-image-pitt.is-active {
+    opacity: 1;
+    transform: scale(1.05); /* Si ingrandisce quando è al centro */
+    z-index: 10;
+  }
+  
+  .box-image-pitt.is-active .img-secchio,
+  .box-image-pitt.is-active .img-secchio-legno {
+    /* Opzionale: enfatizza l'ombra del secchio quando è attiva */
+    filter: drop-shadow(15px 15px 25px rgba(0, 0, 0, 0.5));
   }
   .titolo-pitture {
     color: #e21e25;
-
-    font-size: 32px;
+margin-left: 20px;
+    font-size: 30px;
     font-family: "Brunson", sans-serif;
     margin-top: 40px;
   }
   .sottotitolo-pitture {
     margin-top: 8px;
-    font-size: 14px;
-
+    font-size: 12px;
+    margin-left: 20px;
+margin-right: 20px;
     color: #2e60b7;
     font-family: "Montserrat-Medium", sans-serif;
+  }
+  .titolo-pittura {
+    
+    font-size: 16px;
   }
 }
