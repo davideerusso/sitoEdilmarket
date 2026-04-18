@@ -1,0 +1,211 @@
+.box-quaranta {
+  background-image: url("/sfondo40.webp");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.container-flex-quaranta {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+  padding-bottom: 5vh;
+  z-index: 2;
+}
+
+.quaranta-testo {
+  color: #e5dbd1;
+  font-family: "Brunson", sans-serif;
+  letter-spacing: 0.5vw;
+  line-height: 1;
+  text-align: center;
+  margin-right: -3vw;
+  z-index: 1;
+  white-space: nowrap;
+  width: 40%;
+}
+.numero-grande {
+  font-size: 12vw;
+}
+.container-testo {
+  display: flex;
+  align-items: center;
+  margin-top: -1vw;
+}
+.testo-piccolo {
+  font-size: 3vw;
+  margin-right: 1.5vw;
+}
+.testo-grande {
+  font-size: 7.4vw;
+}
+.claudio {
+  width: clamp(360px, 35vw, 800px);
+  height: auto;
+  position: relative;
+  align-self: center;
+  z-index: 10;
+  margin-left: -5vw;
+  object-fit: contain;
+  margin-bottom: -2vh;
+}
+.box-quaranta > img:first-child {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  object-position: top;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sotto {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  object-position: bottom;
+
+  z-index: 20;
+  pointer-events: none;
+}
+@media (max-width: 1320px) {
+  .box-quaranta {
+    background-image: url("/sfondo40.webp");
+    background-size: cover;
+    background-position: center;
+    height: 80%;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .claudio {
+    width: clamp(360px, 35vw, 800px);
+    height: auto;
+    position: relative;
+    align-self: center;
+    z-index: 10;
+    margin-left: -5vw;
+    object-fit: contain;
+    margin-bottom: -2vh;
+  }
+  .box-quaranta > img:first-child {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50vh;
+    object-fit: contain;
+    object-position: top;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .sotto {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50vh;
+    object-fit: contain;
+    object-position: bottom;
+
+    z-index: 20;
+    pointer-events: none;
+  }
+}
+@media (max-width: 610px) {
+  .container-flex-quaranta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+    padding-bottom: 0;
+    z-index: 2;
+  }
+
+  .box-quaranta {
+    background-image: url("/sfondo40.webp");
+    background-size: cover;
+    background-position: center;
+    height: 80%;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .quaranta-testo {
+    color: #e5dbd1;
+    font-family: "Brunson", sans-serif;
+    letter-spacing: 0.5vw;
+    line-height: 1;
+    text-align: center;
+    z-index: 1;
+    white-space: nowrap;
+    width: 100%;
+    margin-top: 80px;
+  }
+  .numero-grande {
+    font-size: 20vw;
+  }
+  .container-testo {
+    display: flex;
+    align-items: center;
+    margin-top: -1vw;
+    justify-content: center;
+  }
+  .testo-piccolo {
+    font-size: 7vw;
+    margin-right: 1.5vw;
+  }
+  .testo-grande {
+    font-size: 12vw;
+  }
+  .claudio {
+    width: clamp(360px, 35vw, 800px);
+    height: auto;
+    position: relative;
+    align-self: center;
+    z-index: 10;
+    margin-left: -5vw;
+    object-fit: contain;
+    margin-bottom: -2vh;
+    margin-top: -4vh;
+  }
+  .box-quaranta > img:first-child {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50vh;
+    object-fit: contain;
+    object-position: top;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .sotto {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50vh;
+    object-fit: contain;
+    object-position: bottom;
+
+    z-index: 20;
+    pointer-events: none;
+  }
+}

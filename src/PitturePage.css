@@ -1,0 +1,198 @@
+.box-pitture {
+  background-color: #e5dbd1;
+  height: 100vh;
+  margin-top: -1px;
+  position: relative;
+  background-image: url("/brushsfondo.webp");
+  background-size: 100% 85%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.container-pitture {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  box-sizing: border-box;
+}
+.titolo-pitture {
+  color: #e21e25;
+
+  font-size: 50px;
+  font-family: "Brunson", sans-serif;
+  letter-spacing: 2px;
+  margin-top: 60px;
+}
+.sottotitolo-pitture {
+  margin-top: 10px;
+  font-size: 20px;
+
+  color: #2e60b7;
+  font-family: "Montserrat-Medium", sans-serif;
+}
+.flex-pitture {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 100%;
+  gap: 20px;
+  /* AGGIUNGI QUESTI DUE */
+  box-sizing: border-box;
+}
+.box-image-pitt {
+  flex: 1; /* Le card si dividono lo spazio equamente */
+  height: 460px;
+  margin-top: 40px;
+  position: relative;
+  overflow: visible; /* Indispensabile per far vedere il secchio fuori bordo */
+}
+.box-image-pitt .img-pittura {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 30px;
+}
+.interno::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%; /* Copre metà immagine */
+  background: linear-gradient(to top, #585b46 10%, transparent 100%);
+  pointer-events: none; /* Permette di cliccare l'immagine attraverso la sfumatura */
+  z-index: 2;
+  border-radius: 30px;
+}
+.esterno::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, #ae8079 10%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 30px;
+}
+.legno::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, #794629 10%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+  border-radius: 30px;
+}
+.titolo-pittura {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  color: white;
+  z-index: 3;
+  font-family: "Montserrat-Medium", sans-serif;
+  font-size: 24px;
+  margin: 0;
+}
+.img-secchio {
+  position: absolute;
+  width: 45%;
+  height: auto;
+  bottom: -17px;
+  right: -17px;
+  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.4));
+  z-index: 90;
+}
+.img-secchio-legno {
+  position: absolute;
+  width: 36%;
+  height: auto;
+  bottom: -17px;
+  right: -17px;
+  filter: drop-shadow(10px 10px 20px rgba(0, 0, 0, 0.4));
+  z-index: 90;
+}
+@media (max-width: 1240px) {
+  .box-pitture {
+    background-color: #e5dbd1;
+    height: 93vh;
+
+    background-size: 100% 75%;
+  }
+  .container-pitture {
+    margin-top: -2px;
+    padding: 0 40px;
+  }
+
+  .box-image-pitt {
+    flex: 1;
+    width: 30%;
+    height: 360px;
+    margin-top: 40px;
+    overflow: visible;
+    position: relative;
+  }
+}
+@media (max-width: 760px) {
+  .box-pitture {
+    background-color: #e5dbd1;
+    height: 100%;
+
+    background-size: 500% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .container-pitture {
+    margin-top: -2px;
+    padding: 0 30px;
+  }
+  .flex-pitture {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+    margin-bottom: 100px;
+    width: 100%;
+    gap: 20px;
+    box-sizing: border-box;
+    flex-direction: column;
+    align-items: center;
+  }
+  .box-image-pitt .img-pittura {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    border-radius: 30px;
+  }
+  .box-image-pitt {
+    flex: 1;
+    width: 100%;
+    margin-top: 40px;
+    overflow: visible;
+    position: relative;
+  }
+  .titolo-pitture {
+    color: #e21e25;
+
+    font-size: 38px;
+    font-family: "Brunson", sans-serif;
+    letter-spacing: 2px;
+    margin-top: 60px;
+  }
+  .sottotitolo-pitture {
+    margin-top: 10px;
+    font-size: 14px;
+
+    color: #2e60b7;
+    font-family: "Montserrat-Medium", sans-serif;
+  }
+}

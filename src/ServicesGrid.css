@@ -1,0 +1,85 @@
+.services-section {
+    background-color: #e5dbd1; /* Il tuo crema di base */
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .services-header {
+    text-align: left;            
+     margin-bottom: 50px;
+  }
+  
+  .services-title {
+    font-family: "Brunson", sans-serif;
+    font-size: 50px;
+    color: #e21e25; /* Rosso brand */
+    margin-bottom: 10px;
+  }
+  
+
+  
+  .services-grid {
+    display: grid;
+    /* Griglia 4 colonne x 2 righe */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .service-card {
+    background-color: rgba(255, 255, 255, 0.247); /* Bianco semitrasparente */
+    padding: 40px 30px;
+    border-radius: var(--radius);
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+    
+  }
+  
+  
+  .service-icon-wrapper {
+    font-size: 40px;
+    color: #e21e25;
+    margin-bottom: 20px;
+    transition: color 0.4s ease;
+  }
+  
+  
+  
+  .service-card h3 {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #580809;
+  }
+  
+  .service-card p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #7a7a7a;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr); /* 2x4 su tablet */
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .services-grid {
+      grid-template-columns: 1fr; /* 1x8 su mobile */
+    }
+    .services-title {
+      font-size: 35px;
+    }
+  }
