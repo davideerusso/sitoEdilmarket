@@ -74,15 +74,25 @@
     z-index: 30;
    
   }
+  .logo-slider-container::before,
+.logo-slider-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 20px; /* Aumentato da 150px a 250px per più morbidezza */
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
   .logo-item {
-    width: 150px;
+    width: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 40px;
   }
   .logo-item img {
-    max-width: 100px;
+    max-width: 80px;
     height: auto;
     filter: grayscale(100%);
     opacity: 0.5; /* Leggermente più trasparente per un look più "soft" */

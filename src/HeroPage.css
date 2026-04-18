@@ -24,8 +24,8 @@ h1 {
 
 .box-hero {
   position: relative;
-  height: calc(100vh - 20px); 
-  margin: 14px;
+  height: calc(100dvh - 20px);
+    margin: 14px;
   border-radius: 0 var(--radius) var(--radius) var(--radius);
     overflow: hidden; 
   z-index: 0;
@@ -154,7 +154,7 @@ h1 {
 }
 .titolo {
   color: #e5dbd1;
-  font-size: clamp(55px, 5vw + 1rem, 140px);  
+  font-size: clamp(46px, 5vw + 1rem, 140px);  
   line-height: 1;
 
   font-family: "Brunson", sans-serif;
@@ -164,7 +164,7 @@ h1 {
 .titolo2 {
   color: #e5dbd1;
 
-  font-size: clamp(55px, 5vw + 1rem, 140px);  
+  font-size: clamp(46px, 5vw + 1rem, 140px);  
   line-height: 0.9;
 
   font-family: "Brunson", sans-serif;
@@ -262,7 +262,7 @@ h1 {
   .sotto-titolo {
     color: #ded3c8;
     font-family: "Montserrat-SemiBold", sans-serif;
-    font-size: 14px;
+    font-size: 12px;
       margin-top: 20px;
   }
   .brush-fine {
