@@ -125,3 +125,18 @@
       word-break: break-word; /* Spezza le parole se troppo lunghe */
     }
   }
+  @media (max-height: 500px) and (orientation: landscape) {
+
+    .services-grid {
+      display: grid;
+      /* Griglia 4 colonne x 2 righe */
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      
+      width: 100%;
+    }
+    .service-card p {
+      display: none !important;
+    }
+  }
+  
