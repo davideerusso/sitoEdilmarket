@@ -142,11 +142,12 @@
   }
 }
 @media (max-width: 760px) {
+
   .box-pitture {
     background-color: #e5dbd1;
     height: 100%;
 
-    background-size: 500% 100%;
+    background-size: 500% 80%;
     background-repeat: no-repeat;
     background-position: center;
   }

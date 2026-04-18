@@ -79,7 +79,7 @@
   content: "";
   position: absolute;
   top: 0;
-  width: 20px; /* Aumentato da 150px a 250px per più morbidezza */
+  width: 100px; /* Aumentato da 150px a 250px per più morbidezza */
   height: 100%;
   z-index: 2;
   pointer-events: none;

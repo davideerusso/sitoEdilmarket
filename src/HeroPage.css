@@ -268,7 +268,7 @@ h1 {
   .brush-fine {
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: -3px;
     width: 100%;
     /* Aumenta l'altezza: se l'immagine è alta, il div deve ospitarla tutta */
     height: 250px; 
@@ -285,7 +285,7 @@ h1 {
     
     /* Rimuove eventuali bordi residui */
     border: none;
-    margin: -3px 3px;
+    margin-bottom: -3px;
     padding: 0;
   }
  
