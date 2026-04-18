@@ -52,7 +52,7 @@ export default function HeroPage() {
 
           {/* Link al Telefono con Icona Vettoriale */}
           <a 
-            href="tel:+39012345678" 
+            href="tel:+3932071443656" 
             className="icon-link"
             title="Chiama ora"
           >
