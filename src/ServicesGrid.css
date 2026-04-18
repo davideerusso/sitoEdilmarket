@@ -83,7 +83,7 @@
       font-size: 35px;
     }
     .service-card.is-active {
-      background-color: rgba(255, 255, 255, 0.6); /* Più chiara quando attiva */
+      background-color: rgba(255, 255, 255, 0.805); /* Più chiara quando attiva */
       opacity: 1;
       transform: scale(1.05);
     }
