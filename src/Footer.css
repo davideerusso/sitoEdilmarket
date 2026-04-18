@@ -1,0 +1,104 @@
+.footer {
+    background-color: #ffffffa6; 
+    margin: 14px;              /* Allineato ai margini della box-hero */
+    border-radius: 30px 30px 0 0; 
+    padding: 60px 40px 30px 40px;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  .footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+  
+  .footer-logo {
+    height: 32px;
+    width: auto;
+    margin-bottom: 20px;
+  }
+  
+  .footer-text {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    color: #888;
+    font-size: 14px;
+    max-width: 260px;
+    line-height: 1.5;
+  }
+  
+  .footer-nav {
+    display: flex;
+    gap: 80px;
+  }
+  
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .footer-label {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #2e60b7; /* Blu del tuo header */
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  
+  .footer-col a, .footer-col p {
+    text-decoration: none;
+    color: #e21e25;;
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 15px;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-col a:hover {
+    color: #e21e25; /* Rosso del tuo hover */
+  }
+  
+
+  
+  .footer-copy {
+    font-family: "Montserrat-SemiBold", sans-serif;
+    font-size: 12px;
+    color: #aaa;
+  }
+  
+ 
+  
+  /* RESPONSIVE PER TELEFONO */
+  @media (max-width: 768px) {
+    .footer {
+      padding: 40px 24px 24px 24px;
+      margin: 10px; /* Evita il taglio sui bordi dello schermo */
+    }
+  
+    .footer-main {
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+      gap: 40px;
+    }
+  
+    .footer-nav {
+      flex-direction: column;
+      gap: 32px;
+      text-align: center;
+    }
+  
+    .footer-bottom {
+      flex-direction: column-reverse;
+      gap: 25px;
+      text-align: center;
+    }
+  }

@@ -1,36 +1,37 @@
 .map-section {
-    padding-bottom: 40px;
-    background-color: #e5dbd1; /* Lo stesso crema del body */
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center; 
-margin: 0 20px; }
-  
-  .map-container-outer {
-    width: 100%;
-    max-width: 1200px;
-    position: relative;
-  }
-  .vieni{
-    color: #e21e25;
+  padding-bottom: 40px;
+  background-color: #e5dbd1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Mantiene la mappa e il contenuto al centro della pagina */
+  margin: 0 20px;
+}
 
-  font-size: 50px;
+.map-container-outer {
+  width: 100%;
+  max-width: 1200px; /* La stessa larghezza della mappa */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.vieni {
+  color: #e21e25;
+  font-size: clamp(32px, 5vw, 50px); /* Si adatta meglio su mobile senza tagliare */
   font-family: "Brunson", sans-serif;
   margin-bottom: 20px;
-  text-align: left;             
+  text-align: left; /* Allinea il testo a sinistra */
+  width: 100%;      /* Prende tutta la larghezza del box mappa */
+}
 
-  }
-  .map-frame {
-    position: relative;
-    width: 100%;
-    height: 450px;
-    background-color: #ccc;
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  
+.map-frame {
+  width: 100%; /* La mappa riempie il container da 1200px */
+  height: 450px;
+  background-color: #ccc;
+  border-radius: var(--radius);
+  overflow: hidden;
+  /* Rimuovi o tieni la transition in base al tuo gusto */
+}
   /* Disabilitiamo l'interazione interna dell'iframe per favorire il link esterno */
   .map-frame iframe {
   
@@ -54,6 +55,10 @@ margin: 0 20px; }
   
   /* Responsive */
   @media (max-width: 768px) {
+    .vieni {
+      font-size: 36px; /* Riduciamo un po' il font su mobile per evitare che tagli */
+      padding-left: 10px; /* Opzionale: un piccolo padding se vuoi staccarlo dal bordo */
+    }
     .map-frame {
       height: 300px;
     }

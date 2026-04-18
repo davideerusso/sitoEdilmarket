@@ -4,6 +4,8 @@ import QuarantAnni from "./QuarantAnni.jsx";
 import MapSection from './MapSection';
 import ServicesGrid from './ServicesGrid';
 import LogoSlider from './LogoSlider';
+import Footer from './Footer';
+
 
 LogoSlider
 function App() {
@@ -16,6 +18,8 @@ function App() {
       <LogoSlider />
 
       <MapSection />
+      <Footer />
+
 
 
     </main>
