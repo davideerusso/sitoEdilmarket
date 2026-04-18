@@ -56,7 +56,7 @@
   
   .footer-col a, .footer-col p {
     text-decoration: none;
-    color: #e21e25;;
+    color: #2e60b7;;
     font-family: "Montserrat-SemiBold", sans-serif;
     font-size: 15px;
     transition: color 0.3s ease;
@@ -74,7 +74,32 @@
     color: #aaa;
   }
   
+  .contact-link {
+    display: flex;          /* Attiva il layout flessibile */
+    align-items: center;    /* Allinea verticalmente icona e testo */
+    text-decoration: none;  /* Rimuove la sottolineatura blu */
+    color: inherit;         /* Usa il colore del testo del footer */
+    margin-bottom: 15px;    /* Spazio tra email e telefono */
+    transition: opacity 0.3s;
+  }
+  
+  .contact-link:hover {
+    opacity: 0.8;           /* Effetto al passaggio del mouse */
+  }
+  
+  /* Il cerchio che contiene l'icona */
  
+  
+  .fa-icon {
+    font-size: 14px;
+    color: #2e60b7;
+    padding-right: 10px;
+  }
+  
+  .contact-text {
+    font-size: 16px;
+    line-height: 1;           /* Aiuta il centramento ottico */
+  }
   
   /* RESPONSIVE PER TELEFONO */
   @media (max-width: 768px) {

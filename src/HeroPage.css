@@ -24,13 +24,14 @@ h1 {
 
 .box-hero {
   position: relative;
-  height: calc(100dvh - 20px);
-    margin: 14px;
-  border-radius: 0 var(--radius) var(--radius) var(--radius);
-    overflow: hidden; 
-  z-index: 0;
+  /* CAMBIA DA height: A min-height: */
+  min-height: calc(100dvh - 20px); 
+  height: auto; /* Permette l'espansione */
   
-  overflow: hidden;
+  margin: 14px;
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  z-index: 0;
+  overflow: hidden; 
 }
 .liquid-bg {
   position: absolute;
@@ -289,4 +290,21 @@ h1 {
     padding: 0;
   }
  
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .box-title {
+    margin-top: 80px; /* Riduciamo lo spazio per far stare tutto */
+  }
+
+  .titolo {
+    margin-top: 80px;
+  }
+  .sotto-titolo {
+    
+    font-size: 16px;
+      margin-bottom: 80px;
+  }
+  .brush-fine {
+    height: 100px; /* Riduciamo l'immagine decorativa in basso */
+  }
 }

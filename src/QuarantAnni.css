@@ -116,7 +116,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 50vh;
+    height: 70vh;
     object-fit: contain;
     object-position: bottom;
 
@@ -209,3 +209,34 @@
     pointer-events: none;
   }
 }
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+  .box-quaranta > img:first-child {
+    position: absolute;
+    top: 0;
+    left: 0;         /* Assicurati che parta da sinistra */
+    width: 100%;
+    height: 50vh;    /* Puoi ridurre questo valore se la pennellata è troppo alta */
+    object-fit: cover; /* Cambiato da contain a cover */
+    object-position: top;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  /* Pennellata inferiore (consigliato per coerenza) */
+  .sotto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70vh;
+    object-fit: cover; /* Cambiato da contain a cover */
+    object-position: bottom;
+    z-index: 20;
+    pointer-events: none;
+  }
+
+}
+
+

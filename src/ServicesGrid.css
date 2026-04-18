@@ -76,15 +76,50 @@
   }
   
   @media (max-width: 600px) {
+    .services-section {
+      /* Riduciamo il padding laterale della sezione al minimo indispensabile */
+      padding: 20px 20px; 
+      width: 100%;
+      box-sizing: border-box; 
+    align-items: stretch;
+    }
+    .services-header {
+      margin-bottom: 20px; /* RIDOTTO: Da 50px a 20px per avvicinare il titolo alle card */
+      text-align: center;   /* Opzionale: centra il titolo su mobile per bilanciare la griglia */
+      width: 100%;
+    }
     .services-grid {
-      grid-template-columns: 1fr; 
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      /* Gap ridotto per dare più spazio al contenuto delle card */
+      gap: 8px; 
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
     }
-    .services-title {
-      font-size: 35px;
+  
+    .service-card {
+      /* Padding interno della card più compatto */
+      padding: 20px 10px;
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
-    .service-card.is-active {
-      background-color: rgba(255, 255, 255, 0.805); /* Più chiara quando attiva */
-      opacity: 1;
-      transform: scale(1.05);
+  
+    /* Nascondiamo i sottotitoli */
+    .service-card p {
+      display: none !important;
+    }
+  
+    .service-icon-wrapper {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+  
+    .service-card h3 {
+      font-size: 13px;
+      text-align: center;
+      line-height: 1.2;
+      word-break: break-word; /* Spezza le parole se troppo lunghe */
     }
   }
