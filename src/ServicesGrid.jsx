@@ -9,27 +9,27 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const services = [
-  { id: 1, title: "Ferramenta", icon: faTools, desc: "Utensileria professionale per ogni esigenza." },
-  { id: 2, title: "Colorificio", icon: faPaintRoller, desc: "Vernici su misura con sistema tintometrico." },
-  { id: 3, title: "Viteria", icon: faHashtag, desc: "Vasto assortimento di bulloneria e fissaggi." },
-  { id: 4, title: "Elettricità", icon: faLightbulb, desc: "Materiale elettrico e illuminazione." },
-  { id: 5, title: "Edilizia", icon: faHardHat, desc: "Soluzioni tecniche per il cantiere." },
-  { id: 6, title: "Fai da Te", icon: faHammer, desc: "Tutto per i tuoi progetti domestici." },
-  { id: 7, title: "Idraulica", icon: faFaucet, desc: "Componenti e raccorderia idraulica." },
-  { id: 8, title: "Sicurezza", icon: faKey, desc: "Duplicazione chiavi e serrature di sicurezza." },
+  { id: 1, title: "Ferramenta", icon: faTools, desc: "Utensileria professionale, elettroutensili e forniture per officina." },
+  { id: 2, title: "Colorificio", icon: faPaintRoller, desc: "Sistema tintometrico professionale per vernici e pitture personalizzate." },
+  { id: 3, title: "Viteria", icon: faHashtag, desc: "Assortimento completo di viteria inox, bulloneria e sistemi di fissaggio." },
+  { id: 4, title: "Elettricità", icon: faLightbulb, desc: "Materiale elettrico civile e industriale, illuminazione LED e cavi." },
+  { id: 5, title: "Edilizia", icon: faHardHat, desc: "Materiali edili, cartongesso, malte e soluzioni tecniche per il cantiere." },
+  { id: 6, title: "Fai da Te", icon: faHammer, desc: "Articoli per bricolage, giardinaggio e manutenzione domestica." },
+  { id: 7, title: "Idraulica", icon: faFaucet, desc: "Raccorderia, rubinetteria e componenti per impianti idraulici." },
+  { id: 8, title: "Sicurezza", icon: faKey, desc: "Servizio duplicazione chiavi, serrature europee e casseforti." },
 ];
 
 export default function ServicesGrid() {
     return (
-<section className="services-section" style={{ position: 'relative', backgroundColor: '#fdfaf5' }}>        
+<section id="servizi" className="services-section"style={{ position: 'relative', backgroundColor: '#fdfaf5' }}>        
         {/* BACKGROUND ANIMATO - Ora è bloccato dietro tutto */}
        
   
         {/* CONTENUTO - Con zIndex superiore per stare sopra i puntini */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div className="services-header">
-            <h2 className="services-title">I NOSTRI SERVIZI</h2>
-            <div className="services-line"></div>
+          <h2 className="services-title">Servizi Ferramenta a Strudà</h2>    
+                  <div className="services-line"></div>
           </div>
           
           <div style={{ position: 'relative', zIndex: 1, pointerEvents: 'none' }}>

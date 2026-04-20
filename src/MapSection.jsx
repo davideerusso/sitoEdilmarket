@@ -7,20 +7,24 @@ import './MapSection.css';
     const directLink = "https://maps.app.goo.gl/ZHyKq1Zq2Q6AqtgS9";
   
     return (
-      <section className="map-section">
+      <section className="map-section" id="dove-siamo">
         <div className="map-container-outer">
-          {/* Spostiamo il titolo dentro il container che ha il max-width */}
-          <h4 className='vieni'>Vieni a trovarci!</h4>
+          <h2 className='vieni'>Vieni a trovarci a Strudà</h2>
+          <p className="indirizzo-testo" style={{ textAlign: 'center', marginBottom: '1rem', color: '#555' }}>
+            Provinciale Lecce-Vernole, Strudà (LE)
+          </p>
   
           <a 
             href={directLink} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="map-click-area"
+            title="Apri indicazioni stradali su Google Maps"
           >
             <div className="map-frame">
               <iframe
                 src={mapUrl}
+                title="Posizione Edilmarket a Strudà"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

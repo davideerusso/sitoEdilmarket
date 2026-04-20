@@ -1,17 +1,55 @@
 import { useState } from "react";
 import "./HeroPage.css";
 import Grainient from './Grainient';
-
+import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 export default function HeroPage() {
  
-  return (
-<div className="box-hero">
+// Dati strutturati per la SEO Locale
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "HardwareStore", 
+  "name": "Edilmarket",
+  "image": "https://edilmarket.shop/logo.webp", // Inserisci l'URL completo del tuo logo
+  "telephone": "+393204173656",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Provinciale Lecce-vernole", // MODIFICA QUI
+    "addressLocality": "Struda",         // MODIFICA QUI
+    "postalCode": "73029",                    // MODIFICA QUI
+    "addressRegion": "Lecce",           // MODIFICA QUI
+    "addressCountry": "IT"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 40.321024,  // Inserisci le tue coordinate reali
+    "longitude": 18.2714368
+  },
+  "url": "https://www.edilmarket.shop", // Il tuo dominio
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "06:30",
+      "closes": "19:00"
+    }
+  ],
+ 
+};
+
+    return (
+      <div className="box-hero">
+        <Helmet>
+          <title>Ferramenta [Edilmarket] | Viteria e Vernici a [Strudà]</title>
+          <meta name="description" content="Edilmarket a Strudà (Lecce): specialisti in viteria, vernici su misura con tintometro e forniture per edilizia. Professionalità e qualità al servizio del tuo lavoro." />          <script type="application/ld+json">
+          {JSON.stringify(schemaData)}
+        </script>
+        </Helmet>
 
 <div style={{ position: 'absolute', inset: 0, zIndex: -1 }}>  <Grainient
     color1="#e21e25"
-    color2="#ffa8ab"
+    color2="#f05b60"
     color3="#2e60b7"
     timeSpeed={1.2}
     colorBalance={-0.04}
@@ -35,16 +73,15 @@ export default function HeroPage() {
   />
 </div>
 <div className="logo-container">
-    <img src="/logo.webp" alt="Logo" className="logo-img" />
-    <div className="contact-icons">
-          {/* Link alla Mappa con Icona Vettoriale */}
+<img src="/logo.webp" alt="Ferramenta [Edilmarket] - [Strudà]" className="logo-img" />   
+ <div className="contact-icons">
           <a 
-            href="https://www.google.com/maps/place/Ferramenta+Edilmarket+di+Russo+Claudio/@40.3128055,18.2789037,17z/data=!3m1!4b1!4m6!3m5!1s0x1344306efb00b8db:0x54e5c0a4d8f269f3!8m2!3d40.3128055!4d18.2814786!16s%2Fg%2F11y3n1x3s?entry=ttu&g_ep=EgoyMDI2MDQxNC4wIKXMDSoASAFQAw%3D%3D" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="icon-link"
-            title="Vedi posizione su Maps"
-          >
+  href="https://www.google.com/maps/search/?api=1&query=Edilmarket+Struda+Provinciale+Lecce-vernole" 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  className="icon-link"
+  title="Vedi posizione su Maps"
+>
             <div className="icon-circle">
               <FontAwesomeIcon icon={faMapMarkerAlt} className="fa-icon" />
             </div>
@@ -64,16 +101,18 @@ export default function HeroPage() {
       </div>
       <div className="container-hero">
        
-        <div className="box-title">
-        <h1 className="titolo">IL TUO PUNTO DI </h1>
-        <h1 className="titolo2">RIFERIMENTO</h1>
-        <h2 className="sotto-titolo">
-          Dalla viteria specialistica alle vernici su misura,
-          <br />
-          la ferramenta di fiducia al tuo servizio.
-        </h2>
-        </div>
+      <div className="box-title">
+  {/* Un unico H1 con parola chiave e città */}
+  <h1 className="titolo">
+    EdilMarket <br/><span className="titolo2">Il tuo punto di riferimento</span>
+  </h1>
+  <h2 className="sotto-titolo">
+    Dalla viteria specialistica alle vernici su misura,<br/> 
+    offriamo soluzioni professionali per il fai-da-te e l'edilizia a Strudà.
+  </h2>
+</div>
       </div>
+      
 
 
       <div className="brush-fine"></div>
