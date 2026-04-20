@@ -9,7 +9,7 @@ import './MapSection.css';
     return (
       <section className="map-section" id="dove-siamo">
         <div className="map-container-outer">
-          <h2 className='vieni'>Vieni a trovarci a Strudà</h2>
+          <h2 className='vieni'>Vieni a trovarci</h2>
           
   
           <a 

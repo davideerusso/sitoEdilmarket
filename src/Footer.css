@@ -97,10 +97,16 @@
   }
   
   .contact-text {
-    font-size: 16px;
-    line-height: 1;           /* Aiuta il centramento ottico */
+    font-size: 12px;
   }
-  
+  .legal-info{
+    font-size: 12px;
+    color: #888;
+  }
+  .footer-line{
+    border-bottom: solid 1px #888;
+    margin-bottom: 10px;
+  }
   /* RESPONSIVE PER TELEFONO */
   @media (max-width: 768px) {
     .footer {
@@ -126,4 +132,16 @@
       gap: 25px;
       text-align: center;
     }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+      align-items: center
+
+
+    }
+    .footer-brand{
+      display: flex;
+      flex-direction: column;
+      align-items: center;    }
   }

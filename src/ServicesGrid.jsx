@@ -22,31 +22,6 @@ const services = [
 export default function ServicesGrid() {
     return (
 <section id="servizi" className="services-section"style={{ position: 'relative', backgroundColor: '#fdfaf5' }}>        
-        {/* BACKGROUND ANIMATO - Ora è bloccato dietro tutto */}
-       
-  
-        {/* CONTENUTO - Con zIndex superiore per stare sopra i puntini */}
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <div className="services-header">
-          <h2 className="services-title">Servizi Ferramenta a Strudà</h2>    
-                  <div className="services-line"></div>
-          </div>
-          
-          <div style={{ position: 'relative', zIndex: 1, pointerEvents: 'none' }}>
-      <div className="services-grid" style={{ pointerEvents: 'auto' }}>
-            {services.map((service) => (
-              <div key={service.id} className="service-card">
-                <div className="service-icon-wrapper">
-                  <FontAwesomeIcon icon={service.icon} />
-                </div>
-                <h3>{service.title}</h3>
-                <p>{service.desc}</p>
-              </div>
-            ))}
-          </div>
-          </div>
-
-        </div>
         <div style={{ 
           position: 'absolute', 
           inset: 0, 
@@ -68,6 +43,31 @@ export default function ServicesGrid() {
             glowColor="transparent" /* Cambiato in trasparente per non coprire il crema */
           />
         </div>
+  
+        {/* CONTENUTO - Con zIndex superiore per stare sopra i puntini */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          
+          <div className="services-header">
+          <h2 className="services-title">Servizi Ferramenta </h2>    
+                  <div className="services-line"></div>
+          </div>
+          
+          <div style={{ position: 'relative', zIndex: 1, pointerEvents: 'none' }}>
+      <div className="services-grid" style={{ pointerEvents: 'auto' }}>
+            {services.map((service) => (
+              <div key={service.id} className="service-card">
+                <div className="service-icon-wrapper">
+                  <FontAwesomeIcon icon={service.icon} />
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
+              </div>
+            ))}
+          </div>
+          </div>
+
+        </div>
+        
       </section>
     );
   }

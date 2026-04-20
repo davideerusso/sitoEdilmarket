@@ -88,6 +88,13 @@
       text-align: center;   /* Opzionale: centra il titolo su mobile per bilanciare la griglia */
       width: 100%;
     }
+    .services-title {
+      font-size: 32px;
+      color: #e21e25; /* Rosso brand */
+      margin-bottom: 10px;
+text-align: left;  
+  }
+    
     .services-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);

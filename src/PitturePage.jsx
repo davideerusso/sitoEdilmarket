@@ -28,7 +28,7 @@ export default function PitturePage() {
   return (
     <div className="box-pitture">
       <div className="container-pitture">
-        <h2 className="titolo-pitture">Pitture e Sistema Tintometrico a Strudà</h2>
+        <h2 className="titolo-pitture">Pitture e Sistema Tintometrico</h2>
         <h4 className="sottotitolo-pitture">
   Con il nostro <strong>tintometro professionale</strong>, portaci un campione di tessuto, 
   una foto o un codice colore: lo riproduciamo fedelmente per te.
