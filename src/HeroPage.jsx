@@ -41,7 +41,7 @@ const schemaData = {
     return (
       <div className="box-hero">
         <Helmet>
-          <title>Ferramenta [Edilmarket] | Viteria e Vernici a [Strudà]</title>
+          <title>Ferramenta Edilmarket| Viteria e Vernici a Strudà</title>
           <meta name="description" content="Edilmarket a Strudà (Lecce): specialisti in viteria, vernici su misura con tintometro e forniture per edilizia. Professionalità e qualità al servizio del tuo lavoro." />          <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>
@@ -73,7 +73,7 @@ const schemaData = {
   />
 </div>
 <div className="logo-container">
-<img src="/logo.webp" alt="Ferramenta [Edilmarket] - [Strudà]" className="logo-img" />   
+<img src="/logo.webp" alt="Ferramenta Edilmarket - Strudà" className="logo-img" />   
  <div className="contact-icons">
           <a 
   href="https://www.google.com/maps/search/?api=1&query=Edilmarket+Struda+Provinciale+Lecce-vernole" 
@@ -89,7 +89,7 @@ const schemaData = {
 
           {/* Link al Telefono con Icona Vettoriale */}
           <a 
-            href="tel:+3932071443656" 
+            href="tel:+393204173656" 
             className="icon-link"
             title="Chiama ora"
           >
