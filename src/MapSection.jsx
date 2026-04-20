@@ -10,9 +10,7 @@ import './MapSection.css';
       <section className="map-section" id="dove-siamo">
         <div className="map-container-outer">
           <h2 className='vieni'>Vieni a trovarci a Strudà</h2>
-          <p className="indirizzo-testo" style={{ textAlign: 'center', marginBottom: '1rem', color: '#555' }}>
-            Provinciale Lecce-Vernole, Strudà (LE)
-          </p>
+          
   
           <a 
             href={directLink} 
