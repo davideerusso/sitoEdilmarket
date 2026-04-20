@@ -41,7 +41,7 @@ const schemaData = {
     return (
       <div className="box-hero">
         <Helmet>
-          <title>Ferramenta Edilmarket| Viteria e Vernici a Strudà</title>
+          <title>Ferramenta Edilmarket | Viteria e Vernici a Strudà</title>
           <meta name="description" content="Edilmarket a Strudà (Lecce): specialisti in viteria, vernici su misura con tintometro e forniture per edilizia. Professionalità e qualità al servizio del tuo lavoro." />          <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>
