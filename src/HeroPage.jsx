@@ -35,14 +35,26 @@ const schemaData = {
       "closes": "19:00"
     }
   ],
+ "areaServed": [
+    { "@type": "City", "name": "Lecce" },
+    { "@type": "City", "name": "Strudà" },
+    { "@type": "City", "name": "Vernole" },
+    { "@type": "City", "name": "Melendugno" },
+    { "@type": "City", "name": "Lizzanello" },
+    { "@type": "City", "name": "Castri di Lecce" },
+    { "@type": "City", "name": "Cavallino" },
+    { "@type": "City", "name": "San Cesario di Lecce" },
+    { "@type": "City", "name": "Merine" }
+  ],
  
 };
 
     return (
       <div className="box-hero">
         <Helmet>
-          <title>Ferramenta Edilmarket | Viteria e Vernici a Strudà</title>
-          <meta name="description" content="Edilmarket a Strudà (Lecce): specialisti in viteria, vernici su misura con tintometro e forniture per edilizia. Professionalità e qualità al servizio del tuo lavoro." />          <script type="application/ld+json">
+        <title>Ferramenta Edilmarket | Viteria e Vernici a Lecce</title>
+                <meta name="description" content="Edilmarket: ferramenta specialistica a Strudà. Serviamo Vernole, Melendugno e tutta la provincia di Lecce con viteria, tintometro e articoli per edilizia." />
+                  <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>
         </Helmet>
@@ -106,10 +118,11 @@ const schemaData = {
   <h1 className="titolo">
     EdilMarket <br/><span className="titolo2">Il tuo punto di riferimento</span>
   </h1>
+
   <h2 className="sotto-titolo">
-    Dalla viteria specialistica alle vernici su misura,<br/> 
-    offriamo soluzioni professionali per il fai-da-te e l'edilizia a Strudà.
-  </h2>
+  Dalla viteria specialistica alle vernici su misura,<br/> 
+  soluzioni professionali per l'edilizia nella <strong>Provincia di Lecce</strong>.
+</h2>
 </div>
       </div>
       
