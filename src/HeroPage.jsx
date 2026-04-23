@@ -10,7 +10,7 @@ export default function HeroPage() {
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "HardwareStore", 
-  "name": "Edilmarket",
+"name": "Ferramenta Edilmarket di Russo Claudio",
   "image": "https://edilmarket.shop/logo.webp", // Inserisci l'URL completo del tuo logo
   "telephone": "+393204173656",
   "address": {
@@ -52,8 +52,8 @@ const schemaData = {
     return (
       <div className="box-hero">
         <Helmet>
-        <title>Ferramenta Edilmarket | Viteria e Vernici a Lecce</title>
-                <meta name="description" content="Edilmarket: ferramenta specialistica a Strudà. Serviamo Vernole, Melendugno e tutta la provincia di Lecce con viteria, tintometro e articoli per edilizia." />
+        <title>Ferramenta Edilmarket di Russo Claudio| Viteria e Vernici a Strudà e Lecce</title>
+                        <meta name="description" content="Edilmarket: ferramenta specialistica a Strudà. Serviamo Vernole, Melendugno e tutta la provincia di Lecce con viteria, tintometro e articoli per edilizia." />
                   <script type="application/ld+json">
           {JSON.stringify(schemaData)}
         </script>
@@ -88,7 +88,7 @@ const schemaData = {
 <img src="/logo.webp" alt="Ferramenta Edilmarket - Strudà" className="logo-img" />   
  <div className="contact-icons">
           <a 
-  href="https://www.google.com/maps/search/?api=1&query=Edilmarket+Struda+Provinciale+Lecce-vernole" 
+  href="https://share.google/EcQtz3TnDrcULWFbN" 
   target="_blank" 
   rel="noopener noreferrer" 
   className="icon-link"
