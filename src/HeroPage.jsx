@@ -101,7 +101,7 @@ const schemaData = {
 
           {/* Link al Telefono con Icona Vettoriale */}
           <a 
-            href="tel:+393204173656" 
+            href="tel:+39 3204173656" 
             className="icon-link"
             title="Chiama ora"
           >
