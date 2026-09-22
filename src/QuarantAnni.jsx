@@ -4,7 +4,7 @@ export default function QuarantAnni() {
   return (
 <section className="box-quaranta" aria-labelledby="esperienza-title">
       {/* Mesh superiore */}
-      <img src="/brush40-12.webp" alt="" aria-hidden="true" />
+      <img src="/brush40-12.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
 
       <div className="container-flex-quaranta">
         <div className="quaranta-testo">
@@ -20,12 +20,15 @@ export default function QuarantAnni() {
 
         <img 
           className="claudio" 
-          src="/claudio.webp" 
+          src="/claudio.webp"
+          loading="lazy"
+          decoding="async"
+          
           alt="Claudio di Edilmarket - Esperienza quarantennale in ferramenta" 
         />
       </div>
 
       {/* Mesh inferiore */}
-      <img className="sotto" src="/brush40-13.webp" alt="" aria-hidden="true" />
+      <img className="sotto" src="/brush40-13.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" />
             </section>  );
 }

@@ -27,10 +27,12 @@
 }
 .sottotitolo-pitture {
   margin-top: 10px;
+  max-width: 62ch;
+  line-height: 1.5;
   font-size: 20px;
 
-  color: #2e60b7;
-  font-family: "Montserrat-Medium", sans-serif;
+  color: #22509f;
+  font-family: "Montserrat", sans-serif; font-weight: 500;
 }
 .flex-pitture {
   display: flex;
@@ -97,8 +99,9 @@
   left: 25px;
   color: white;
   z-index: 3;
-  font-family: "Montserrat-Medium", sans-serif;
+  font-family: "Montserrat", sans-serif; font-weight: 500;
   font-size: 24px;
+  line-height: 1.25;
   margin: 0;
 }
 .img-secchio {
@@ -215,15 +218,15 @@ margin-left: 20px;
   }
   .sottotitolo-pitture {
     margin-top: 8px;
-    font-size: 12px;
+    font-size: 16px;
+    line-height: 1.5;
     margin-left: 20px;
 margin-right: 20px;
-    color: #2e60b7;
-    font-family: "Montserrat-Medium", sans-serif;
+    color: #22509f;
+    font-family: "Montserrat", sans-serif; font-weight: 500;
   }
   .titolo-pittura {
-    
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 @media (max-height: 500px) and (orientation: landscape) {
@@ -236,4 +239,47 @@ margin-right: 20px;
     margin-top: 0px;
  
 }
+}
+/* Pallini del carosello: visibili solo su telefono */
+.pitture-dots {
+  display: none;
+}
+@media (max-width: 760px) {
+  .pitture-dots {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 4px;
+    margin-top: -48px;
+    padding-bottom: 24px;
+    position: relative;
+    z-index: 5;
+  }
+  .pitture-dot {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .pitture-dot::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: rgba(88, 8, 9, 0.25);
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+  .pitture-dot.is-active::before {
+    width: 22px;
+    background-color: #e21e25;
+  }
+  .pitture-dot:focus-visible {
+    outline: 2px solid #22509f;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
 }

@@ -1,4 +1,5 @@
 import './Footer.css';
+import { ORARI } from './orari';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,7 +15,9 @@ export default function Footer() {
             <img 
               src="/logo.webp" 
               alt="Edilmarket - Ferramenta Strudà" 
-              className="footer-logo" 
+              className="footer-logo"
+              loading="lazy"
+              decoding="async"
             />
             <p className="footer-text">
               <strong>Edilmarket di Russo Claudio</strong><br />
@@ -29,7 +32,7 @@ export default function Footer() {
               {/* Riga Posizione (Fondamentale per la SEO locale) */}
               <div className="contact-row">
                 <a 
-                  href="http://googleusercontent.com/maps.google.com/7" 
+                  href="https://maps.google.com/?cid=6117507483099621875" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="contact-link"
@@ -60,6 +63,15 @@ export default function Footer() {
                   <span className="contact-text">+39 320 417 3656</span>
                 </a>
               </div>
+            </div>
+
+            <div className="footer-col">
+              <span className="footer-label">Orari</span>
+              <p className="footer-hours">
+                {ORARI.giorni}<br />
+                {ORARI.fasce.join(" · ")}<br />
+                <span>{ORARI.chiuso}</span>
+              </p>
             </div>
           </nav>
         </div>

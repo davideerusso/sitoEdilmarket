@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
-@import "@fontsource-variable/geist";
 
 @custom-variant dark (&:is(.dark *));
 @font-face {
@@ -8,20 +7,6 @@
   src: url("/Brunson.ttf") format("truetype"); 
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Montserrat-Medium";
-  src: url(".Montserrat-Medium.ttf") format("truetype");
-  font-weight: medium;
-  font-style: medium;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Montserrat-SemiBold";
-  src: url(".Montserrat-SemiBold.ttf") format("truetype");
-  font-weight: Bold;
-  font-style: Bold;
   font-display: swap;
 }
 @tailwind base;
@@ -63,7 +48,7 @@ body {
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: 'Montserrat', sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

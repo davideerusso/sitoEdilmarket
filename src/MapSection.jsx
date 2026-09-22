@@ -1,5 +1,6 @@
 import React from 'react';
 import './MapSection.css';
+import { ORARI } from './orari';
 
   // Sostituisci con le tue coordinate reali o indirizzo
   export default function MapSection() {
@@ -11,6 +12,17 @@ const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11103.1025
       <section className="map-section" id="dove-siamo">
         <div className="map-container-outer">
           <h2 className='vieni'>Vieni a trovarci</h2>
+          <div className="map-info">
+            <div className="map-info-block">
+              <span className="map-info-label">Indirizzo</span>
+              <p>Provinciale Lecce–Vernole<br />73029 Strudà (LE)</p>
+            </div>
+            <div className="map-info-block">
+              <span className="map-info-label">Orari</span>
+              <p>{ORARI.giorni}<br />{ORARI.fasce.join(" · ")}</p>
+              <p className="map-info-note">{ORARI.chiuso}</p>
+            </div>
+          </div>
           
   
           <a 
