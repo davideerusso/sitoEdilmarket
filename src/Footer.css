@@ -27,7 +27,7 @@
   }
   
   .footer-text {
-    font-family: "Montserrat", sans-serif; font-weight: 600;
+    font-family: "Montserrat", sans-serif; font-weight: 500;
     color: #5f5750;
     font-size: 14px;
     max-width: 260px;
@@ -108,7 +108,7 @@
     text-decoration: underline;
     text-underline-offset: 2px;
   }
-  .footer-hours {
+  .footer-col .footer-hours {
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 14px;
@@ -116,8 +116,11 @@
     color: #3b2f2a !important;
     font-variant-numeric: tabular-nums;
   }
-  .footer-hours span {
+  .footer-col .footer-hours span {
     color: #6b625b;
+  }
+  .footer-bottom {
+    margin-top: 28px;
   }
   .footer-line{
     border-bottom: solid 1px #888;
