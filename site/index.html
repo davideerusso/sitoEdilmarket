@@ -1,0 +1,1081 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ferramenta Edilmarket di Russo Claudio | Viteria e Vernici a Strudà e Lecce</title>
+<meta name="description" content="Edilmarket: ferramenta specialistica a Strudà. Serviamo Vernole, Melendugno e tutta la provincia di Lecce con viteria, tintometro e articoli per edilizia.">
+<link rel="canonical" href="https://www.edilmarket.online/">
+<link rel="icon" type="image/png" href="/LogoEDILMARKET.png">
+<meta property="og:type" content="website"><meta property="og:title" content="Edilmarket | Ferramenta e Materiali Edili">
+<meta property="og:description" content="Ferramenta, vernici con tintometro e materiali edili a Strudà (Lecce).">
+<meta property="og:image" content="https://www.edilmarket.online/LogoEDILMARKET.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HardwareStore", "name": "Ferramenta Edilmarket di Russo Claudio", "image": "https://www.edilmarket.online/logo.webp", "telephone": "+393204173656", "url": "https://www.edilmarket.online", "address": {"@type": "PostalAddress", "streetAddress": "Provinciale Lecce-Vernole", "addressLocality": "Strudà", "postalCode": "73029", "addressRegion": "LE", "addressCountry": "IT"}, "geo": {"@type": "GeoCoordinates", "latitude": 40.321024, "longitude": 18.2714368}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "06:30", "closes": "13:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "15:30", "closes": "19:30"}], "areaServed": [{"@type": "City", "name": "Lecce"}, {"@type": "City", "name": "Strudà"}, {"@type": "City", "name": "Vernole"}, {"@type": "City", "name": "Melendugno"}, {"@type": "City", "name": "Lizzanello"}, {"@type": "City", "name": "Castri di Lecce"}, {"@type": "City", "name": "Cavallino"}, {"@type": "City", "name": "San Cesario di Lecce"}, {"@type": "City", "name": "Merine"}]}</script>
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600&family=Red+Hat+Mono:wght@500&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: mazzetta colori in 3D su carta chiara; sezioni a colore pieno; tipografia espansa gigante */
+:root{
+  --carta:#EDEEF2; --carta-2:#F7F7F9; --inchiostro:#15171C; --inchiostro-2:#23262E;
+  --grigio:#5A606C; --grigio-chiaro:#B7BCC6;
+  --rosso:#E23128; --blu:#2649B0; --blu-notte:#14245E; --bianco:#FFFFFF;
+  --tinta:#9AAA8C; --tinta-testo:#15171C;
+  --f-display:"Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-testo:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"Red Hat Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --gutter:clamp(16px,4vw,64px);
+  --r:14px;
+  --ease:cubic-bezier(.23,1,.32,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--carta);color:var(--inchiostro);font-family:var(--f-testo);font-size:18px;line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--rosso);color:var(--bianco)}
+:focus-visible{outline:3px solid var(--rosso);outline-offset:3px;border-radius:6px}
+.wrap{padding-inline:var(--gutter)}
+.disp{font-family:var(--f-display);font-stretch:125%;font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:.9;text-wrap:balance;margin:0}
+.mono{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
+
+/* Canvas 3D */
+#scena{position:fixed;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+.sfondo{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(40vmax 40vmax at 82% 18%, rgba(38,73,176,.20), transparent 60%),
+   radial-gradient(36vmax 36vmax at 12% 88%, rgba(226,49,40,.14), transparent 60%),
+   radial-gradient(30vmax 30vmax at 60% 70%, rgba(242,194,48,.12), transparent 60%),
+   var(--carta)}
+main,header,footer{position:relative;z-index:1}
+
+/* Menu */
+.menu{position:fixed;z-index:10;left:0;right:0;top:0;padding:calc(env(safe-area-inset-top,0px) + 16px) var(--gutter) 16px;display:flex;align-items:center;justify-content:space-between;gap:24px;pointer-events:none}
+.menu > *{pointer-events:auto}
+.logo{display:flex;align-items:center;background:var(--bianco);border-radius:12px;padding:10px 14px;box-shadow:0 6px 20px -8px rgba(20,36,94,.25)}
+.logo img{height:30px;width:auto}
+.voci{display:flex;gap:6px;background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:999px;padding:6px;box-shadow:0 6px 20px -10px rgba(20,36,94,.25)}
+.voci a{font-weight:500;font-size:15px;text-decoration:none;padding:8px 14px;border-radius:999px;transition:background .2s var(--ease)}
+@media (hover:hover) and (pointer:fine){.voci a:hover{background:var(--carta)}}
+.destra{display:flex;align-items:center;gap:12px}
+.stato{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:10px 14px;border-radius:999px;white-space:nowrap}
+.stato i{width:8px;height:8px;border-radius:50%;background:#2BB673;box-shadow:0 0 0 4px rgba(43,182,115,.18)}
+.stato.chiuso i{background:var(--rosso);box-shadow:0 0 0 4px rgba(226,49,40,.16)}
+
+.btn{--bg:var(--inchiostro);--fg:var(--bianco);display:inline-flex;align-items:center;gap:10px;background:var(--bg);color:var(--fg);font:600 16px/1 var(--f-testo);text-decoration:none;padding:16px 22px;border-radius:12px;border:0;cursor:pointer;transition:transform .16s var(--ease),background .2s var(--ease);touch-action:manipulation;user-select:none;-webkit-user-select:none;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.rosso{--bg:var(--rosso)}
+.btn.bianco{--bg:var(--bianco);--fg:var(--inchiostro)}
+.btn.contorno{--bg:transparent;--fg:currentColor;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn.piccolo{padding:12px 16px;font-size:15px}
+
+/* Hero */
+.hero{min-height:100svh;display:grid;align-content:end;padding-block:120px 48px}
+.hero h1{font-size:clamp(44px,8.2vw,150px);max-width:11ch}
+.hero h1 .riga{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .riga > span{display:block}
+.hero h1 em{font-style:normal;color:var(--rosso)}
+.hero-piede{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:40px;flex-wrap:wrap}
+.hero-piede p{max-width:38ch;margin:0;font-size:19px;color:var(--grigio)}
+.azioni{display:flex;gap:12px;flex-wrap:wrap}
+
+/* Colorificio */
+.colorificio{position:relative;background:var(--tinta);color:var(--tinta-testo);transition:background .7s var(--ease),color .5s var(--ease)}
+.campionario{min-height:100svh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:48px;padding-block:120px}
+.campionario .testo{grid-column:2;display:grid;gap:28px;min-width:0}
+.campionario h2{font-size:clamp(38px,5.6vw,96px)}
+.campionario p{margin:0;max-width:46ch;font-size:19px;opacity:.85}
+.porta{display:flex;flex-wrap:wrap;gap:10px}
+.porta span{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.55);color:var(--inchiostro);font-size:15px;font-weight:500}
+.tinte{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tinte button{all:unset;cursor:pointer;display:grid;grid-template-rows:64px auto;background:var(--bianco);border-radius:10px;padding:5px;box-shadow:0 8px 20px -12px rgba(0,0,0,.35);transition:transform .2s var(--ease);touch-action:manipulation}
+.tinte button:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.tinte button:hover{transform:translateY(-4px)}}
+.tinte button:focus-visible{outline:3px solid var(--inchiostro);outline-offset:3px}
+.tinte button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--inchiostro),0 8px 20px -12px rgba(0,0,0,.35)}
+.tinte i{border-radius:6px;display:block}
+.tinte b{display:block;color:var(--inchiostro);font:600 13px/1.2 var(--f-testo);padding:8px 4px 2px}
+.tinte small{display:block;color:var(--grigio);padding:0 4px 4px}
+.nota{font-size:13px;opacity:.7}
+.scelta{display:none}
+.spazio .scelta{margin:0;display:flex;align-items:center;gap:10px;font-size:16px;font-weight:500}
+.spazio .scelta i{width:22px;height:22px;border-radius:6px;box-shadow:0 0 0 2px rgba(255,255,255,.85),0 4px 10px -4px rgba(0,0,0,.4)}
+.spazio .scelta .codice{color:inherit;opacity:.75}
+.spazio .tinte{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#scena-dietro{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+.pitture{padding-block:40px 140px;display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.pitture h3{grid-column:1 / -1;font-size:clamp(28px,3.4vw,56px);margin-bottom:12px}
+.pittura{position:relative;background:var(--bianco);color:var(--inchiostro);border-radius:var(--r);padding:28px;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.pittura:nth-child(2){grid-column:span 5}
+.pittura:nth-child(3){grid-column:span 4;margin-top:60px}
+.pittura:nth-child(4){grid-column:span 3;margin-top:120px}
+.pittura .alone{position:absolute;inset:auto -20% -30% auto;width:80%;aspect-ratio:1;border-radius:50%;filter:blur(30px);opacity:.5}
+.pittura img{position:relative;width:min(240px,70%);margin-inline:auto;filter:drop-shadow(0 24px 30px rgba(20,23,28,.25));transition:transform .6s var(--ease)}
+@media (hover:hover) and (pointer:fine){.pittura:hover img{transform:translateY(-10px) rotate(-3deg)}}
+.pittura h4{font-family:var(--f-display);font-stretch:112%;font-variation-settings:"wdth" 112;font-weight:800;text-transform:uppercase;font-size:24px;line-height:1;margin:0 0 6px;position:relative}
+.pittura p{margin:0;color:var(--grigio);font-size:15px;position:relative}
+.codice{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;color:var(--grigio)}
+
+/* Libro delle pitture */
+:root{--f-libro:"Libre Caslon Text", "Iowan Old Style", Georgia, serif;--f-libro-d:"Libre Caslon Display", "Libre Caslon Text", Georgia, serif;--carta-libro:#FEFCF8;--inchiostro-libro:#2B2520;--seppia:#7A6656}
+.libro{background:var(--carta-libro)}
+.tavola{position:relative;min-height:100vh;background:var(--carta-libro);color:var(--inchiostro-libro);overflow:hidden;display:grid;align-items:center}
+.tav-img{position:absolute;inset:0;background:var(--img) var(--pos)/cover no-repeat}
+.tav-testo{position:relative;z-index:2;width:min(36vw,500px);margin-inline:7vw;padding-block:10vh;display:grid;gap:18px;justify-items:start}
+.t-dx .tav-testo{justify-self:end}
+.tavola::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--carta-libro) 0%,rgba(254,252,248,.92) 30%,rgba(254,252,248,0) 50%)}
+.t-dx::after{background:linear-gradient(270deg,var(--carta-libro) 0%,rgba(254,252,248,.92) 30%,rgba(254,252,248,0) 50%)}
+.tav-voce{margin:0;font:italic 400 clamp(17px,1.35vw,21px)/1.6 var(--f-libro);color:var(--seppia)}
+.tavola h3{margin:6px 0 0;font:400 clamp(44px,4.8vw,82px)/.98 var(--f-libro-d);letter-spacing:-.01em;color:var(--inchiostro-libro);text-wrap:balance}
+.tav-corpo{margin:0;font:400 clamp(16px,1.15vw,18px)/1.65 var(--f-libro);max-width:44ch}
+.tav-corpo::first-letter{float:left;font:400 3.6em/.8 var(--f-libro-d);color:var(--rosso);padding:.08em .1em 0 0}
+.tav-prodotto{margin:0;font:400 14px/1.4 var(--f-libro);font-variant:small-caps;letter-spacing:.08em;color:var(--seppia)}
+.tavola .btn{margin-top:6px}
+.tav-secchio{position:absolute;z-index:3;height:min(40vh,380px);width:auto;left:var(--sx);right:var(--dx);bottom:var(--giu);filter:drop-shadow(0 34px 28px rgba(70,45,20,.38));animation:galleggia 5s ease-in-out infinite alternate;transform-origin:50% 100%}
+@keyframes galleggia{from{transform:translateY(0) rotate(-1.5deg)}to{transform:translateY(-10px) rotate(1.5deg)}}
+.tav-pagina{position:absolute;z-index:2;bottom:3.2vh;left:50%;transform:translateX(-50%);font:italic 400 15px/1 var(--f-libro);color:var(--seppia)}
+.tav-pagina::before,.tav-pagina::after{content:" - "}
+
+/* Reparti orizzontali */
+.reparti{background:var(--inchiostro);color:var(--bianco);overflow:hidden}
+.reparti-testa{padding-block:100px 36px;display:grid;gap:16px}
+.reparti-testa h2{font-size:clamp(36px,5vw,84px);max-width:16ch}
+.reparti-testa p{margin:0;color:var(--grigio-chiaro);max-width:48ch;font-size:19px}
+.binario{display:flex;gap:20px;padding:0 var(--gutter) 120px;width:max-content}
+.lama{--c:#E23128;--t:#fff;position:relative;width:min(72vw,540px);height:clamp(360px,calc(100svh - 430px),560px);background:var(--bianco);border-radius:16px;padding:10px;display:grid;grid-template-rows:1fr auto;flex:none}
+.lama .campo{background:var(--c);color:var(--t);border-radius:10px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+.lama h3{font-size:clamp(30px,3.5vw,56px);overflow-wrap:normal}
+.lama .campo p{margin:0;font-size:18px;max-width:30ch;opacity:.9}
+.lama .etichetta{display:flex;justify-content:space-between;align-items:center;color:var(--inchiostro);padding:16px 14px 8px}
+.lama .etichetta b{font:700 17px/1 var(--f-testo)}
+.lama .foro{width:18px;height:18px;border-radius:50%;background:var(--inchiostro);box-shadow:inset 0 0 0 5px #3a3f48}
+
+/* Dal 1986 */
+.storia{position:relative;padding-block:140px 60px;overflow:hidden}
+.nastro{white-space:normal;font-size:clamp(52px,10.5vw,190px);line-height:.88;color:var(--inchiostro);will-change:transform;padding-inline:var(--gutter)}
+.nastro span{display:block;color:transparent;-webkit-text-stroke:2px var(--inchiostro)}
+.bottega{position:relative;min-height:100svh;margin-top:80px;overflow:hidden;display:grid;grid-template-columns:6fr 5fr;align-items:end;background:#B8343B}
+.bottega-sfondo{position:absolute;inset:0;background:url(img/bottega.webp) center/cover no-repeat;transform-origin:50% 60%;will-change:transform}
+.bottega::after{content:"";position:absolute;inset:0;background:linear-gradient(270deg,rgba(120,18,22,0) 30%,rgba(120,18,22,.55) 55%,rgba(110,14,18,.9) 100%),linear-gradient(0deg,rgba(110,14,18,.35),transparent 40%);pointer-events:none}
+.claudio{order:2;position:relative;z-index:2;align-self:end;justify-self:center;width:min(100%,500px);margin:0;padding-top:10vh}
+.claudio img{width:auto;height:auto;max-width:100%;max-height:84vh;display:block;margin-inline:auto;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(60,6,8,.45))}
+.claudio figcaption{position:absolute;left:8%;bottom:7%;background:var(--bianco);border-radius:12px;padding:12px 16px;display:grid;gap:4px;box-shadow:0 20px 40px -20px rgba(0,0,0,.5);transform:rotate(-3deg)}
+.claudio figcaption b{font:700 18px/1 var(--f-testo)}
+.storia-testo{order:1;position:relative;z-index:2;align-self:center;display:grid;gap:24px;min-width:0;color:var(--bianco);padding:120px 0 120px var(--gutter)}
+.storia-testo h2{font-size:clamp(34px,4.6vw,76px)}
+.storia-testo p{margin:0;font-size:20px;color:rgba(255,255,255,.9);max-width:46ch}
+.cifre{display:flex;gap:40px;flex-wrap:wrap;margin-top:8px}
+.cifre div{display:grid;gap:2px}
+.cifre strong{font-family:var(--f-display);font-stretch:125%;font-variation-settings:"wdth" 125;font-weight:800;font-size:clamp(40px,4vw,64px);line-height:1}
+.cifre small{color:rgba(255,255,255,.8);font-size:15px}
+
+.marchi{padding-block:80px 140px}
+.marchi h3{font-size:clamp(24px,2.6vw,40px);margin-bottom:32px}
+.scorre{display:flex;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.scorre-pista{display:flex;gap:16px;padding-right:16px;animation:scorri 40s linear infinite;flex:none}
+@media (hover:hover) and (pointer:fine){.scorre:hover .scorre-pista{animation-play-state:paused}}
+.marchio{width:220px;height:120px;background:var(--bianco);border-radius:var(--r);display:grid;place-items:center;flex:none}
+.marchio img{max-width:150px;max-height:56px;width:auto;height:auto}
+@keyframes scorri{to{transform:translateX(-100%)}}
+
+/* Dove siamo */
+.dove{background:var(--rosso);color:var(--bianco);padding-block:140px;position:relative;overflow:hidden}
+.dove h2{font-size:clamp(46px,9.6vw,176px)}
+.dove-griglia{display:grid;grid-template-columns:1fr minmax(0,520px);gap:64px;margin-top:64px;align-items:start}
+.dove .info{display:grid;gap:28px;min-width:0}
+.dove address{font-style:normal;font-size:clamp(22px,2vw,30px);line-height:1.3;font-weight:500}
+.contatti{display:grid;gap:6px;font-size:18px}
+.contatti .mono{font-size:17px}
+.orari{background:var(--bianco);color:var(--inchiostro);border-radius:16px;padding:28px;box-shadow:0 30px 60px -30px rgba(80,10,6,.6)}
+.orari h3{font-size:28px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.orari h3 .stato{background:var(--carta);font-family:var(--f-testo);font-stretch:100%;font-variation-settings:"wdth" 100;text-transform:none;letter-spacing:0;font-size:13px}
+.orari table{width:100%;border-collapse:collapse}
+.orari td{padding:11px 10px;font-size:16px}
+.orari td:last-child{text-align:right}
+.orari tr.oggi td{background:#FCE4E2;color:var(--rosso);font-weight:600}
+.orari tr.oggi td:first-child{border-radius:8px 0 0 8px}
+.orari tr.oggi td:last-child{border-radius:0 8px 8px 0}
+.orari .chiuso{color:var(--grigio)}
+
+/* Piede */
+.piede{background:var(--inchiostro);color:var(--grigio-chiaro);padding-block:80px 0;overflow:hidden}
+.piede-griglia{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.piede h4{color:var(--bianco);font:700 16px/1 var(--f-testo);margin:0 0 14px}
+.piede p{margin:0;font-size:15px;line-height:1.8}
+.piede .logo{display:inline-flex;margin-bottom:20px}
+.marchio-gigante{font-size:clamp(52px,14.6vw,280px);color:var(--bianco);line-height:.78;margin-top:80px;white-space:nowrap;transform:translateY(12%)}
+.legale{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-block:20px;font-size:13px;position:relative;z-index:1;background:var(--inchiostro)}
+
+/* Rivelazioni */
+.parola{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em;margin-bottom:-.06em}
+.parola > span{display:inline-block}
+
+/* Responsive */
+/* Spazio 3D (desktop) */
+.spazio .vista{position:fixed;inset:0;z-index:1;perspective:1500px;perspective-origin:50% 50%;overflow:hidden}
+.spazio .mondo{position:absolute;left:0;top:0;width:100%;height:100%;transform-style:preserve-3d;transform-origin:0 0;will-change:transform}
+.spazio .pannello{--f:0px;position:absolute!important;left:0;top:0;width:100vw;transform-origin:0 0;margin:0!important;backface-visibility:hidden}
+.spazio .pannello:not(.nastro){-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%),linear-gradient(180deg,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%),linear-gradient(180deg,transparent 0,#000 var(--f),#000 calc(100% - var(--f)),transparent 100%);mask-composite:intersect}
+.spazio .tavola::after{opacity:var(--velo,1)}
+.spazio .hero.pannello{box-shadow:none}
+.spazio .strato-tavole{position:absolute;inset:0;z-index:2;pointer-events:none}
+.spazio .strato-tavole .tavola{position:absolute;inset:0;min-height:0;height:100%;transform-origin:50% 50%;visibility:hidden;will-change:transform,opacity;--r:0%;
+  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 calc(var(--r) - 28%),transparent var(--r));mask-image:radial-gradient(ellipse 72% 72% at 50% 50%,#000 calc(var(--r) - 28%),transparent var(--r))}
+.spazio .campionario{min-height:100vh}
+.spazio .reparti{display:flex;align-items:center;width:max-content!important;min-height:100vh;overflow:visible}
+.spazio .reparti-testa{width:42vw;flex:none;padding:0 4vw 0 var(--gutter)}
+.spazio .binario{padding:0 10vw 0 0;transform:none!important}
+.spazio .lama{height:min(72vh,600px)}
+.spazio .storia.pannello{padding:0}
+.spazio .bottega{margin-top:0;height:100vh;min-height:0}
+.spazio .marchi-pann{background:var(--carta-2);padding-block:110px 120px}
+.spazio .storia-palco{position:relative;height:100vh;overflow:hidden;display:grid;align-items:center;background:var(--carta)}
+.spazio .storia-palco .bottega{position:absolute;inset:0;margin:0;min-height:0;height:100vh;z-index:2;overflow:visible;box-shadow:-40px 0 80px -30px rgba(40,6,8,.45);will-change:transform}
+.bottega-sfumo{display:none}
+.spazio .bottega-sfumo{display:block;position:absolute;top:0;bottom:0;right:100%;width:55vw;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(176,52,59,0) 0%,rgba(176,52,59,.18) 35%,rgba(176,52,59,.6) 75%,#B0343B 100%)}
+.spazio .scheggia{position:absolute;left:0;top:0;background:#fff;border-radius:12px;padding:7px;box-shadow:0 30px 60px -30px rgba(20,30,80,.45);backface-visibility:hidden}
+.spazio .scheggia i{display:block;height:76%;border-radius:7px}
+.spazio .scheggia b{display:block;height:5px;width:46%;margin:12px 4px 0;border-radius:3px;background:#d9dce3}
+.spazio .marchio-gigante{transform:translateY(12%)!important}
+@media (max-width:900px){
+  .tavola{display:block;min-height:100svh}
+  .tav-img{position:relative;height:56svh;background-position:var(--pos-m);-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent);mask-image:linear-gradient(180deg,#000 72%,transparent)}
+  .tav-testo{width:auto;margin:0;padding:0 20px 72px;gap:14px}
+  .tavola::after{display:none}
+  .tav-secchio{height:150px;top:calc(56svh - 170px);bottom:auto;left:auto;right:18px}
+  .tavola h3{font-size:clamp(40px,11vw,56px)}
+  .lama h3{font-size:clamp(32px,10vw,48px)}
+  .voci{display:none}
+  .stato.menu-stato{display:none}
+  .hero{align-content:start;padding-top:110px}
+  .hero h1{font-size:clamp(40px,12.4vw,96px)}
+  .hero-piede{margin-top:min(62svh,520px)}
+  .campionario{grid-template-columns:1fr;padding-top:min(70svh,560px);align-items:start}
+  .campionario .testo{grid-column:1}
+  .tinte{grid-template-columns:repeat(4,1fr)}
+  .tinte button{grid-template-rows:44px auto}
+  .tinte b{font-size:12px}
+  .pittura,.pittura:nth-child(n){grid-column:1 / -1;margin-top:0;min-height:360px}
+  .binario{flex-direction:column;width:auto;padding-bottom:80px}
+  .lama{width:100%;height:auto;min-height:360px}
+  .dove-griglia{grid-template-columns:1fr;gap:40px}
+  .bottega{grid-template-columns:1fr;align-items:start}
+  .bottega-sfondo{background-image:url(img/bottega-m.webp)}
+  .bottega::after{background:linear-gradient(180deg,rgba(110,14,18,.92) 0%,rgba(110,14,18,.7) 45%,rgba(110,14,18,.1) 75%)}
+  .storia-testo{grid-row:1;order:0;padding:72px var(--gutter) 24px}
+  .claudio{width:min(82%,380px);padding-top:0}
+  .piede-griglia{grid-template-columns:1fr 1fr}
+  .piede-griglia > :first-child{grid-column:1 / -1}
+}
+@media (max-width:420px){.tinte small{display:none}.destra .btn span{display:none}}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+
+<div class="sfondo" aria-hidden="true"></div>
+<canvas id="scena" aria-hidden="true"></canvas>
+
+<header class="menu">
+  <a class="logo" href="#inizio" aria-label="Edil Market, torna all'inizio"><img src="img/logo.webp" alt="Edil Market" width="220" height="47"></a>
+  <nav class="voci" aria-label="Sezioni">
+    <a href="#colorificio">Colorificio</a><a href="#reparti">Reparti</a><a href="#storia">Dal 1986</a><a href="#dove">Dove siamo</a>
+  </nav>
+  <div class="destra">
+    <span class="stato menu-stato" data-stato><i></i><span>Orari di oggi</span></span>
+    <a class="btn rosso piccolo" href="https://maps.google.com/?cid=6117507483099621875" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Come arrivare</span></a>
+  </div>
+</header>
+
+<main id="inizio">
+  <section class="hero wrap" aria-label="Edil Market">
+    <h1 class="disp" id="titolo">
+      <span class="riga"><span>La tua</span></span>
+      <span class="riga"><span>ferramenta</span></span>
+      <span class="riga"><span>di <em>fiducia</em></span></span>
+    </h1>
+    <div class="hero-piede">
+      <p>Viteria, utensili, materiale edile e pitture colorate su misura col tintometro. A Strudà dal 1986, sulla Provinciale Lecce-Vernole.</p>
+      <div class="azioni">
+        <a class="btn" href="https://maps.google.com/?cid=6117507483099621875" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Come arrivare</a>
+        <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="colorificio" id="colorificio" aria-labelledby="t-col">
+    <div class="campionario wrap" id="campionario">
+      <div class="testo">
+        <h2 class="disp rivela" id="t-col">Portaci un campione. Lo rifacciamo uguale.</h2>
+        <p>Con il nostro tintometro professionale coloriamo le pitture per interni ed esterni. Portaci un campione di tessuto, una foto o un codice colore e lo riproduciamo fedelmente.</p>
+        <div class="porta"><span>Un ritaglio di tessuto</span><span>Una foto</span><span>Un codice colore</span></div>
+        <p class="scelta" id="scelta" aria-live="polite"></p>
+        <div class="tinte" id="tinte" role="group" aria-label="Prova una tinta"></div>
+        <span class="nota">Tinte di esempio. In negozio ne prepariamo migliaia, anche dal tuo campione.</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="libro" id="pitture" aria-label="Le pitture del banco">
+    <article class="tavola t-sx" style="--img:url(img/tavola-interni.webp);--pos:right center;--pos-m:82% center">
+      <div class="tav-img" role="img" aria-label="Illustrazione: una stanza salentina con la volta a stella e le pareti bianchissime, la luce del mattino e un gatto che dorme sul davanzale"></div>
+      <div class="tav-testo">
+        <p class="tav-voce">C'era una volta una stanza<br>che respirava luce.<br>Le sue pareti, bianche come il pane,<br>non temevano l'umido né l'inverno.</p>
+        <h3>Antimuffa<br>per interni</h3>
+        <p class="tav-corpo">Boero Batrix è la pittura lavabile antimuffa extra bianca per le stanze che vivi ogni giorno: la cucina, il bagno, la camera sotto la volta. Pareti pulite e luminose, che si lavano e restano bianche.</p>
+        <p class="tav-prodotto">Boero Batrix, pittura lavabile antimuffa</p>
+        <a class="btn" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+      </div>
+      <img class="tav-secchio" src="img/secchio-batrix.webp" alt="Secchio di Boero Batrix" width="273" height="286" style="--sx:auto;--dx:9vw;--giu:5vh">
+      <span class="tav-pagina">7</span>
+    </article>
+    <article class="tavola t-dx" style="--img:url(img/tavola-esterni.webp);--pos:left center;--pos-m:18% center">
+      <div class="tav-img" role="img" aria-label="Illustrazione: una stradina di paese nel Salento con facciate rosa e terracotta, buganvillea e un'Ape parcheggiata al sole"></div>
+      <div class="tav-testo">
+        <p class="tav-voce">Nel paese dove il sole<br>dipinge d'oro le facciate,<br>ogni casa aveva il suo colore<br>e lo teneva per sempre.</p>
+        <h3>Al quarzo<br>per esterni</h3>
+        <p class="tav-corpo">Boero Kompatt Plus è la pittura riempitiva al quarzo per le facciate: copre le piccole imperfezioni del muro e lo veste di colore. Al tintometro la prepariamo nella tinta che hai scelto, dal rosa antico al terracotta.</p>
+        <p class="tav-prodotto">Boero Kompatt Plus, pittura riempitiva al quarzo</p>
+        <a class="btn" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+      </div>
+      <img class="tav-secchio" src="img/secchio-kompatt.webp" alt="Secchio di Boero Kompatt Plus" width="273" height="286" style="--sx:31vw;--dx:auto;--giu:5vh">
+      <span class="tav-pagina">8</span>
+    </article>
+    <article class="tavola t-sx" style="--img:url(img/tavola-legno.webp);--pos:right center;--pos-m:80% center">
+      <div class="tav-img" role="img" aria-label="Illustrazione: una masseria bianca tra gli ulivi con la porta e le persiane di legno verde mare, papaveri e una lepre"></div>
+      <div class="tav-testo">
+        <p class="tav-voce">Tra gli ulivi c'era una porta<br>verde come il mare d'inverno,<br>e chi passava di lì<br>si fermava a guardarla brillare.</p>
+        <h3>Per il<br>legno</h3>
+        <p class="tav-corpo">Boero HP Satinato è lo smalto all'acqua ad alte prestazioni per porte, persiane, panchine e cancelli: una superficie dura e satinata, che fa da barriera a grasso e sporco.</p>
+        <p class="tav-prodotto">Boero HP Satinato, smalto all'acqua</p>
+        <a class="btn" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+      </div>
+      <img class="tav-secchio" src="img/secchio-hp.webp" alt="Barattolo di Boero HP Satinato" width="233" height="286" style="--sx:auto;--dx:13vw;--giu:6vh">
+      <span class="tav-pagina">9</span>
+    </article>
+  </section>
+
+  <section class="reparti" id="reparti" aria-labelledby="t-rep">
+    <div class="reparti-testa wrap">
+      <h2 class="disp rivela" id="t-rep">Otto reparti, un solo banco.</h2>
+      <p>Dalla vite inox alla cassaforte, per il cantiere e per la casa. Ogni reparto ha il suo colore, come una mazzetta aperta sul banco.</p>
+    </div>
+    <div class="binario" id="binario"></div>
+  </section>
+
+  <section class="storia" id="storia" aria-labelledby="t-sto">
+    <div class="nastro disp" id="nastro" aria-hidden="true">Dal 1986<span>a Strudà</span></div>
+    <div class="bottega">
+      <div class="bottega-sfondo" role="img" aria-label="Disegno dell'interno della ferramenta, con scaffali, attrezzi e il banco"></div>
+      <figure class="claudio">
+        <img src="img/claudio.webp" alt="Illustrazione di Claudio Russo con il grembiule da lavoro" width="392" height="528" loading="lazy">
+        <figcaption><b>Claudio Russo</b><span class="codice">AL BANCO DAL 1986</span></figcaption>
+      </figure>
+      <div class="storia-testo">
+        <h2 class="disp rivela" id="t-sto">Quarant'anni dietro lo stesso banco.</h2>
+        <p>Edilmarket è la ferramenta di Claudio Russo, a Strudà dal 1986. Artigiani, imprese e chi fa da sé trovano al banco il pezzo giusto e un consiglio pratico per usarlo.</p>
+        <div class="cifre">
+          <div><strong class="conta" data-a="40">40</strong><small>anni di esperienza</small></div>
+          <div><strong class="conta" data-a="8">8</strong><small>reparti</small></div>
+          <div><strong>6:30</strong><small>apertura, lunedì - sabato</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="marchi wrap">
+      <h3 class="disp">I marchi che trattiamo</h3>
+      <div class="scorre" aria-label="Marchi trattati: Boero, Elematic, FAR, Faren, Giacomini, Sigill, Stanley, Vorpa">
+        <div class="scorre-pista" id="pista"></div>
+        <div class="scorre-pista" aria-hidden="true" id="pista2"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dove" id="dove" aria-labelledby="t-dove">
+    <div class="wrap">
+      <h2 class="disp rivela" id="t-dove">Apriamo alle 6:30. Prima del cantiere.</h2>
+      <div class="dove-griglia">
+        <div class="info">
+          <address>Provinciale Lecce-Vernole<br>73029 Strudà (LE)</address>
+          <div class="azioni">
+            <a class="btn bianco" href="https://maps.google.com/?cid=6117507483099621875" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Come arrivare</a>
+            <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+          </div>
+          <div class="contatti">
+            <span>Telefono <span class="mono">+39 320 417 3656</span></span>
+            <span>Email <span class="mono">Edilmarket62@hotmail.it</span></span>
+          </div>
+        </div>
+        <div class="orari">
+          <h3 class="disp">Orari <span class="stato" data-stato><i></i><span>Orari di oggi</span></span></h3>
+          <table><tbody id="tab-orari"></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="piede">
+  <div class="wrap piede-griglia">
+    <div><span class="logo"><img src="img/logo.webp" alt="Edil Market" width="220" height="47"></span><p>La tua ferramenta di fiducia a Strudà, dal 1986.</p></div>
+    <div><h4>Contatti</h4><p>Provinciale Lecce-Vernole, Strudà<br>Edilmarket62@hotmail.it<br>+39 320 417 3656</p></div>
+    <div><h4>Orari</h4><p>Lunedì - Sabato<br>6:30 - 13:30<br>15:30 - 19:30<br>Domenica chiuso</p></div>
+    <div><h4>Dati aziendali</h4><p>P.IVA 02452660752<br>PEC edilmarket62@pec.it<br><a href="/privacy">Privacy Policy</a></p></div>
+  </div>
+  <div class="marchio-gigante disp" aria-hidden="true">Edil Market</div>
+  <div class="legale wrap"><span>© 2026 Edilmarket di Russo Claudio</span><span>Strudà, Lecce</span></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(() => {
+const RIDOTTO = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MOBILE = () => innerWidth <= 900;
+const SPAZIO = !RIDOTTO && innerWidth > 900 && !!window.gsap && CSS.supports('transform-style','preserve-3d');
+
+/* ---------- Dati ---------- */
+const REPARTI = [
+  ['Ferramenta','Utensileria professionale, elettroutensili e forniture per officina.','#3A3F48','#fff'],
+  ['Colorificio','Sistema tintometrico professionale per vernici e pitture personalizzate.','#E23128','#fff'],
+  ['Viteria','Assortimento completo di viteria inox, bulloneria e sistemi di fissaggio.','#8C98A6','#15171C'],
+  ['Elettricità','Materiale elettrico civile e industriale, illuminazione LED e cavi.','#F2C230','#15171C'],
+  ['Edilizia','Materiali edili, cartongesso, malte e soluzioni tecniche per il cantiere.','#D8B57A','#15171C'],
+  ['Fai da Te','Articoli per bricolage, giardinaggio e manutenzione domestica.','#6E8A3C','#fff'],
+  ['Idraulica','Raccorderia, rubinetteria e componenti per impianti idraulici.','#2E90CC','#fff'],
+  ['Sicurezza','Servizio duplicazione chiavi, serrature europee e casseforti.','#2649B0','#fff']
+];
+const TINTE = [
+  ['Salvia','#9AAA8C'],['Terracotta','#C8553D'],['Azzurro mare','#3E8FC1'],['Giallo tufo','#E3C27A'],
+  ['Grigio perla','#C9CBC7'],['Verde ulivo','#6E7F3A'],['Rosa antico','#D99A92'],['Blu notte','#1F2E5A']
+];
+const MARCHI = ['boero','elematic','far','faren','giacomini','sigill','stanley','vorpa'];
+const NOMI_M = {boero:'Boero',elematic:'Elematic',far:'FAR',faren:'Faren',giacomini:'Giacomini',sigill:'Sigill',stanley:'Stanley',vorpa:'Vorpa'};
+
+/* ---------- Contenuti generati ---------- */
+const binario = document.getElementById('binario');
+REPARTI.forEach(([n,d,c,t]) => {
+  const el = document.createElement('article');
+  el.className = 'lama'; el.style.setProperty('--c',c); el.style.setProperty('--t',t);
+  el.innerHTML = `<div class="campo"><h3 class="disp">${n}</h3><p>${d}</p></div><div class="etichetta"><b>${n}</b><span class="codice">${c}</span><i class="foro" aria-hidden="true"></i></div>`;
+  binario.appendChild(el);
+});
+const pista = document.getElementById('pista'), pista2 = document.getElementById('pista2');
+MARCHI.forEach(m => {
+  const html = `<div class="marchio"><img src="img/m-${m}.webp" alt="${NOMI_M[m]}" loading="lazy"></div>`;
+  pista.insertAdjacentHTML('beforeend', html); pista2.insertAdjacentHTML('beforeend', html.replace(/alt="[^"]*"/,'alt=""'));
+});
+
+/* ---------- Orari reali (ora di Lecce) ---------- */
+const GIORNI = ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+function oraRoma(){
+  const p = new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Rome',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+  const g = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.find(x=>x.type==='weekday').value];
+  const h = +p.find(x=>x.type==='hour').value % 24, m = +p.find(x=>x.type==='minute').value;
+  return {g, min:h*60+m};
+}
+const FASCE = [[390,810],[930,1190]];
+const fmt = m => `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+function stato(){
+  const {g,min} = oraRoma();
+  if (g !== 0) {
+    for (const [a,b] of FASCE) if (min>=a && min<b) return {aperto:true, testo:`Aperto ora, chiude alle ${fmt(b)}`};
+    const prossima = FASCE.find(([a])=>min<a);
+    if (prossima) return {aperto:false, testo:`Chiuso, riapre alle ${fmt(prossima[0])}`};
+  }
+  let n = (g+1)%7; if (n===0) n = 1; const quando = (n===(g+1)%7) ? 'domani' : GIORNI[n].toLowerCase();
+  return {aperto:false, testo:`Chiuso, riapre ${quando} alle 6:30`};
+}
+function aggiornaStato(){
+  const s = stato();
+  document.querySelectorAll('[data-stato]').forEach(el => { el.classList.toggle('chiuso', !s.aperto); el.querySelector('span').textContent = s.testo; });
+}
+const tab = document.getElementById('tab-orari');
+const oggi = oraRoma().g;
+[1,2,3,4,5,6,0].forEach(g => {
+  const tr = document.createElement('tr'); if (g===oggi) tr.className = 'oggi';
+  tr.innerHTML = `<td>${GIORNI[g]}${g===oggi?' (oggi)':''}</td><td class="mono ${g===0?'chiuso':''}">${g===0?'Chiuso':'6:30 - 13:30 &nbsp; 15:30 - 19:30'}</td>`;
+  tab.appendChild(tr);
+});
+aggiornaStato(); setInterval(aggiornaStato, 60000);
+
+/* ---------- Selettore tinte ---------- */
+const tinteEl = document.getElementById('tinte'), colSec = document.getElementById('colorificio');
+const lum = h => { const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+let tintaAttiva = TINTE[0];
+function scegliTinta(t, btn){
+  tintaAttiva = t;
+  document.documentElement.style.setProperty('--tinta', t[1]);
+  document.documentElement.style.setProperty('--tinta-testo', lum(t[1]) > .28 ? '#15171C' : '#FFFFFF');
+  tinteEl.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b===btn ? 'true':'false'));
+  const sc = document.getElementById('scelta'); if (sc) sc.innerHTML = `<i style="background:${t[1]}"></i>Stai provando: <b>${t[0]}</b> <span class="codice">${t[1]}</span>`;
+  if (window.__ricolora) window.__ricolora(t);
+}
+TINTE.forEach((t,i) => {
+  const b = document.createElement('button'); b.type='button'; b.setAttribute('aria-pressed', i===0?'true':'false');
+  b.innerHTML = `<i style="background:${t[1]}"></i><b>${t[0]}</b><small class="codice">${t[1]}</small>`;
+  b.addEventListener('click', () => scegliTinta(t,b));
+  tinteEl.appendChild(b);
+});
+scegliTinta(TINTE[0], tinteEl.querySelector('button'));
+
+
+/* ---------- Viaggio nello spazio 3D ---------- */
+const V = {st:0, idx:{}, seg:1};
+window.__V = V;
+if (SPAZIO) (function viaggio(){
+  document.body.classList.add('spazio');
+  const vista = document.createElement('div'); vista.className = 'vista';
+  const mondo = document.createElement('div'); mondo.className = 'mondo'; vista.appendChild(mondo);
+  const corsa = document.createElement('div'); corsa.className = 'corsa'; corsa.setAttribute('aria-hidden','true');
+  const main = document.getElementById('inizio');
+  main.before(vista); document.body.appendChild(corsa);
+  const $ = q => document.querySelector(q);
+  // pannelli
+  const hero = $('.hero'); hero.id = 'inizio'; main.removeAttribute('id');
+  const camp = $('#colorificio');
+  const nota = camp.querySelector('.nota'); if (nota) nota.textContent = 'Tocca una lama della mazzetta per provare il colore. Tinte di esempio: in negozio ne prepariamo migliaia, anche dal tuo campione.';
+  const tav = [...document.querySelectorAll('.tavola')];
+  const rep = $('#reparti');
+  const vecchiaStoria = $('#storia');
+  const bott = document.createElement('section'); bott.className = 'storia'; bott.setAttribute('aria-labelledby','t-sto');
+  const palco = document.createElement('div'); palco.className = 'storia-palco'; bott.appendChild(palco);
+  const bottega = $('.bottega'); palco.appendChild($('#nastro')); palco.appendChild(bottega);
+  const sfumo = document.createElement('div'); sfumo.className = 'bottega-sfumo'; sfumo.setAttribute('aria-hidden','true'); bottega.prepend(sfumo);
+  const claudioBox = bottega.querySelector('.claudio'), testoBox = bottega.querySelector('.storia-testo');
+  vecchiaStoria.id = 'marchi'; vecchiaStoria.classList.add('marchi-pann'); vecchiaStoria.removeAttribute('aria-labelledby');
+  bott.id = 'storia';
+  const nastro = $('#nastro');
+  const dove = $('#dove'), piede = $('.piede');
+  const P = {hero, camp, rep, bott, marchi:vecchiaStoria, dove, piede};
+  for (const k in P) { P[k].classList.add('pannello'); mondo.appendChild(P[k]); }
+  const strato = document.createElement('div'); strato.className = 'strato-tavole'; vista.appendChild(strato);
+  tav.forEach(t => strato.appendChild(t)); tav[0].id = 'pitture'; document.querySelector('.libro').remove();
+  // schegge di mazzetta sospese nello spazio
+  const COL = ['#3A3F48','#E23128','#8C98A6','#F2C230','#D8B57A','#6E8A3C','#2E90CC','#2649B0','#9AAA8C','#C8553D','#D99A92'];
+  let seme = 7; const rnd = () => (seme = (seme*16807) % 2147483647) / 2147483647;
+  const schegge = [];
+  for (let i = 0; i < 42; i++) { const d = document.createElement('div'); d.className = 'scheggia'; d.setAttribute('aria-hidden','true'); d.innerHTML = `<i style="background:${COL[i%COL.length]}"></i><b></b>`; mondo.appendChild(d); schegge.push({d, a:[rnd(),rnd(),rnd(),rnd(),rnd(),rnd(),rnd()]}); }
+
+  // posizione di ogni pannello: x, z in larghezze schermo; rotazioni in gradi
+  const POS = {hero:[0,0, 0,0,0], camp:[1.45,-0.95, 0,-26,0], rep:[-1.4,-0.6, 0,16,0],
+               bott:[2.1,-1.55, -4,-22,0], marchi:[1.95,-0.7, 0,-8,0], dove:[0.2,-0.1, 0,18,-2], piede:[0.35,-0.2, 0,10,0]};
+  const GAP = {hero:0, camp:.6, rep:.5, bott:.55, marchi:.35, dove:.45, piede:.3};
+  let pose = {}, stops = [];
+  function impagina(){
+    const W = innerWidth, H = innerHeight;
+    let y = 0, prec = null;
+    stops = []; V.idx = {};
+    for (const k of Object.keys(P)) {
+      const el = P[k]; const w = el.offsetWidth, h = el.offsetHeight;
+      if (prec) y = prec.y + prec.h + GAP[k]*H;
+      const [x,z,rx,ry,rz] = POS[k];
+      pose[k] = {x:x*W, y, z:z*W, rx, ry, rz, w, h};
+      el.style.transform = `translate3d(${x*W}px,${y}px,${z*W}px) rotateY(${ry}deg) rotateX(${rx}deg) rotateZ(${rz}deg)`;
+      prec = pose[k];
+      // fermate della telecamera su questo pannello
+      V.idx[k] = stops.length;
+      const dy0 = h < H ? (h-H)/2 : 0;
+      if (k === 'rep') {
+        const corsaX = Math.max(0, w - W), lm = el.querySelectorAll('.lama');
+        const passo = lm.length > 1 ? Math.max(100, lm[1].offsetLeft - lm[0].offsetLeft) : W*.4;
+        for (let dx = 0; ; dx += passo) { const v = Math.min(corsaX, dx); stops.push({k, dx:v, dy:dy0}); if (v >= corsaX) break; }
+      } else if (k === 'bott') {
+        stops.push({k, dx:0, dy:0, f:0}); stops.push({k, dx:0, dy:0, f:1});
+      } else {
+        stops.push({k, dx:0, dy:dy0});
+        if (h > H*1.08) stops.push({k, dx:0, dy:h-H});
+      }
+      V.idx[k+'Fine'] = stops.length-1;
+      if (k === 'camp') { const u = stops[stops.length-1]; for (let n = 1; n <= 3; n++) { V.idx['tav'+n] = V.idx['tav'+n+'Fine'] = stops.length; stops.push({k:'camp', dx:u.dx, dy:u.dy, tav:n}); } }
+    }
+    // schegge: sparse lungo tutto il volume del viaggio
+    const ymax = pose.piede.y + pose.piede.h;
+    schegge.forEach(s => {
+      const {d,a} = s;
+      const sw = 70 + a[0]*90, sh = sw*3.6;
+      d.style.width = sw+'px'; d.style.height = sh+'px';
+      const x = (-2.6 + a[1]*6.4)*W, yy = -0.4*H + a[2]*(ymax+0.6*H), z = (-3.4 + a[3]*2.6)*W;
+      d.style.transform = `translate3d(${x}px,${yy}px,${z}px) rotateX(${(a[4]-.5)*70}deg) rotateY(${(a[5]-.5)*110}deg) rotateZ(${(a[6]-.5)*120}deg)`;
+      s.c = [x + sw/2, yy + sh/2, z]; s.r = sh*.4;
+    });
+    // colorificio: nessuna scheggia davanti alle parole
+    const pc = pose.camp, fc = stops[V.idx.camp], tc = P.camp.querySelector('.testo');
+    if (pc && fc && tc && window.DOMMatrix) {
+      let ox = 0, oy = 0; for (let el = tc; el && el !== P.camp; el = el.offsetParent) { ox += el.offsetLeft; oy += el.offsetTop; }
+      const x0 = ox - 30, x1 = ox + tc.offsetWidth + 30, y0 = oy - fc.dy - 30, y1 = oy - fc.dy + tc.offsetHeight + 30;
+      const M = new DOMMatrix(`translate3d(${-fc.dx}px,${-fc.dy}px,0) rotateZ(${-pc.rz}deg) rotateX(${-pc.rx}deg) rotateY(${-pc.ry}deg) translate3d(${-pc.x}px,${-pc.y}px,${-pc.z}px)`);
+      schegge.forEach(s => {
+        const q = M.transformPoint(new DOMPoint(s.c[0], s.c[1], s.c[2]));
+        let sopra = false;
+        if (q.z > -10 && q.z < 1450) { const k = 1500/(1500 - q.z), X = W/2 + (q.x - W/2)*k, Y = H/2 + (q.y - H/2)*k, r = s.r*k; sopra = X + r > x0 && X - r < x1 && Y + r > y0 && Y - r < y1; }
+        s.d.style.visibility = sopra ? 'hidden' : '';
+      });
+    }
+    V.seg = H*1.05; V.stops = stops;
+    corsa.style.height = ((stops.length-1)*V.seg + H) + 'px';
+  }
+  impagina();
+  addEventListener('resize', () => { impagina(); });
+  addEventListener('load', impagina);
+  if (document.fonts) document.fonts.ready.then(impagina);
+
+  // menu: porta la telecamera alla fermata giusta
+  const MAP = {inizio:'hero', colorificio:'camp', reparti:'rep', storia:'bott', dove:'dove'};
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    const k = MAP[a.getAttribute('href').slice(1)]; if (!k) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    const yv = V.idx[k]*V.seg; if (window.__lenis) window.__lenis.scrollTo(yv, {duration:2.2}); else scrollTo({top:yv, behavior:'smooth'});
+  }, true));
+
+  let mx = 0, my = 0, sx = 0, sy = 0;
+  addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; }, {passive:true});
+  const liscia = f => { const g = Math.min(1, Math.max(0, (f-.1)/.8)); return g*g*g*(g*(g*6-15)+10); };
+  const L = (a,b,t) => a + (b-a)*t;
+  function camPose(st){
+    const k = stops[st.k], p = pose[st.k];
+    return {x:p.x, y:p.y, z:p.z, rx:p.rx, ry:p.ry, rz:p.rz, dx:st.dx, dy:st.dy};
+  }
+  // colore di fondo di ogni sezione (rgb + trasparenza)
+  const COLORE = st => {
+    const k = st.k;
+    if (k === 'bott') return st.f ? [176,52,59,1] : [237,238,242,1];
+    if (k === 'hero') return [237,238,242,0];
+    if (k === 'camp') { const h = (document.documentElement.style.getPropertyValue('--tinta') || '#9AAA8C').trim(); return [1,3,5].map(n => parseInt(h.substr(n,2),16)).concat(1); }
+    return ({tav1:[254,252,248,1], tav2:[254,252,248,1], tav3:[254,252,248,1], rep:[21,23,28,1], bott:[176,52,59,1], marchi:[247,247,249,1], dove:[226,49,40,1], piede:[21,23,28,1]})[k];
+  };
+  const rgba = c => `rgba(${c[0]},${c[1]},${c[2]},${c[3]})`;
+  // titoli che compaiono parola per parola all'arrivo
+  const titoli = {};
+  for (const k in P) { if (k === 'hero') continue; const els = [...P[k].querySelectorAll('.rivela')]; if (els.length) titoli[k] = {fatto:false, parole: els.map(el => { const w = dividi(el); gsap.set(w, {yPercent:110}); return w; })}; }
+  // pitture: livelli che compaiono a strati
+  const strati = tav.map(t => ({t, img:t.querySelector('.tav-img'), sec:t.querySelector('.tav-secchio'), testi:[...t.querySelectorAll('.tav-testo > *')], pag:t.querySelector('.tav-pagina')}));
+  const rampa = (x,a,b) => { const g = Math.min(1, Math.max(0, (x-a)/(b-a))); return g*g*(3-2*g); };
+  let contato = false; const ultimaF = {};
+  (function giro(){
+    requestAnimationFrame(giro);
+    const W = innerWidth, H = innerHeight;
+    const t = Math.max(0, scrollY / V.seg);
+    const i = Math.min(stops.length-1, Math.floor(t)), j = Math.min(stops.length-1, i+1);
+    const stesso = stops[i].k === stops[j].k;
+    const e = i === j ? 0 : (stesso ? t - i : liscia(t - i));
+    const a = camPose(stops[i]), b = camPose(stops[j]);
+    const c = {}; for (const q in a) c[q] = L(a[q], b[q], e);
+    V.st = i + e;
+    // in viaggio tra due sezioni la telecamera si allontana e si inclina; dentro la stessa sezione scorre lineare
+    let indietro = 0, curva = 0;
+    if (!stesso) {
+      const salto = Math.hypot(b.x+b.dx-a.x-a.dx, b.y+b.dy-a.y-a.dy, b.z-a.z);
+      const arco = Math.sin(Math.PI*e);
+      indietro = arco * Math.min(1500, 260 + salto*.32);
+      curva = arco * Math.max(-1, Math.min(1, ((b.x+b.dx)-(a.x+a.dx))/W)) * -4;
+    }
+    // vicinanza della telecamera a ogni pannello (1 = davanti)
+    const vic = {}; for (const k in P) vic[k] = 0;
+    vic[stops[i].k] += 1 - e; vic[stops[j].k] += e;
+    // bordi sfumati: un pannello lontano non ha spigoli netti
+    const F = Math.min(W, H) * .3;
+    for (const k in P) { const f = Math.round((1 - Math.min(1, vic[k])) * F); if (ultimaF[k] !== f) { P[k].style.setProperty('--f', f + 'px'); ultimaF[k] = f; } }
+    // sfondo dello spazio: sfumatura dal colore della sezione di partenza a quello di arrivo, solo a metà passaggio
+    const ca = COLORE(stops[i]), cb = COLORE(stops[j]);
+    if (stesso || i === j) vista.style.background = rgba(ca);
+    else {
+      const vx = (b.x+b.dx)-(a.x+a.dx), vy = (b.y+b.dy)-(a.y+a.dy);
+      const ang = Math.atan2(vx, -vy) * 180/Math.PI;
+      const centro = 118 - e*136, banda = 22;
+      vista.style.background = `linear-gradient(${ang.toFixed(1)}deg, ${rgba(ca)} ${(centro-banda).toFixed(1)}%, ${rgba(cb)} ${(centro+banda).toFixed(1)}%)`;
+    }
+    // pitture: prima l'illustrazione, poi la velatura, poi secchio e scritte
+    const clamp = x => Math.min(1, Math.max(0, x));
+    strati.forEach((s, n) => {
+      const iE = V.idx['tav'+(n+1)];
+      const q = clamp(V.st - (iE - 1));                                   // entrata
+      const via = n < 2 ? rampa(clamp(V.st - iE), .55, 1) : rampa(clamp(V.st - iE), 0, .6);   // uscita
+      const op = rampa(q, 0, .35) * (1 - via);
+      const zq = 1 - Math.pow(1 - q, 3);
+      const sc = (1.9 - .9*zq) * (n === 2 ? 1 + .15*clamp(V.st - iE) : 1);   // entra grande e si rimpicciolisce fino alla misura reale
+      const sf = (1 - rampa(q, 0, .7)) * 14;
+      s.t.style.visibility = op < .005 ? 'hidden' : 'visible';
+      s.t.style.pointerEvents = op > .9 ? 'auto' : 'none';
+      s.t.style.opacity = op.toFixed(3);
+      s.t.style.transform = `scale(${sc.toFixed(4)})`;
+      s.t.style.filter = sf > .2 ? `blur(${sf.toFixed(1)}px)` : 'none';
+      s.t.style.setProperty('--r', (q*160).toFixed(1) + '%');
+      const p1 = rampa(q, .05, .55), p2 = rampa(q, .4, .7), p3 = rampa(q, .5, .8);
+      s.img.style.opacity = p1; s.img.style.transform = `scale(${1.3 - .3*p1})`; s.img.style.filter = p1 > .99 ? 'none' : `blur(${(1-p1)*16}px)`;
+      s.t.style.setProperty('--velo', p2);
+      s.sec.style.opacity = p3; s.sec.style.translate = `0 ${(1-p3)*90}px`; s.sec.style.scale = .6 + .4*p3;
+      s.testi.forEach((el, k) => { const p4 = rampa(q, .58 + k*.05, .82 + k*.04); el.style.opacity = p4; el.style.transform = `translateY(${(1-p4)*30}px)`; el.style.filter = p4 > .99 ? 'none' : `blur(${(1-p4)*6}px)`; });
+      s.pag.style.opacity = rampa(q, .85, 1);
+    });
+    // 40 anni: la bottega entra da destra sopra la scritta
+    const pb = Math.min(1, Math.max(0, V.st - V.idx.bott));
+    bottega.style.transform = `translateX(calc(${((1-pb)*100).toFixed(2)}% + ${((1-pb)*55).toFixed(2)}vw))`;
+    palco.querySelector('.nastro').style.transform = `translateX(${(-5*pb).toFixed(2)}%)`;
+    claudioBox.style.translate = `${(220*(1-pb)).toFixed(1)}px 0`;
+    testoBox.style.translate = `${(320*(1-pb)).toFixed(1)}px 0`; testoBox.style.opacity = (.2 + .8*pb).toFixed(3);
+    // titoli e numeri all'arrivo
+    for (const k in titoli) if (!titoli[k].fatto && vic[k] > .8 && (k !== 'bott' || pb > .6)) { titoli[k].fatto = true; titoli[k].parole.forEach(w => gsap.to(w, {yPercent:0, duration:1, ease:'expo.out', stagger:.045})); }
+    if (!contato && pb > .7) { contato = true; document.querySelectorAll('.conta').forEach(el => { const o = {v:0}; gsap.to(o,{v:+el.dataset.a,duration:1.6,ease:'expo.out',onUpdate:()=>el.textContent=Math.round(o.v)}); }); }
+    sx += (mx - sx)*.05; sy += (my - sy)*.05;
+    mondo.style.transform =
+      `translate3d(${W/2}px,${H/2}px,0) rotateX(${sy*-2.2}deg) rotateY(${sx*3}deg) rotateZ(${curva}deg) translate3d(${-W/2}px,${-H/2}px,0) ` +
+      `translateZ(${-indietro}px) translate3d(${-c.dx}px,${-c.dy}px,0) rotateZ(${-c.rz}deg) rotateX(${-c.rx}deg) rotateY(${-c.ry}deg) translate3d(${-c.x}px,${-c.y}px,${-c.z}px)`;
+  })();
+})();
+
+/* ---------- Scroll morbido + animazioni ---------- */
+const hasGsap = window.gsap && window.ScrollTrigger;
+let lenis = null;
+if (hasGsap) {
+  gsap.registerPlugin(ScrollTrigger);
+  if (window.Lenis && !RIDOTTO) {
+    lenis = new Lenis({lerp: SPAZIO ? .07 : .09, smoothWheel:true, wheelMultiplier: SPAZIO ? .8 : 1}); window.__lenis = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t*1000));
+    gsap.ticker.lagSmoothing(0);
+    if (!SPAZIO) document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if (t){ e.preventDefault(); lenis.scrollTo(t, {offset:-10}); } }));
+  }
+}
+
+/* Titoli parola per parola */
+function dividi(el){
+  const parole = el.textContent.trim().split(/\s+/);
+  el.innerHTML = parole.map(p => `<span class="parola"><span>${p}</span></span>`).join(' ');
+  return el.querySelectorAll('.parola > span');
+}
+if (hasGsap && !RIDOTTO) {
+  // ingresso della testata, breve, da stato visibile in poco tempo
+  gsap.from('#titolo .riga > span', {yPercent:105, duration:1, ease:'expo.out', stagger:.08, delay:.1});
+  gsap.from('.hero-piede > *', {y:24, opacity:0, duration:.9, ease:'expo.out', stagger:.08, delay:.45});
+  if (!SPAZIO) document.querySelectorAll('.rivela').forEach(el => {
+    const p = dividi(el);
+    const r = el.getBoundingClientRect();
+    if (r.top < innerHeight) return; // già visibile: resta com'è
+    gsap.set(p, {yPercent:110});
+    ScrollTrigger.create({trigger:el, start:'top 85%', once:true, onEnter:() => gsap.to(p, {yPercent:0, duration:1, ease:'expo.out', stagger:.045})});
+  });
+  // conteggio cifre
+  if (!SPAZIO) document.querySelectorAll('.conta').forEach(el => {
+    const a = +el.dataset.a, o = {v:0};
+    ScrollTrigger.create({trigger:el, start:'top 90%', once:true, onEnter:() => gsap.to(o,{v:a,duration:1.6,ease:'expo.out',onUpdate:()=>el.textContent=Math.round(o.v)})});
+  });
+  // nastro di testo legato allo scroll
+  if (!SPAZIO) gsap.fromTo('#nastro', {xPercent:8}, {xPercent:-4, ease:'none', scrollTrigger:{trigger:'.storia', start:'top bottom', end:'bottom top', scrub:true}});
+  if (!SPAZIO) gsap.fromTo('.claudio figcaption', {rotate:-12, scale:.8}, {rotate:-3, scale:1, ease:'none', scrollTrigger:{trigger:'.bottega', start:'top 70%', end:'center center', scrub:true}});
+  // pitture sfalsate in parallasse
+  if (!SPAZIO) gsap.utils.toArray('.pittura').forEach((p,i) => gsap.fromTo(p, {y:60+i*40}, {y:0, ease:'none', scrollTrigger:{trigger:p, start:'top bottom', end:'top 40%', scrub:true}}));
+  // titolo gigante del piede
+  if (!SPAZIO) gsap.fromTo('.marchio-gigante', {yPercent:60}, {yPercent:12, ease:'none', scrollTrigger:{trigger:'.piede', start:'top bottom', end:'bottom bottom', scrub:true}});
+  // reparti orizzontali (solo desktop)
+  const mm = gsap.matchMedia();
+  if (!SPAZIO) mm.add('(min-width: 901px)', () => {
+    const dist = () => binario.scrollWidth - innerWidth;
+    gsap.to(binario, {x:() => -dist(), ease:'none', scrollTrigger:{trigger:'#reparti', start:'top top', end:() => '+=' + dist(), pin:true, scrub:.6, invalidateOnRefresh:true, anticipatePin:1,
+      onUpdate:s => { S.progRep = s.progress; }}});
+  });
+  mm.add('(max-width: 900px)', () => {
+    gsap.utils.toArray('.lama').forEach(l => gsap.from(l, {y:60, rotate:2, duration:.8, ease:'expo.out', scrollTrigger:{trigger:l, start:'top 92%', once:true}}));
+  });
+  if (!SPAZIO) gsap.utils.toArray('.tavola').forEach(t => {
+    if (t.getBoundingClientRect().top < innerHeight) return;
+    const voce = t.querySelector('.tav-voce'), sec = t.querySelector('.tav-secchio'), img = t.querySelector('.tav-img');
+    gsap.set(voce, {opacity:0, y:20}); gsap.set(sec, {y:120, opacity:0});
+    ScrollTrigger.create({trigger:t, start:'top 70%', once:true, onEnter:() => { gsap.to(voce,{opacity:1,y:0,duration:1.4,ease:'expo.out'}); gsap.to(sec,{y:0,opacity:1,duration:1.2,ease:'back.out(1.4)',delay:.2}); }});
+    gsap.fromTo(img, {scale:1.08}, {scale:1, ease:'none', scrollTrigger:{trigger:t, start:'top bottom', end:'bottom top', scrub:true}});
+  });
+  if (SPAZIO && lenis) {
+    const punti = () => { const n = Math.round((document.querySelector('.corsa').offsetHeight - innerHeight) / V.seg); return Array.from({length:n+1}, (_,k) => k*V.seg); };
+    const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+    let inVolo = false, obiettivo = null, fineVolo = 0, ultimoEvento = 0, ultimoOk = 0, fermo = null, ultimaY = scrollY, dir = 1;
+    function prossimo(y, d){ const p = punti(); if (d > 0) return p.find(v => v > y + 3) ?? null; for (let k = p.length-1; k >= 0; k--) if (p[k] < y - 3) return p[k]; return null; }
+    const tappa = y => V.stops && V.stops[Math.round(y / V.seg)];
+    function vola(m, da){
+      const y = da ?? scrollY; if (m == null || Math.abs(m - y) < 2) return false;
+      clearTimeout(fermo);
+      const tappe = Math.abs(m - y) / V.seg, s1 = tappa(y), s2 = tappa(m);
+      const stessa = s1 && s2 && s1.k === s2.k;
+      const dur = stessa ? (s1.k === 'rep' ? .55 : 1.15) : Math.min(1.9, .85 + tappe*.7);
+      inVolo = true; obiettivo = m; fineVolo = performance.now() + dur*1000;
+      lenis.scrollTo(m, {duration:dur, easing:ease, lock:true, force:true, onComplete:() => { inVolo = false; obiettivo = null; }});
+      setTimeout(() => { if (performance.now() >= fineVolo) { inVolo = false; obiettivo = null; } }, dur*1000 + 200);
+      return true;
+    }
+    function passo(e, d, tacca){
+      const ora = performance.now(), pausa = ora - ultimoEvento; ultimoEvento = ora;
+      const base = inVolo && obiettivo != null ? obiettivo : scrollY;
+      const m = prossimo(base, d);
+      if (m == null) return;
+      e.preventDefault(); e.stopPropagation();
+      if (inVolo) {
+        // nei reparti ogni scatto della rotella porta alla card successiva, anche durante lo spostamento
+        const sA = tappa(base), sB = tappa(m);
+        if (tacca && ora - ultimoOk > 120 && sA && sB && sA.k === 'rep' && sB.k === 'rep') { ultimoOk = ora; vola(m, base); }
+        return;
+      }
+      // trackpad: la scia di un gesto già usato non fa partire un altro passaggio
+      if (!tacca && pausa < 240 && ora - ultimoOk < 2500) return;
+      ultimoOk = ora; vola(m);
+    }
+    document.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaY) < 1) return;
+      const tacca = Math.abs(e.deltaY) >= 60 && Number.isInteger(e.deltaY);
+      passo(e, e.deltaY > 0 ? 1 : -1, tacca);
+    }, {capture:true, passive:false});
+    document.addEventListener('keydown', e => {
+      if (e.target.closest('input,textarea,select')) return;
+      const giu = ['ArrowDown','PageDown','ArrowRight'].includes(e.key) || (e.key === ' ' && !e.shiftKey), su = ['ArrowUp','PageUp','ArrowLeft'].includes(e.key) || (e.key === ' ' && e.shiftKey);
+      if (giu) passo(e, 1, true); else if (su) passo(e, -1, true);
+    }, {capture:true});
+    // se ci si ferma a metà (barra di scorrimento), la pagina completa da sola il passaggio
+    lenis.on('scroll', () => {
+      const y = scrollY; if (y !== ultimaY) { dir = y > ultimaY ? 1 : -1; ultimaY = y; }
+      clearTimeout(fermo);
+      if (!inVolo) fermo = setTimeout(() => { const yy = scrollY, r = yy % V.seg; if (r > 3 && V.seg - r > 3) vola(dir > 0 ? yy - r + V.seg : yy - r); }, 160);
+    });
+  }
+  // inclinazione delle pitture al passaggio del mouse
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    document.querySelectorAll('.pittura').forEach(c => {
+      c.addEventListener('pointermove', e => { const r=c.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; c.style.transform=`perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg)`; });
+      c.addEventListener('pointerleave', () => c.style.transform='');
+    });
+  }
+}
+
+/* ---------- Bottega: Claudio segue il mouse ---------- */
+(function(){
+  const box = document.querySelector('.bottega'); if (!box || RIDOTTO) return;
+  const claudio = box.querySelector('.claudio img'); let mx = 0, my = 0, sx = 0, sy = 0;
+  addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; }, {passive:true});
+  (function g(){ requestAnimationFrame(g); sx += (mx-sx)*.06; sy += (my-sy)*.06; claudio.style.transform = `perspective(900px) rotateY(${sx*12}deg) rotateX(${sy*-6}deg) translateZ(30px)`; })();
+})();
+
+/* ---------- Scena 3D ---------- */
+const S = {fanX:.5, fanY:-.55, fanS:.88, fanOpen:0, fanRY:-.35, fanRZ:0,
+           viteX:1.6, viteY:-.2, viteS:1, viteR:0,
+           dadoX:1.6, dadoY:.3, rondX:1.6, rondY:-.4,
+           progRep:0, ap:0, mx:0, my:0};
+window.__S = S;
+const canvas = document.getElementById('scena');
+if (!window.THREE) { canvas.remove(); return; }
+let renderer;
+try { renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true, powerPreference:'high-performance'}); }
+catch(e) { canvas.remove(); return; }
+renderer.setPixelRatio(Math.min(devicePixelRatio, MOBILE() ? 1.5 : 1.75));
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.NoToneMapping;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, 1, .1, 100);
+camera.position.set(0,0,12);
+
+// ambiente riflesso per il metallo: studio con fasce di luce
+(function(){
+  const c = document.createElement('canvas'); c.width = 512; c.height = 256; const g = c.getContext('2d');
+  const gr = g.createLinearGradient(0,0,0,256); gr.addColorStop(0,'#ffffff'); gr.addColorStop(.45,'#cfd6e6'); gr.addColorStop(.55,'#7c879c'); gr.addColorStop(1,'#20242c');
+  g.fillStyle = gr; g.fillRect(0,0,512,256);
+  g.fillStyle = '#ffffff'; g.fillRect(60,40,90,170); g.fillRect(330,30,40,190);
+  g.fillStyle = 'rgba(226,49,40,.55)'; g.fillRect(200,60,50,120);
+  g.fillStyle = 'rgba(38,73,176,.6)'; g.fillRect(420,70,60,110);
+  const tex = new THREE.CanvasTexture(c); tex.mapping = THREE.EquirectangularReflectionMapping; tex.encoding = THREE.sRGBEncoding;
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromEquirectangular(tex).texture;
+  tex.dispose(); pm.dispose();
+})();
+scene.add(new THREE.AmbientLight(0xffffff, .35));
+const sole = new THREE.DirectionalLight(0xffffff, 1.1); sole.position.set(3,5,6); scene.add(sole);
+
+const metallo = new THREE.MeshStandardMaterial({color:0xdfe3ea, metalness:1, roughness:.22});
+const metalloScuro = new THREE.MeshStandardMaterial({color:0x8b93a1, metalness:1, roughness:.35});
+
+/* Mazzetta */
+const BW = 1, BH = 4.6;
+function formaLama(){
+  const r = .1, w = BW, h = BH, s = new THREE.Shape();
+  s.moveTo(-w/2+r,0); s.lineTo(w/2-r,0); s.quadraticCurveTo(w/2,0,w/2,r); s.lineTo(w/2,h-r); s.quadraticCurveTo(w/2,h,w/2-r,h);
+  s.lineTo(-w/2+r,h); s.quadraticCurveTo(-w/2,h,-w/2,h-r); s.lineTo(-w/2,r); s.quadraticCurveTo(-w/2,0,-w/2+r,0);
+  const foro = new THREE.Path(); foro.absarc(0,.32,.1,0,Math.PI*2,true); s.holes.push(foro);
+  return s;
+}
+const geoLama = new THREE.ExtrudeGeometry(formaLama(), {depth:.03, bevelEnabled:true, bevelThickness:.01, bevelSize:.01, bevelSegments:2, curveSegments:10});
+function texLama(nome, hex){
+  const c = document.createElement('canvas'); c.width = 256; c.height = Math.round(256*BH/BW); const g = c.getContext('2d');
+  g.fillStyle = '#ffffff'; g.fillRect(0,0,c.width,c.height);
+  g.fillStyle = hex; const m = 14; g.beginPath(); if (g.roundRect) g.roundRect(m,m,c.width-2*m,c.height*.74,10); else g.rect(m,m,c.width-2*m,c.height*.74); g.fill();
+  g.fillStyle = '#15171C'; g.font = '700 30px Figtree, sans-serif'; g.fillText(nome, 22, c.height*.74+m+50);
+  g.fillStyle = '#5A606C'; g.font = '500 22px "Red Hat Mono", monospace'; g.fillText(hex.toUpperCase(), 22, c.height*.74+m+86);
+  const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4;
+  t.repeat.set(1/BW, 1/BH); t.offset.set(.5, 0);
+  return t;
+}
+const fan = new THREE.Group(); scene.add(fan);
+const lame = [];
+const ORDINE = [0,2,4,3,5,6,7,1]; // il Colorificio sta davanti
+// nel viaggio 3D le lame sono le tinte da provare; su telefono resta la mazzetta dei reparti
+const LAME = SPAZIO ? TINTE.map(([n,hex]) => [n,hex]) : ORDINE.map(idx => [REPARTI[idx][0], REPARTI[idx][2]]);
+LAME.forEach(([n,hex], i) => {
+  const mat = new THREE.MeshPhysicalMaterial({map:texLama(n,hex), roughness:.5, clearcoat:.35, clearcoatRoughness:.4, envMapIntensity:.35});
+  const mesh = new THREE.Mesh(geoLama, mat); mesh.position.z = i*.05;
+  const perno = new THREE.Group(); perno.add(mesh); fan.add(perno);
+  mesh.position.y = -.32; // il foro coincide col perno
+  lame.push({perno, mesh, mat, base: (22 - i*13.5) * Math.PI/180, nome:n, i, off:0});
+});
+const bullone = new THREE.Mesh(new THREE.CylinderGeometry(.14,.14,.6,32), metallo); bullone.rotation.x = Math.PI/2; bullone.position.z = .2; fan.add(bullone);
+const testaB = new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.1,6), metallo); testaB.rotation.x = Math.PI/2; testaB.position.z = lame.length*.05+.1; fan.add(testaB);
+let selIdx = -1, hoverIdx = -1, fanAttivo = false;
+if (SPAZIO) {
+  selIdx = TINTE.indexOf(tintaAttiva);
+  window.__ricolora = t => { selIdx = TINTE.indexOf(t); };
+} else {
+  const fronte = lame[lame.length-1];
+  window.__ricolora = t => { if (fronte.mat.map) fronte.mat.map.dispose(); fronte.mat.map = texLama(t[0], t[1]); fronte.mat.needsUpdate = true; };
+  window.__ricolora(tintaAttiva);
+}
+// colorificio: la mazzetta a sinistra, il perno (col bullone) fuori dall'angolo in basso a sinistra
+const FAN_CAMP = {x:-1.07, y:-1.14, rz:-.525, open:.55, s:1.55}; window.__FANC = FAN_CAMP;
+// lame cliccabili: si sceglie la tinta toccando la mazzetta
+const raggio = new THREE.Raycaster(), ndc = new THREE.Vector2();
+function lamaSotto(x, y){
+  if (!fanAttivo || !fan.visible) return -1;
+  ndc.set(x/innerWidth*2 - 1, -(y/innerHeight)*2 + 1); raggio.setFromCamera(ndc, camera);
+  const h = raggio.intersectObjects(lame.map(l => l.mesh), false);
+  return h.length ? lame.find(l => l.mesh === h[0].object).i : -1;
+}
+const interattivo = el => el && el.closest && el.closest('a,button,input,select,textarea,label');
+if (SPAZIO) {
+  addEventListener('pointermove', e => {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    hoverIdx = interattivo(e.target) ? -1 : lamaSotto(e.clientX, e.clientY);
+    document.documentElement.style.cursor = hoverIdx >= 0 ? 'pointer' : '';
+  }, {passive:true});
+  addEventListener('click', e => {
+    if (interattivo(e.target)) return;
+    const k = lamaSotto(e.clientX, e.clientY);
+    if (k >= 0) scegliTinta(TINTE[k], tinteEl.querySelectorAll('button')[k]);
+  });
+}
+// nella testata la mazzetta sta dietro ai testi: una copia della scena dipinta sotto i pannelli
+let dietro = null, dctx = null;
+if (SPAZIO) {
+  dietro = document.createElement('canvas'); dietro.id = 'scena-dietro'; dietro.setAttribute('aria-hidden','true');
+  document.querySelector('.vista').prepend(dietro); dctx = dietro.getContext('2d');
+}
+
+/* Vite */
+const vite = new THREE.Group(); scene.add(vite);
+(function(){
+  const testa = new THREE.Mesh(new THREE.CylinderGeometry(.62,.62,.26,48), metallo); testa.position.y = 1.6; vite.add(testa);
+  const croce1 = new THREE.Mesh(new THREE.BoxGeometry(.8,.1,.12), metalloScuro); croce1.position.y = 1.7; vite.add(croce1);
+  const croce2 = croce1.clone(); croce2.rotation.y = Math.PI/2; vite.add(croce2);
+  const gambo = new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,3,32), metallo); vite.add(gambo);
+  class Elica extends THREE.Curve { getPoint(t, o = new THREE.Vector3()){ const g = t*Math.PI*2*15; return o.set(Math.cos(g)*.24, 1.45 - t*3.2, Math.sin(g)*.24); } }
+  const filetto = new THREE.Mesh(new THREE.TubeGeometry(new Elica(), 600, .055, 8, false), metallo); vite.add(filetto);
+  const punta = new THREE.Mesh(new THREE.ConeGeometry(.22,.5,32), metallo); punta.rotation.x = Math.PI; punta.position.y = -1.75; vite.add(punta);
+})();
+vite.rotation.z = -.5;
+
+/* Dado e rondella */
+function esagono(r){ const s = new THREE.Shape(); for (let i=0;i<6;i++){ const a = i*Math.PI/3; i? s.lineTo(Math.cos(a)*r,Math.sin(a)*r) : s.moveTo(Math.cos(a)*r,Math.sin(a)*r);} s.closePath(); const h = new THREE.Path(); h.absarc(0,0,r*.48,0,Math.PI*2,true); s.holes.push(h); return s; }
+const dado = new THREE.Mesh(new THREE.ExtrudeGeometry(esagono(.7),{depth:.55,bevelEnabled:true,bevelThickness:.06,bevelSize:.05,bevelSegments:3,curveSegments:32}), metallo); dado.geometry.center(); scene.add(dado);
+const anello = new THREE.Shape(); anello.absarc(0,0,.75,0,Math.PI*2,false); const fa = new THREE.Path(); fa.absarc(0,0,.34,0,Math.PI*2,true); anello.holes.push(fa);
+const rondella = new THREE.Mesh(new THREE.ExtrudeGeometry(anello,{depth:.08,bevelEnabled:true,bevelThickness:.02,bevelSize:.02,bevelSegments:2,curveSegments:48}), metallo); rondella.geometry.center(); scene.add(rondella);
+
+/* Coreografia con lo scroll */
+let vw = 1, vh = 1;
+function misura(){
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w/h; camera.updateProjectionMatrix();
+  if (dietro) { dietro.width = Math.round(w/2); dietro.height = Math.round(h/2); }
+  vh = 2*camera.position.z*Math.tan(THREE.MathUtils.degToRad(camera.fov/2)); vw = vh*camera.aspect;
+}
+misura(); addEventListener('resize', misura);
+
+if (hasGsap) {
+  const mob = MOBILE();
+  // apertura iniziale
+  gsap.to(S, {fanOpen:1, duration: RIDOTTO ? 0 : 1.8, ease:'expo.out', delay:.15});
+  gsap.to(S, {ap:1, duration: RIDOTTO ? 0 : 1.8, ease:'expo.out', delay:.15});
+  if (!RIDOTTO && !SPAZIO) {
+    // testata -> campionario: la mazzetta si sposta a sinistra e si gira verso di noi
+    gsap.timeline({scrollTrigger:{trigger:'#campionario', start:'top bottom', end:'center center', scrub:1}})
+      .to(S, {fanX: mob ? .1 : -.62, fanY: mob ? -.05 : -.78, fanRY:0, fanRZ: mob ? 0 : .62, fanS: mob ? .82 : .92, ease:'none'}, 0);
+    // campionario -> pitture: la mazzetta si chiude e vola via
+    gsap.timeline({scrollTrigger:{trigger:'#pitture', start:'top bottom', end:'top 30%', scrub:1}})
+      .to(S, {fanOpen:.15, fanY:1.9, fanRZ:-.2, ease:'none'}, 0);
+    // reparti: arriva la vite
+    gsap.timeline({scrollTrigger:{trigger:'#reparti', start:'top bottom', end:'top top', scrub:1}})
+      .fromTo(S, {viteX:1.6, viteY:-.6}, {viteX: mob ? .55 : .62, viteY: mob ? .25 : .15, ease:'none'}, 0);
+    gsap.timeline({scrollTrigger:{trigger:'#storia', start:'top bottom', end:'top 20%', scrub:1}})
+      .to(S, {viteX:-1.8, viteY:.9, ease:'none'}, 0)
+      .fromTo(S, {dadoX:1.6, dadoY:.9, rondX:1.7, rondY:-.9}, {dadoX: mob ? .7 : .84, dadoY: mob ? .72 : .74, rondX: mob ? .78 : .9, rondY: mob ? -.55 : -.78, ease:'none'}, 0);
+    gsap.timeline({scrollTrigger:{trigger:'#dove', start:'top bottom', end:'top 30%', scrub:1}})
+      .to(S, {dadoX:1.7, dadoY:1.2, rondX:1.8, rondY:-1.2, ease:'none'}, 0);
+  } else if (RIDOTTO) {
+    S.fanOpen = 1;
+  }
+  if (mob) { S.fanX = .05; S.fanY = -.28; S.fanS = .78; }
+}
+
+addEventListener('pointermove', e => { S.mx = e.clientX/innerWidth - .5; S.my = e.clientY/innerHeight - .5; }, {passive:true});
+
+const orologio = new THREE.Clock();
+let rx = 0, ry = 0, vis = true, copia = false;
+document.addEventListener('visibilitychange', () => { vis = !document.hidden; });
+function frame(){
+  requestAnimationFrame(frame);
+  if (!vis) return;
+  const t = orologio.getElapsedTime();
+  rx += (S.my*.25 - rx)*.05; ry += (S.mx*.35 - ry)*.05;
+  const sc = Math.min(1, vh/6.3) * (MOBILE() ? .62 : .9);
+  if (SPAZIO && V.idx.camp != null) {
+    const st = V.st, I = V.idx, rp = (a,b) => Math.min(1, Math.max(0, (st-a)/(b-a))), L = (a,b,t) => a+(b-a)*t;
+    const e1 = rp(0, I.camp), e2 = rp(I.campFine+.05, I.campFine+.6), C = FAN_CAMP;
+    // testata: grande e sfocata dietro ai testi; colorificio: nitida a sinistra, perno fuori pagina; poi si chiude e scivola via
+    S.fanX = L(.16, C.x, e1) - e2*.8; S.fanY = L(-.98, C.y, e1) - e2*1.3;
+    S.fanRY = L(-.12, 0, e1); S.fanRZ = L(.55, C.rz, e1) - e2*.25; S.fanS = L(1.55, C.s, e1);
+    S.fanOpen = S.ap * L(1, C.open, e1) * (1 - e2*.9);
+    const sfoca = (1 - e1) * 14, filtro = sfoca > .2 ? `blur(${sfoca.toFixed(1)}px)` : 'none', op = L(.55, 1, e1);
+    const g = Math.min(1, Math.max(0, (e1 - .3) / .45)), davanti = g*g*(3 - 2*g);   // da dietro ai testi a davanti al pannello
+    canvas.style.filter = filtro; canvas.style.opacity = (op * davanti).toFixed(3);
+    copia = davanti < 1;
+    dietro.style.visibility = copia ? 'visible' : 'hidden';
+    if (copia) { dietro.style.filter = filtro; dietro.style.opacity = op.toFixed(3); }
+    fanAttivo = st > I.camp - .25 && st < I.campFine + .2;
+    if (!fanAttivo && hoverIdx >= 0) { hoverIdx = -1; document.documentElement.style.cursor = ''; }
+    const v1 = rp(I.rep-1, I.rep), v2 = rp(I.repFine, I.repFine+.8);
+    S.viteX = L(L(1.7, .62, v1), -1.9, v2); S.viteY = L(L(-.7, .15, v1), .95, v2); S.progRep = rp(I.rep, I.repFine);
+    const d1 = rp(I.bott-1, I.bott), d2 = rp(I.marchiFine, I.marchiFine+.8);
+    S.dadoX = L(L(1.7, .84, d1), 1.8, d2); S.dadoY = L(L(.95, .74, d1), 1.3, d2); S.rondX = L(L(1.8, .9, d1), 1.9, d2); S.rondY = L(L(-.95, -.78, d1), -1.3, d2);
+  }
+  // mazzetta
+  fan.position.set(S.fanX*vw/2, S.fanY*vh/2 + (RIDOTTO?0:Math.sin(t*.8)*.06), 0);
+  fan.scale.setScalar(sc*S.fanS);
+  fan.rotation.set(rx*.6, S.fanRY + ry, S.fanRZ);
+  lame.forEach((l,i) => {
+    l.perno.rotation.z = l.base * S.fanOpen + (RIDOTTO?0:Math.sin(t*1.1+i*.5)*.012*S.fanOpen);
+    const meta = (l.i === selIdx ? .42 : 0) + (l.i === hoverIdx ? .18 : 0);
+    l.off += (meta - l.off) * .14; l.mesh.position.y = -.32 + l.off;
+  });
+  fan.visible = S.fanY < 1.8 && S.fanY > -2;
+  // vite
+  vite.position.set(S.viteX*vw/2, S.viteY*vh/2 + (RIDOTTO?0:Math.sin(t*.9)*.08), 1);
+  vite.scale.setScalar(sc*.95);
+  vite.rotation.y = S.progRep*Math.PI*6 + (RIDOTTO?0:t*.25);
+  vite.rotation.x = .35 + rx;
+  vite.visible = Math.abs(S.viteX) < 1.55;
+  // dado e rondella
+  dado.position.set(S.dadoX*vw/2, S.dadoY*vh/2, .5); dado.scale.setScalar(sc*.9);
+  dado.rotation.set(t*.35 + rx, t*.5 + ry, .3);
+  rondella.position.set(S.rondX*vw/2, S.rondY*vh/2, .2); rondella.scale.setScalar(sc*.9);
+  rondella.rotation.set(1.1 + Math.sin(t*.6)*.3, t*.4, .4);
+  dado.visible = rondella.visible = S.dadoX < 1.55;
+  renderer.render(scene, camera);
+  if (copia && dctx) { dctx.clearRect(0, 0, dietro.width, dietro.height); dctx.drawImage(renderer.domElement, 0, 0, dietro.width, dietro.height); }
+}
+frame();
+if (hasGsap) addEventListener('load', () => ScrollTrigger.refresh());
+})();
+</script>
+</body></html>
