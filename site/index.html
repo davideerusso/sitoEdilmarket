@@ -306,6 +306,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .orari table{width:100%;border-collapse:collapse}
 .orari td{padding:11px 10px;font-size:16px}
 .orari td:last-child{text-align:right}
+.orari td.mono{white-space:nowrap}
 .orari tr.oggi td{background:#FCE4E2;color:#B5231B;font-weight:600}
 .orari tr.oggi td:first-child{border-radius:8px 0 0 8px}
 .orari tr.oggi td:last-child{border-radius:0 8px 8px 0}
@@ -421,7 +422,8 @@ body:not(.spazio) .hero.mazzo{z-index:4}
   .dove{padding-block:88px}
   .dove-griglia{grid-template-columns:1fr;gap:36px;margin-top:40px}
   .orari{padding:20px}
-  .orari td{padding:10px 6px;font-size:15px}
+  .orari td{padding:10px 5px;font-size:14px}
+  .orari td.mono{font-size:13px}
   .storia{padding-top:88px}
   .nastro{font-size:clamp(36px,12.6vw,96px)}
   .bottega{margin-top:48px}
@@ -702,7 +704,7 @@ function oraRoma(){
   const h = +p.find(x=>x.type==='hour').value % 24, m = +p.find(x=>x.type==='minute').value;
   return {g, min:h*60+m};
 }
-const FASCE = [[390,810],[930,1190]];
+const FASCE = [[390,810],[930,1170]];   // 6:30-13:30, 15:30-19:30
 const fasceDi = g => g === 0 ? [] : g === 6 ? [FASCE[0]] : FASCE;   // sabato solo mattina, domenica chiuso
 const fmt = m => `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
 function stato(){
@@ -723,7 +725,9 @@ const tab = document.getElementById('tab-orari');
 const oggi = oraRoma().g;
 [1,2,3,4,5,6,0].forEach(g => {
   const tr = document.createElement('tr'); if (g===oggi) tr.className = 'oggi';
-  tr.innerHTML = `<td>${GIORNI[g]}${g===oggi?' (oggi)':''}</td><td class="mono ${g===0?'chiuso':''}">${g===0?'Chiuso':g===6?'6:30 - 13:30 &nbsp; pomeriggio chiuso':'6:30 - 13:30 &nbsp; 15:30 - 19:30'}</td>`;
+  const mat = g === 0 ? null : '6:30–13:30', pom = (g === 0 || g === 6) ? null : '15:30–19:30';
+  const cella = v => `<td class="mono ${v ? '' : 'chiuso'}">${v || 'Chiuso'}</td>`;
+  tr.innerHTML = `<td>${GIORNI[g]}${g===oggi?' (oggi)':''}</td>${cella(mat)}${cella(pom)}`;
   tab.appendChild(tr);
 });
 aggiornaStato(); setInterval(aggiornaStato, 60000);
