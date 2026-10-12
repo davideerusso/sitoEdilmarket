@@ -197,6 +197,11 @@ main,header,footer{position:relative;z-index:1}
 /* la foto dell'ambiente occupa il lato opposto al testo; la tinta scelta la ricolora */
 .tav-img.amb{left:40%}
 .t-dx .tav-img.amb{left:0;right:40%}
+/* la foto sfuma morbida nella carta, senza bordo netto */
+@media (min-width:901px){
+  .tav-img.amb{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%)}
+  .t-dx .tav-img.amb{-webkit-mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%);mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%)}
+}
 .amb canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos);display:block}
 .amb .amb-sopra{opacity:0}
 .amb .amb-sopra.vai{opacity:1;transition:opacity .45s ease}
