@@ -771,7 +771,7 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
     esterni:[['Bianco calce','#F1ECE0'],['Sabbia','#DCC6A4'],['Giallo Salento','#E6B85C'],['Ocra','#C98F45'],['Rosa antico','#D49A8C'],['Terracotta','#B9603F'],['Verde salvia','#9FAE93'],['Azzurro cielo','#9DB9CF']],
     legno:[['Neutro','#EED7AF'],['Douglas','#DB9B5D'],['Castagno','#8C6045'],['Mogano','#B65D43'],['Ciliegio','#D7783C'],['Noce chiaro','#BC8556'],['Noce scuro','#976546'],['Wengé','#786555'],['Quercia','#E4B57A'],['Bianco','#FEF9E7']]
   };
-  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:'sul tavolo e le panche'};
+  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:''};
   const carica = src => new Promise((ok, ko) => { const i = new Image(); i.decoding = 'async'; i.onload = () => ok(i); i.onerror = ko; i.src = src; });
   document.querySelectorAll('.tav-img.amb').forEach(box => {
     const k = box.dataset.amb, art = box.closest('.tavola');
@@ -818,7 +818,7 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
       if (!pronto) return;
       scelta = i;
       bottoni.forEach((b, n) => b.setAttribute('aria-pressed', n === i ? 'true' : 'false'));
-      etichetta.textContent = i < 0 ? 'colore originale' : TINTE[k][i][0] + ' ' + COSA[k];
+      etichetta.textContent = i < 0 ? 'colore originale' : (TINTE[k][i][0] + ' ' + COSA[k]).trim();
       const img = i < 0 ? base : dipingi(TINTE[k][i][1]);
       sopra.classList.remove('vai'); sopra.getContext('2d').putImageData(img, 0, 0);
       void sopra.offsetWidth; sopra.classList.add('vai');
