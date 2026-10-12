@@ -109,11 +109,18 @@ main,header,footer{position:relative;z-index:1}
 .frase p span{display:block}
 @media (min-width:901px){.frase p span{white-space:nowrap}}
 /* Charlie in un francobollo: carta dentellata, campo a righe col colore del cielo, etichetta con la tinta */
-.charlie{--r:7px;--ink:#1E1F24;--fb-carta:#F6F0E4;--fb-tratto:#1E1F24;position:relative;isolation:isolate;margin:22px 0 16px;width:min(100%,var(--fb-w));padding:calc(2*var(--r));color:var(--fb-tratto);transform:rotate(-2deg)}
-.charlie::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(var(--r),#0000 97%,var(--fb-carta)) round calc(-1.5*var(--r)) calc(-1.5*var(--r))/calc(3*var(--r)) calc(3*var(--r)),
+.charlie{--tx:0deg;--ty:0deg;--hx:50%;--hy:50%;--holo:0;--r:7px;--ink:#1E1F24;--fb-carta:#F6F0E4;--fb-tratto:#1E1F24;position:relative;isolation:isolate;margin:22px 0 16px;width:min(100%,var(--fb-w));padding:calc(2*var(--r));color:var(--fb-tratto);transform:perspective(900px) rotateX(var(--ty)) rotateY(var(--tx)) rotate(-2deg);transition:transform .6s var(--ease);-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+.charlie.inclina{transition:transform .1s linear}
+.charlie::before{content:"";position:absolute;inset:0;z-index:-1;padding:calc(1.5*var(--r));
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .36 0 0 0 0 .26 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+   radial-gradient(var(--r),#0000 97%,var(--fb-carta)) round calc(-1.5*var(--r)) calc(-1.5*var(--r))/calc(3*var(--r)) calc(3*var(--r)),
    linear-gradient(var(--fb-carta) 0 0) no-repeat 50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r));
+  background-clip:content-box,border-box,border-box;
   filter:drop-shadow(0 22px 26px rgba(22,24,29,.35))}
+/* riflesso olografico leggero: segue il mouse (o il dito tenendo premuto) */
+.charlie::after{content:"";position:absolute;z-index:2;inset:calc(1.2*var(--r));border-radius:3px;pointer-events:none;mix-blend-mode:color-dodge;opacity:calc(.06 + var(--holo) * .17);transition:opacity .5s ease;
+  background:linear-gradient(115deg,transparent 18%,rgba(255,60,180,.5) 34%,rgba(255,225,60,.5) 43%,rgba(60,255,200,.5) 52%,rgba(70,150,255,.5) 61%,transparent 78%) var(--hx) var(--hy)/260% 260% no-repeat,
+   radial-gradient(circle at var(--hx) var(--hy),rgba(255,255,255,.5),transparent 42%)}
 .fb-campo{position:relative;aspect-ratio:1121/1403;border:3px solid var(--fb-tratto);border-radius:10px;background:repeating-linear-gradient(-56deg,var(--c2) 0 24px,var(--fb-carta) 24px 48px)}
 .fb-valore{position:absolute;z-index:2;left:10px;top:6px;font:900 calc(var(--fb-w) * .124)/1 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100;letter-spacing:-.02em;text-shadow:2px 2px 0 var(--fb-carta),-2px -2px 0 var(--fb-carta),2px -2px 0 var(--fb-carta),-2px 2px 0 var(--fb-carta)}
 .fb-riga{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 8px}
@@ -132,8 +139,8 @@ main,header,footer{position:relative;z-index:1}
 /* Charlie fa un piccolo salto a ogni tinta, il francobollo ondeggia */
 .salto-a{animation:saltoA .6s cubic-bezier(.3,.7,.3,1)}
 .salto-b{animation:saltoB .6s cubic-bezier(.3,.7,.3,1)}
-@keyframes saltoA{35%{transform:rotate(1deg) translateY(-14px) scale(1.02)}}
-@keyframes saltoB{35%{transform:rotate(1deg) translateY(-14px) scale(1.02)}}
+@keyframes saltoA{35%{transform:perspective(900px) rotateX(var(--ty)) rotateY(var(--tx)) rotate(1deg) translateY(-14px) scale(1.02)}}
+@keyframes saltoB{35%{transform:perspective(900px) rotateX(var(--ty)) rotateY(var(--tx)) rotate(1deg) translateY(-14px) scale(1.02)}}
 /* adesivi attaccati sul francobollo */
 .adesivo{position:absolute;z-index:3;margin:0;pointer-events:none;color:var(--fb-tratto)}
 .battuta{left:-11%;bottom:31%;max-width:64%;display:grid;justify-items:center;gap:2px;padding:.4em .7em .5em;border-radius:.8em;font-size:calc(var(--fb-w) * .058);background:#FFFFFF;text-align:center;box-shadow:0 0 0 3px var(--fb-tratto),6px 7px 0 0 var(--fb-tratto);transform:rotate(-8deg)}
@@ -680,6 +687,46 @@ function colora(i){
   // Charlie fa un piccolo salto a ogni tinta
   salti++; figEl.classList.remove('salto-a','salto-b'); figEl.classList.add(salti % 2 ? 'salto-a' : 'salto-b');
 }
+/* Francobollo che si inclina: col mouse sul computer, tenendo premuto e trascinando sul telefono */
+(function(){
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const f = figEl; let rientro;
+  function inclina(x, y){
+    const r = f.getBoundingClientRect();
+    const px = Math.max(0, Math.min(1, (x - r.left) / r.width)), py = Math.max(0, Math.min(1, (y - r.top) / r.height));
+    f.classList.add('inclina');
+    f.style.setProperty('--tx', ((px - .5) * 18).toFixed(2) + 'deg');
+    f.style.setProperty('--ty', ((.5 - py) * 14).toFixed(2) + 'deg');
+    f.style.setProperty('--hx', (px * 100).toFixed(1) + '%');
+    f.style.setProperty('--hy', (py * 100).toFixed(1) + '%');
+    f.style.setProperty('--holo', '1');
+    clearTimeout(rientro);
+  }
+  function riposa(){ f.classList.remove('inclina'); ['--tx','--ty'].forEach(v => f.style.setProperty(v, '0deg')); f.style.setProperty('--hx','50%'); f.style.setProperty('--hy','50%'); f.style.setProperty('--holo','0'); }
+  // computer: il francobollo segue il mouse quando ci passa sopra (e un po' intorno)
+  if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+    addEventListener('pointermove', e => {
+      const r = f.getBoundingClientRect(), m = 80;
+      if (e.clientX > r.left - m && e.clientX < r.right + m && e.clientY > r.top - m && e.clientY < r.bottom + m) inclina(e.clientX, e.clientY);
+      else { clearTimeout(rientro); rientro = setTimeout(riposa, 60); }
+    }, {passive:true});
+    document.addEventListener('mouseleave', riposa);
+  }
+  // telefono: tieni premuto un attimo sul francobollo, poi trascina
+  let attesa = null, attivo = false, sx = 0, sy = 0;
+  f.addEventListener('touchstart', e => {
+    const t = e.touches[0]; sx = t.clientX; sy = t.clientY;
+    attesa = setTimeout(() => { attivo = true; inclina(sx, sy); if (navigator.vibrate) navigator.vibrate(8); }, 220);
+  }, {passive:true});
+  f.addEventListener('touchmove', e => {
+    const t = e.touches[0];
+    if (attivo) { e.preventDefault(); inclina(t.clientX, t.clientY); }
+    else if (Math.hypot(t.clientX - sx, t.clientY - sy) > 10) { clearTimeout(attesa); }   // è uno scorrimento: la pagina scorre normale
+  }, {passive:false});
+  const fine = () => { clearTimeout(attesa); if (attivo) { attivo = false; riposa(); } };
+  f.addEventListener('touchend', fine); f.addEventListener('touchcancel', fine);
+  f.addEventListener('contextmenu', e => { if (attivo) e.preventDefault(); });
+})();
 // finché si è nella testata lo stato del negozio sta lì; nel menu ricompare quando si scende
 document.body.classList.add('in-testata');
 if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata', scrollY < innerHeight*.6); addEventListener('scroll', inTesta, {passive:true}); inTesta(); }
