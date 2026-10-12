@@ -200,12 +200,13 @@ main,header,footer{position:relative;z-index:1}
 /* la foto sfuma morbida nella carta, senza bordo netto */
 @media (min-width:901px){
   /* contenuto raccolto al centro: l'immagine ha le sue proporzioni e si vede quasi intera */
-  .tavola{--box:min(100vw,1440px);--lato:calc((100vw - var(--box)) / 2)}
-  .tav-img.amb{left:auto;right:var(--lato);width:min(58vw,calc(100vh * .7))}
-  .t-dx .tav-img.amb{right:auto;left:var(--lato)}
-  .tav-testo{margin-inline:calc(var(--lato) + 6vw)}
-  .tav-img.amb{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%,#000 calc(100% - 8%),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%,#000 calc(100% - 8%),transparent 100%)}
-  .t-dx .tav-img.amb{-webkit-mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%,#000 calc(100% - 8%),transparent 100%);mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.35) 14%,#000 38%,#000 calc(100% - 8%),transparent 100%)}
+  /* l'immagine poggia sul bordo dello schermo con le sue proporzioni; il testo sta al centro dello spazio che resta */
+  .tavola{--iw:min(56vw,calc(100vh * .72));--tw:min(36vw,500px);--mg:max(5vw,calc((100vw - var(--iw) - var(--tw)) / 2 - 2vw))}
+  .tav-img.amb{left:auto;right:0;width:var(--iw)}
+  .t-dx .tav-img.amb{right:auto;left:0}
+  .tavola .tav-testo{width:var(--tw);margin-inline:var(--mg)}
+  .tav-img.amb{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%)}
+  .t-dx .tav-img.amb{-webkit-mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%);mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%)}
 }
 .amb canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos);display:block}
 .amb .amb-sopra{opacity:0}
