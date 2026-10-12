@@ -519,8 +519,8 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
         <div class="tav-palco"><img class="tav-secchio" src="img/secchio-kompatt.webp" alt="Secchio di Boero Kompatt Plus" width="273" height="286"></div>
       </div>
     </article>
-    <article class="tavola t-sx" style="--img:url(img/amb-legno.webp);--pos:60% 64%;--pos-m:62% 62%;--ink:#1D5444;--bx:70%">
-      <div class="tav-img amb" data-amb="legno" role="img" aria-label="Foto di un soggiorno luminoso con mobili in legno chiaro: la tinta scelta colora i mobili"><canvas class="amb-sotto" aria-hidden="true"></canvas><canvas class="amb-sopra" aria-hidden="true"></canvas></div>
+    <article class="tavola t-sx" style="--img:url(img/amb-legno.webp);--pos:50% 42%;--pos-m:40% 62%;--ink:#1D5444;--bx:70%">
+      <div class="tav-img amb" data-amb="legno" role="img" aria-label="Disegno a incisione di una sala da pranzo con un grande tavolo e due panche di legno massello: la tinta scelta colora il legno"><canvas class="amb-sotto" aria-hidden="true"></canvas><canvas class="amb-sopra" aria-hidden="true"></canvas></div>
       <div class="tav-testo">
         <h3 class="disp tav-titolo">Per il legno</h3>
         <p class="tav-prodotto">Boero HP Satinato</p>
@@ -771,7 +771,7 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
     esterni:[['Bianco calce','#F1ECE0'],['Sabbia','#DCC6A4'],['Giallo Salento','#E6B85C'],['Ocra','#C98F45'],['Rosa antico','#D49A8C'],['Terracotta','#B9603F'],['Verde salvia','#9FAE93'],['Azzurro cielo','#9DB9CF']],
     legno:[['Bianco','#EFEDE6'],['Salvia','#9DAA90'],['Verde mare','#3E7C74'],['Verde persiana','#2F5A45'],['Blu marina','#24406B'],['Rosso pompeiano','#9C3A2E'],['Noce','#6A4128'],['Antracite','#3A3D42']]
   };
-  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:'sui mobili'};
+  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:'sul tavolo e le panche'};
   const carica = src => new Promise((ok, ko) => { const i = new Image(); i.decoding = 'async'; i.onload = () => ok(i); i.onerror = ko; i.src = src; });
   document.querySelectorAll('.tav-img.amb').forEach(box => {
     const k = box.dataset.amb, art = box.closest('.tavola');
