@@ -201,9 +201,12 @@ main,header,footer{position:relative;z-index:1}
 @media (min-width:901px){
   /* contenuto raccolto al centro: l'immagine ha le sue proporzioni e si vede quasi intera */
   /* l'immagine poggia sul bordo dello schermo con le sue proporzioni; il testo sta al centro dello spazio che resta */
-  .tavola{--iw:min(56vw,calc(100vh * .72));--tw:min(36vw,500px);--mg:max(5vw,calc((100vw - var(--iw) - var(--tw)) / 2 - 2vw))}
+  .tavola{--iw:min(60vw,calc(100vh * .9));--tw:min(36vw,500px);--mg:max(5vw,calc((100vw - var(--iw) - var(--tw)) / 2 - 2vw))}
   .tav-img.amb{left:auto;right:0;width:var(--iw)}
   .t-dx .tav-img.amb{right:auto;left:0}
+  /* più grande: interni e legno tagliati in alto, esterni tagliati in basso */
+  .amb[data-amb="interni"] canvas,.amb[data-amb="legno"] canvas{object-position:50% 100%}
+  .amb[data-amb="esterni"] canvas{object-position:50% 0%}
   .tavola .tav-testo{width:var(--tw);margin-inline:var(--mg)}
   .tav-img.amb{-webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%);mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%)}
   .t-dx .tav-img.amb{-webkit-mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%);mask-image:linear-gradient(270deg,transparent 0,rgba(0,0,0,.4) 10%,#000 26%)}
@@ -211,7 +214,7 @@ main,header,footer{position:relative;z-index:1}
 .amb canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos);display:block}
 .amb .amb-sopra{opacity:0}
 .amb .amb-sopra.vai{opacity:1;transition:opacity .45s ease}
-.tav-tinte{display:grid;gap:10px;margin-top:6px}
+.tav-tinte{display:grid;gap:10px;margin-top:6px;justify-self:stretch;width:100%}
 .tav-tinta{margin:0;font:500 15px/1.3 var(--f-testo);color:var(--ink)}
 .tav-tinta b{font-weight:700}
 .tav-chips{display:flex;flex-wrap:wrap;gap:8px}
@@ -358,16 +361,22 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .spazio .claudio img{height:min(92vh,840px);max-height:none}
 .spazio .marchio-gigante{transform:translateY(12%)!important}
 @media (max-width:900px){
-  .tavola{display:flex;flex-direction:column;align-items:stretch;min-height:100svh}
+  .tavola{display:flex;flex-direction:column;align-items:stretch;min-height:0;height:100svh}
   .tav-img.amb,.t-dx .tav-img.amb{left:auto;right:auto}
-  .tav-img{position:relative;flex:none;height:50svh;background-position:var(--pos-m);-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}
+  .tav-img{position:relative;flex:1 1 0;min-height:36svh;height:auto;background-position:var(--pos-m);-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}
   .tavola::after{display:none}
-  .tav-palco{order:-1;justify-self:center;height:20svh;margin:-9svh 0 2px}
+  .tav-palco{order:-1;justify-self:center;height:15svh;margin:-11svh 0 0}
   .tav-palco::before{display:block}
-  .tav-testo{order:2;width:auto;margin:0;padding:24px 20px 72px;gap:14px}
-  .tav-titolo{font-size:clamp(34px,10.5vw,56px)}
-  .tav-chips{flex-wrap:nowrap;gap:6px}
-  .tav-chips button{flex:1 1 0;min-width:0;max-width:40px;width:auto;height:auto;aspect-ratio:1;border-radius:10px}
+  .tav-testo{order:2;width:auto;margin:0;padding:4px 20px 16px;gap:9px}
+  .tav-prodotto{font-size:17px;margin:0}
+  .tav-corpo{font-size:15px;line-height:1.45}
+  .tav-pregi{gap:6px;margin:0}
+  .tav-pregi li{padding:7px 11px;font-size:13px}
+  .tav-tinte{gap:8px;margin-top:2px}
+  .tav-titolo{font-size:clamp(30px,9.5vw,48px)}
+  .tav-tinta{text-align:center}
+  .tav-chips{flex-wrap:nowrap;justify-content:center;gap:clamp(4px,1.6vw,8px);padding-top:4px}
+  .tav-chips button{flex:1 1 0;min-width:0;width:auto;height:auto;aspect-ratio:1;border-radius:clamp(8px,2.6vw,12px)}
   .voci{display:none}
   .stato.menu-stato{display:none}
   .hero{flex-direction:column;gap:8px;padding-block:96px 0;--cane-h:min(104vw,470px);
@@ -423,6 +432,14 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
   .claudio{width:min(82%,380px);padding-top:0}
   .piede-griglia{grid-template-columns:1fr 1fr}
   .piede-griglia > :first-child{grid-column:1 / -1}
+}
+/* telefono basso: le tinte vanno in colonna a destra, sopra il disegno, così la card entra tutta nello schermo */
+@media (max-width:900px) and (max-height:700px){
+  .tavola .tav-testo{position:static;padding-right:62px}
+  .tav-tinte{position:static}
+  .tav-tinta{text-align:left}
+  .tav-chips{position:absolute;z-index:3;right:10px;top:84px;flex-direction:column;gap:6px;padding:6px;border-radius:14px;background:rgba(254,252,248,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+  .tav-chips button{flex:none;width:min(34px,calc((100svh - 150px) / 11));height:auto}
 }
 @media (min-width:600px) and (max-width:900px){.binario{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
 @media (max-width:420px){.destra .btn span{display:none}}
@@ -1068,6 +1085,16 @@ if (hasGsap && !RIDOTTO) {
       onUpdate:s => { S.progRep = s.progress; }}});
   });
   mm.add('(max-width: 900px)', () => {
+    // telefono: passaggio tra le sezioni come un piccolo volo, la nuova sezione arriva inclinata e rimpicciolita, la vecchia si allontana
+    const sezioni = ['.hero', '#colorificio', '#reparti', '#storia', '#dove'].map(q => document.querySelector(q)).filter(Boolean);
+    sezioni.forEach((el, i) => {
+      el.style.transformOrigin = '50% 0%';
+      if (i > 0) gsap.fromTo(el, {scale:.86, rotateX:9, y:70, borderRadius:36, opacity:.4, transformPerspective:1100},
+        {scale:1, rotateX:0, y:0, borderRadius:0, opacity:1, ease:'none', scrollTrigger:{trigger:el, start:'top bottom', end:'top 30%', scrub:.4}});
+      if (i < sezioni.length - 1) gsap.to(el, {scale:.93, opacity:.55, ease:'none', immediateRender:false,
+        scrollTrigger:{trigger:el, start:'bottom 85%', end:'bottom 20%', scrub:.4}});
+    });
+
     gsap.utils.toArray('.lama').forEach(l => gsap.from(l, {y:60, rotate:2, duration:.8, ease:'expo.out', scrollTrigger:{trigger:l, start:'top 92%', once:true}}));
   });
   if (!SPAZIO) gsap.utils.toArray('.tavola').forEach(t => {
