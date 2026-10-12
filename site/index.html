@@ -446,7 +446,16 @@ body:not(.spazio) .hero.mazzo{z-index:4}
   .tav-chips{position:absolute;z-index:3;right:10px;top:84px;flex-direction:column;gap:6px;padding:6px;border-radius:14px;background:rgba(254,252,248,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
   .tav-chips button{flex:none;width:min(34px,calc((100svh - 150px) / 11));height:auto}
 }
-@media (min-width:600px) and (max-width:900px){.binario{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
+/* nel viaggio 3D ogni passata del dito porta alla fermata successiva */
+body.spazio{overscroll-behavior:none}
+/* telefono nel viaggio 3D: i reparti scorrono in orizzontale come sul computer */
+@media (max-width:900px){
+  .spazio .reparti{align-items:center}
+  .spazio .reparti-testa{width:88vw;padding:0 6vw 0 var(--gutter)}
+  .spazio .binario{display:flex;flex-direction:row;width:max-content;gap:14px;padding:0 8vw 0 0}
+  .spazio .lama{width:78vw;height:min(64vh,520px);min-height:0}
+}
+@media (min-width:600px) and (max-width:900px){body:not(.spazio) .binario{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
 @media (max-width:420px){.destra .btn span{display:none}}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -638,7 +647,7 @@ body:not(.spazio) .hero.mazzo{z-index:4}
 (() => {
 const RIDOTTO = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const MOBILE = () => innerWidth <= 900;
-const SPAZIO = !RIDOTTO && innerWidth > 900 && !!window.gsap && CSS.supports('transform-style','preserve-3d');
+const SPAZIO = !RIDOTTO && !!window.gsap && CSS.supports('transform-style','preserve-3d');   // viaggio 3D anche sul telefono
 // la pagina sceglie all'apertura tra viaggio 3D (oltre 900px) e versione telefono:
 // se poi la finestra si allarga o si stringe oltre quella soglia, si ricarica nella versione giusta
 const LARGA = innerWidth > 900; let sogliaAttesa;
@@ -1095,7 +1104,7 @@ if (hasGsap && !RIDOTTO) {
     const sezioni = ['.hero', '#colorificio', ...document.querySelectorAll('.tav-guscio'), '#reparti', '#storia', '#dove']
       .map(q => typeof q === 'string' ? document.querySelector(q) : q).filter(Boolean);
     const lati = [1, -1];
-    sezioni.forEach((el, i) => {
+    if (!SPAZIO) sezioni.forEach((el, i) => {
       el.classList.add('mazzo'); el.style.zIndex = 4 + i;
       if (i > 0) {
         const d = lati[i % 2];
@@ -1176,6 +1185,20 @@ if (hasGsap && !RIDOTTO) {
       const giu = ['ArrowDown','PageDown','ArrowRight'].includes(e.key) || (e.key === ' ' && !e.shiftKey), su = ['ArrowUp','PageUp','ArrowLeft'].includes(e.key) || (e.key === ' ' && e.shiftKey);
       if (giu) passo(e, 1, true); else if (su) passo(e, -1, true);
     }, {capture:true});
+    // telefono: ogni passata del dito porta alla fermata successiva, come uno scatto della rotella
+    let tY = null, tX = 0;
+    document.addEventListener('touchstart', e => { if (e.touches.length !== 1) { tY = null; return; } tY = e.touches[0].clientY; tX = e.touches[0].clientX; }, {passive:true});
+    document.addEventListener('touchmove', e => { if (tY !== null && e.cancelable) e.preventDefault(); }, {passive:false});
+    document.addEventListener('touchend', e => {
+      if (tY === null) return;
+      const t = e.changedTouches[0], dy = tY - t.clientY, dx = tX - t.clientX; tY = null;
+      const d = Math.abs(dy) >= Math.abs(dx) ? dy : dx;   // nei reparti va bene anche la passata orizzontale
+      if (Math.abs(d) < 30) return;
+      const base = inVolo && obiettivo != null ? obiettivo : scrollY;
+      const m = prossimo(base, d > 0 ? 1 : -1); if (m == null) return;
+      if (inVolo) { const sA = tappa(base), sB = tappa(m); if (!(sA && sB && sA.k === sB.k)) return; }
+      ultimoOk = performance.now(); vola(m, base);
+    }, {passive:true});
     // se ci si ferma a metà (barra di scorrimento), la pagina completa da sola il passaggio
     lenis.on('scroll', () => {
       const y = scrollY; if (y !== ultimaY) { dir = y > ultimaY ? 1 : -1; ultimaY = y; }
