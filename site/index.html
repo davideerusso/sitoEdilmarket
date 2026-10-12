@@ -321,6 +321,11 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .marchio-gigante{font-size:clamp(52px,14.6vw,280px);color:var(--bianco);line-height:.78;margin-top:80px;white-space:nowrap;transform:translateY(12%)}
 .legale{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-block:20px;font-size:14px;position:relative;z-index:1;background:var(--inchiostro)}
 
+/* telefono: sezioni a mazzo di carte */
+.mazzo{position:relative;overflow:hidden;transform-origin:50% 50%;box-shadow:0 -24px 50px -20px rgba(20,22,28,.45)}
+body:not(.spazio) .hero.mazzo{z-index:4}
+#storia.mazzo{background:var(--carta)}
+.mazzo-velo{position:absolute;inset:0;z-index:50;background:#0d0e12;opacity:0;pointer-events:none}
 /* Rivelazioni */
 .parola{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em;margin-bottom:-.06em}
 .parola > span{display:inline-block}
@@ -1085,19 +1090,32 @@ if (hasGsap && !RIDOTTO) {
       onUpdate:s => { S.progRep = s.progress; }}});
   });
   mm.add('(max-width: 900px)', () => {
-    // telefono: passaggio tra le sezioni come un piccolo volo, la nuova sezione arriva inclinata e rimpicciolita, la vecchia si allontana
-    const sezioni = ['.hero', '#colorificio', '#reparti', '#storia', '#dove'].map(q => document.querySelector(q)).filter(Boolean);
+    // telefono: come sul computer, ogni sezione arriva in diagonale e si sovrappone alla precedente,
+    // che resta ferma sotto, si rimpicciolisce e si scurisce
+    const sezioni = ['.hero', '#colorificio', ...document.querySelectorAll('.tav-guscio'), '#reparti', '#storia', '#dove']
+      .map(q => typeof q === 'string' ? document.querySelector(q) : q).filter(Boolean);
+    const lati = [1, -1];
     sezioni.forEach((el, i) => {
-      el.style.transformOrigin = '50% 0%';
-      if (i > 0) gsap.fromTo(el, {scale:.86, rotateX:9, y:70, borderRadius:36, opacity:.4, transformPerspective:1100},
-        {scale:1, rotateX:0, y:0, borderRadius:0, opacity:1, ease:'none', scrollTrigger:{trigger:el, start:'top bottom', end:'top 30%', scrub:.4}});
-      if (i < sezioni.length - 1) gsap.to(el, {scale:.93, opacity:.55, ease:'none', immediateRender:false,
-        scrollTrigger:{trigger:el, start:'bottom 85%', end:'bottom 20%', scrub:.4}});
+      el.classList.add('mazzo'); el.style.zIndex = 4 + i;
+      if (i > 0) {
+        const d = lati[i % 2];
+        gsap.fromTo(el, {xPercent:d*55, yPercent:6, rotate:d*-7, borderRadius:28},
+          {xPercent:0, yPercent:0, rotate:0, borderRadius:0, ease:'none', immediateRender:true,
+           scrollTrigger:{trigger:el, start:'top bottom', end:'top top', scrub:.35}});
+      }
+      if (i < sezioni.length - 1) {
+        // la sezione resta ferma quando il fondo arriva in basso, la successiva le scorre sopra
+        ScrollTrigger.create({trigger:el, start:() => el.offsetHeight > innerHeight ? 'bottom bottom' : 'top top', end:'+=' + innerHeight, pin:true, pinSpacing:false});
+        const velo = document.createElement('i'); velo.className = 'mazzo-velo'; el.appendChild(velo);
+        gsap.fromTo(velo, {opacity:0}, {opacity:.55, ease:'none', immediateRender:false,
+          scrollTrigger:{trigger:el, start:() => el.offsetHeight > innerHeight ? 'bottom bottom' : 'top top', end:'+=' + innerHeight, scrub:.35}});
+      }
     });
+    addEventListener('load', () => ScrollTrigger.refresh());
 
     gsap.utils.toArray('.lama').forEach(l => gsap.from(l, {y:60, rotate:2, duration:.8, ease:'expo.out', scrollTrigger:{trigger:l, start:'top 92%', once:true}}));
   });
-  if (!SPAZIO) gsap.utils.toArray('.tavola').forEach(t => {
+  if (!SPAZIO && !MOBILE()) gsap.utils.toArray('.tavola').forEach(t => {
     if (t.getBoundingClientRect().top < innerHeight) return;
     // la tavola entra come zoomInDown sfocato
     const img = t.querySelector('.tav-img'), g = t.parentNode;
