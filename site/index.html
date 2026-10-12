@@ -92,6 +92,9 @@ main,header,footer{position:relative;z-index:1}
 .hero h1 .riga > span{display:block}
 .hero-testo p{margin:0;max-width:40ch;font-size:clamp(17px,1.35vw,20px);line-height:1.55}
 .hero-testo .indirizzo{font-size:15px;line-height:1.5}
+.hero-testo .orari-testata{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:-12px;font-size:15px;line-height:1.3}
+.orari-testata b{padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.18);font-size:14px;font-weight:500}
+.orari-testata .dom{opacity:.85}
 .hero .stato{background:rgba(255,255,255,.18);color:var(--bianco);backdrop-filter:none;-webkit-backdrop-filter:none;font-size:15px}
 .solo-stretto{display:none}
 .azioni{display:flex;gap:12px;flex-wrap:wrap}
@@ -346,6 +349,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
     background-blend-mode:normal,normal,normal,multiply,normal}
   .hero-testo{flex:none;max-width:none;padding:8px 0 16px;gap:24px;align-items:center;text-align:center}
   .hero-testo p{margin-inline:auto}
+  .hero-testo .orari-testata{justify-content:center}
   .hero h1 .riga > span{text-align:center}
   .hero-destra{flex:none;align-self:stretch}
   .hero h1{font-size:clamp(28px,8.6vw,56px)}
@@ -426,6 +430,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
         <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama<span class="solo-largo"> 320 417 3656</span></a>
       </div>
       <p class="indirizzo">Provinciale Lecce-Vernole, 73029 Strudà (LE)</p>
+      <p class="orari-testata"><span>Lun – Sab</span> <b class="mono">6:30–13:30</b> <b class="mono">15:30–19:30</b> <span class="dom">Domenica chiuso</span></p>
     </div>
     <div class="hero-destra">
       <div class="frase">
