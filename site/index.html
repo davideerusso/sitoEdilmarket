@@ -361,7 +361,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
   .tav-testo{order:2;width:auto;margin:0;padding:24px 20px 72px;gap:14px}
   .tav-titolo{font-size:clamp(34px,10.5vw,56px)}
   .tav-chips{flex-wrap:nowrap;gap:6px}
-  .tav-chips button{width:min(40px,calc((100vw - 82px) / 8));height:auto;aspect-ratio:1;border-radius:10px}
+  .tav-chips button{flex:1 1 0;min-width:0;max-width:40px;width:auto;height:auto;aspect-ratio:1;border-radius:10px}
   .voci{display:none}
   .stato.menu-stato{display:none}
   .hero{flex-direction:column;gap:8px;padding-block:96px 0;--cane-h:min(104vw,470px);
@@ -769,7 +769,7 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
   const TINTE = {
     interni:[['Bianco latte','#F4F1EA'],['Grigio perla','#C9C6BF'],['Salvia','#A9B59B'],['Azzurro polvere','#A7BBCB'],['Giallo grano','#E3C27A'],['Terracotta','#C0714F'],['Verde bosco','#3F5A44'],['Blu notte','#2B3A55']],
     esterni:[['Bianco calce','#F1ECE0'],['Sabbia','#DCC6A4'],['Giallo Salento','#E6B85C'],['Ocra','#C98F45'],['Rosa antico','#D49A8C'],['Terracotta','#B9603F'],['Verde salvia','#9FAE93'],['Azzurro cielo','#9DB9CF']],
-    legno:[['Bianco','#EFEDE6'],['Salvia','#9DAA90'],['Verde mare','#3E7C74'],['Verde persiana','#2F5A45'],['Blu marina','#24406B'],['Rosso pompeiano','#9C3A2E'],['Noce','#6A4128'],['Antracite','#3A3D42']]
+    legno:[['Neutro','#EED7AF'],['Douglas','#DB9B5D'],['Castagno','#8C6045'],['Mogano','#B65D43'],['Ciliegio','#D7783C'],['Noce chiaro','#BC8556'],['Noce scuro','#976546'],['Wengé','#786555'],['Quercia','#E4B57A'],['Bianco','#FEF9E7']]
   };
   const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:'sul tavolo e le panche'};
   const carica = src => new Promise((ok, ko) => { const i = new Image(); i.decoding = 'async'; i.onload = () => ok(i); i.onerror = ko; i.src = src; });
