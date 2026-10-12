@@ -587,6 +587,16 @@ body.spazio{overscroll-behavior:none}
         <div class="tav-palco"><img class="tav-secchio" src="img/secchio-bioseta.webp" alt="Barattolo di Boero Bioseta, finitura satinata per legno" width="467" height="572"></div>
       </div>
     </article>
+    <article class="tavola t-dx" style="--img:url(img/amb-ferro.webp);--pos:50% 30%;--pos-m:50% 32%;--ink:#2F4A5C;--bx:34%">
+      <div class="tav-img amb" data-amb="ferro" role="img" aria-label="Disegno a incisione di un gazebo in ferro battuto in un giardino di rose, con tavolino e sedie: la tinta scelta colora il ferro"><canvas class="amb-sotto" aria-hidden="true"></canvas><canvas class="amb-sopra" aria-hidden="true"></canvas></div>
+      <div class="tav-testo">
+        <h3 class="disp tav-titolo">Per il ferro</h3>
+        <p class="tav-prodotto">Smalto per ferro</p>
+        <p class="tav-corpo">Protegge e colora cancelli, ringhiere, inferriate e arredi da giardino. Lo prepariamo al tintometro nella tinta che scegli.</p>
+        <ul class="tav-pregi"><li>Esterni</li><li>Antiruggine</li><li>Su tinta</li></ul>
+        <div class="tav-tinte" data-amb="ferro"><p class="tav-tinta" aria-live="polite">Prova una tinta: <b>colore originale</b></p><div class="tav-chips" role="group" aria-label="Tinte da provare sulla foto"></div></div>
+      </div>
+    </article>
   </section>
 
   <section class="reparti" id="reparti" aria-labelledby="t-rep">
@@ -824,9 +834,10 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
   const TINTE = {
     interni:[['Bianco latte','#F4F1EA'],['Grigio perla','#C9C6BF'],['Salvia','#A9B59B'],['Azzurro polvere','#A7BBCB'],['Giallo grano','#E3C27A'],['Terracotta','#C0714F'],['Verde bosco','#3F5A44'],['Blu notte','#2B3A55']],
     esterni:[['Bianco calce','#F1ECE0'],['Sabbia','#DCC6A4'],['Giallo Salento','#E6B85C'],['Ocra','#C98F45'],['Rosa antico','#D49A8C'],['Terracotta','#B9603F'],['Verde salvia','#9FAE93'],['Azzurro cielo','#9DB9CF']],
+    ferro:[['Bianco','#F2EFE8'],['Avorio','#E6DCC3'],['Grigio antracite','#3E4247'],['Nero','#1E1F22'],['Verde inglese','#24402F'],['Blu','#22385A'],['Rosso ossido','#7E2E22'],['Ferro micaceo','#5A544D']],
     legno:[['Neutro','#EED7AF'],['Douglas','#DB9B5D'],['Castagno','#8C6045'],['Mogano','#B65D43'],['Ciliegio','#D7783C'],['Noce chiaro','#BC8556'],['Noce scuro','#976546'],['Wengé','#786555'],['Quercia','#E4B57A'],['Bianco','#FEF9E7']]
   };
-  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:''};
+  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:'', ferro:''};
   const carica = src => new Promise((ok, ko) => { const i = new Image(); i.decoding = 'async'; i.onload = () => ok(i); i.onerror = ko; i.src = src; });
   document.querySelectorAll('.tav-img.amb').forEach(box => {
     const k = box.dataset.amb, art = box.closest('.tavola');
@@ -954,7 +965,7 @@ if (SPAZIO) (function viaggio(){
         if (h > H + 24) { const fine = h - H; for (let d = H*.8; d < fine - H*.2; d += H*.8) stops.push({k, dx:0, dy:d}); stops.push({k, dx:0, dy:fine}); }
       }
       V.idx[k+'Fine'] = stops.length-1;
-      if (k === 'camp') { const u = stops[stops.length-1]; for (let n = 1; n <= 3; n++) { V.idx['tav'+n] = V.idx['tav'+n+'Fine'] = stops.length; stops.push({k:'camp', dx:u.dx, dy:u.dy, tav:n}); } }
+      if (k === 'camp') { const u = stops[stops.length-1]; for (let n = 1; n <= tav.length; n++) { V.idx['tav'+n] = V.idx['tav'+n+'Fine'] = stops.length; stops.push({k:'camp', dx:u.dx, dy:u.dy, tav:n}); } }
     }
     fondoCamp.style.height = pose.camp.h + 'px'; fondoCamp.style.transform = P.camp.style.transform;
     V.seg = H*1.05; V.stops = stops;
@@ -1041,9 +1052,9 @@ if (SPAZIO) (function viaggio(){
       const iE = V.idx['tav'+(n+1)];
       const q = clamp(V.st - (iE - 1)), oltre = clamp(V.st - iE);
       const z = entrata(tempoVolo(q));
-      const via = n < 2 ? rampa(oltre, .96, 1) : rampa(oltre, 0, .6);   // uscita: resta sotto finché la successiva non copre tutto
+      const via = n < strati.length - 1 ? rampa(oltre, .96, 1) : rampa(oltre, 0, .6);   // uscita: resta sotto finché la successiva non copre tutto
       const op = z.op * (1 - via);
-      const sc = z.s * (n === 2 ? 1 + .15*oltre : 1);
+      const sc = z.s * (n === strati.length - 1 ? 1 + .15*oltre : 1);
       s.g.style.visibility = op < .005 ? 'hidden' : 'visible';
       s.g.style.opacity = op.toFixed(3);
       s.g.style.filter = z.b < .05 ? 'none' : `blur(${z.b.toFixed(2)}px)`;
