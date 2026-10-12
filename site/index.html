@@ -450,6 +450,23 @@ body:not(.spazio) .hero.mazzo{z-index:4}
 body.spazio{overscroll-behavior:none}
 /* telefono nel viaggio 3D: i reparti scorrono in orizzontale come sul computer */
 @media (max-width:900px){
+  /* colorificio: tutto in una schermata */
+  .spazio .campionario{min-height:100vh;height:100vh;justify-content:center;gap:2.2vh;padding-block:76px 2vh}
+  .spazio .campionario h2{font-size:min(9vw,4.6vh)}
+  .spazio .camp-testa{gap:1.4vh}
+  .spazio .camp-testa p{font-size:min(15px,2vh);line-height:1.4}
+  .spazio .dati > div{padding:1.1vh 0;gap:2px}
+  .spazio .dati dt{font-size:min(13px,1.7vh)}
+  .spazio .dati .valore{font-size:min(8vw,4.4vh)}
+  .spazio .dati dd{font-size:min(13px,1.7vh)}
+  /* dal 1986: testo in alto, Claudio intero in basso */
+  .spazio .storia-palco .bottega{display:block}
+  .spazio .storia-testo{padding:84px var(--gutter) 0;gap:14px}
+  .spazio .storia-testo h2{font-size:min(9.4vw,5vh)}
+  .spazio .storia-testo p{font-size:min(16px,2.1vh);line-height:1.45}
+  .spazio .claudio{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:auto;padding:0;margin:0}
+  .spazio .claudio img{height:max(240px,calc(100vh - 470px));width:auto;max-width:90vw}
+  .spazio .claudio figcaption{left:-18%;bottom:12%}
   .spazio .reparti{align-items:center}
   .spazio .reparti-testa{width:88vw;padding:0 6vw 0 var(--gutter)}
   .spazio .binario{display:flex;flex-direction:row;width:max-content;gap:14px;padding:0 8vw 0 0}
@@ -588,11 +605,6 @@ body.spazio{overscroll-behavior:none}
       <div class="storia-testo">
         <h2 class="disp rivela" id="t-sto">Quarant'anni dietro lo stesso banco.</h2>
         <p>Edilmarket è la ferramenta di Claudio Russo, a Strudà dal 1986. Artigiani, imprese e chi fa da sé trovano al banco il pezzo giusto e un consiglio pratico per usarlo.</p>
-        <div class="cifre">
-          <div><strong class="conta" data-a="40">40</strong><small>anni di esperienza</small></div>
-          <div><strong class="conta" data-a="8">8</strong><small>reparti</small></div>
-          <div><strong>6:30</strong><small>apertura, lunedì - sabato</small></div>
-        </div>
       </div>
     </div>
     <div class="marchi wrap">
