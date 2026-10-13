@@ -322,6 +322,8 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .marchio-gigante{font-size:clamp(52px,14.6vw,280px);color:var(--bianco);line-height:.78;margin-top:80px;white-space:nowrap;transform:translateY(12%)}
 .legale{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-block:20px;font-size:14px;position:relative;z-index:1;background:var(--inchiostro)}
 
+/* computer: testata ridotta di un terzo */
+@media (min-width:901px){.hero > .hero-testo,.hero > .hero-destra{zoom:.67}}
 /* telefono: sezioni a mazzo di carte */
 .mazzo{position:relative;overflow:hidden;transform-origin:50% 50%;box-shadow:0 -24px 50px -20px rgba(20,22,28,.45)}
 body:not(.spazio) .hero.mazzo{z-index:4}
@@ -480,7 +482,7 @@ body.spazio{overscroll-behavior:none}
 @media (max-width:420px){.destra .btn span{display:none}}
 
 /* ===== Telefono: testata essenziale e banda di Charlie che si apre ===== */
-.btn-icona,.banda-invito,.testa,.banda-piede,.banda-tocco,.orari-pill,.stato .freccia{display:none}
+.btn-icona,.banda-invito,.banda-breve,.testa,.banda-piede,.banda-tocco,.orari-pill,.stato .freccia{display:none}
 .frase h2 span.solo-stretto{display:none}
 button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;cursor:default;margin:0}
 @media (max-width:900px){
