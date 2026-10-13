@@ -154,6 +154,18 @@ main,header,footer{position:relative;z-index:1}
 @media (min-width:901px){.pelo{left:7px}}
 /* testata: tutto un po' spostato a destra, lontano dal bordo sinistro */
 @media (min-width:901px){.hero{padding-left:calc(var(--gutter) + 7vw)}}
+/* computer: le due colonne sullo stesso asse, Charlie centrato e non più grande del titolo */
+@media (min-width:901px){
+  .hero{--cane-h:min(calc(60vh - 110px),500px);padding-block:96px 32px;gap:clamp(32px,4vw,72px)}
+  .hero-testo{padding:0;gap:24px}
+  .hero h1{font-size:clamp(30px,4.2vw,70px)}
+  .hero-testo > p:not(.indirizzo):not(.orari-testata){font-size:clamp(17px,1.35vw,21px)}
+  .hero-testo .indirizzo{margin-top:8px}
+  .hero-destra{align-self:center;gap:10px;padding-bottom:0}
+  .frase h2{font-size:min(calc(var(--fb-w) * .175),70px);margin:4px 0 10px}
+  .frase p{font-size:max(18px,min(calc(var(--fb-w) * .07),26px))}
+  .hero .charlie{margin:18px 0 14px}
+}
 .pelo{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
 .pelo button{all:unset;display:block;flex:none;width:38px;height:38px;box-sizing:border-box;border-radius:11px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22);transition:transform .2s var(--ease),box-shadow .2s var(--ease);touch-action:manipulation}
 .pelo button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--bianco),0 0 0 5px var(--inchiostro);transform:translateY(-3px)}
@@ -322,8 +334,6 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .marchio-gigante{font-size:clamp(52px,14.6vw,280px);color:var(--bianco);line-height:.78;margin-top:80px;white-space:nowrap;transform:translateY(12%)}
 .legale{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-block:20px;font-size:14px;position:relative;z-index:1;background:var(--inchiostro)}
 
-/* computer: testata ridotta di un terzo */
-@media (min-width:901px){.hero > .hero-testo,.hero > .hero-destra{zoom:.67}}
 /* telefono: sezioni a mazzo di carte */
 .mazzo{position:relative;overflow:hidden;transform-origin:50% 50%;box-shadow:0 -24px 50px -20px rgba(20,22,28,.45)}
 body:not(.spazio) .hero.mazzo{z-index:4}
