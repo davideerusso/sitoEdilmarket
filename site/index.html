@@ -485,7 +485,6 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 @media (max-width:900px){
   /* intestazione: logo, telefono, posizione; sfondo quando la pagina scorre */
   .menu{transition:background-color .3s ease,box-shadow .3s ease}
-  body:not(.in-testata) .menu{background:rgba(28,24,20,.62);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 8px 24px -16px rgba(0,0,0,.6)}
   .destra{gap:10px}
   .btn-icona,.destra .btn.mappa{display:grid;place-items:center;width:50px;height:50px;min-height:0;padding:0;border-radius:14px;box-shadow:0 10px 24px -14px rgba(22,24,29,.5)}
   .btn-icona{background:var(--bianco);color:var(--blu)}
@@ -502,6 +501,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .hero-testo{flex:none;justify-content:flex-start;padding:4px 0 24px;gap:16px}
   .hero-testo .stato-box{margin-bottom:4px}
   .hero .hero-destra{margin-top:auto;margin-bottom:36px}
+  .hero .hero-destra:not(.aperta){overflow:visible}
   .stato-box{display:grid;justify-items:center;border-radius:22px;background:rgba(255,255,255,.18);transition:border-radius .3s ease}
   .hero .stato-box .stato{background:none;cursor:pointer;touch-action:manipulation}
   .stato .freccia{display:block;width:16px;height:16px;margin-left:2px;transition:transform .3s ease}
