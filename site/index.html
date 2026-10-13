@@ -493,13 +493,13 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .destra .btn.mappa span{display:none}
   /* testata: solo stato, titolo e testo */
   .hero .azioni,.hero-testo .indirizzo,.hero-testo .orari-testata{display:none}
-  .hero{padding-block:84px 0;gap:0;
+  .hero{padding-block:84px 0;gap:0;min-height:100svh;
     background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 92%,transparent) 0%,color-mix(in oklab,var(--c1) 72%,transparent) 42%,color-mix(in oklab,var(--c1) 40%,transparent) 100%),
-     radial-gradient(80% 40% at 70% 78%,color-mix(in oklab,var(--c3) 45%,transparent) 0%,transparent 72%),
+     radial-gradient(240px 230px at calc(100% - 70px) calc(100% - 150px),color-mix(in oklab,var(--c3) 62%,transparent) 0%,transparent 75%),
      linear-gradient(180deg,var(--c1) 0,var(--c2) 70%,var(--c3) 100%),
-     url(img/negozio-grigio.webp) 50% 100%/cover no-repeat;
+     url(img/negozio-grigio.webp) 50% 100%/auto 520px no-repeat;
     background-blend-mode:normal,normal,multiply,normal}
-  .hero-testo{padding:4px 0 18px;gap:18px}
+  .hero-testo{flex:1 1 auto;justify-content:center;padding:4px 0 18px;gap:18px}
   .stato-box{display:grid;justify-items:center;border-radius:22px;background:rgba(255,255,255,.18);transition:border-radius .3s ease}
   .hero .stato-box .stato{background:none;cursor:pointer;touch-action:manipulation}
   .stato .freccia{display:block;width:16px;height:16px;margin-left:2px;transition:transform .3s ease}
@@ -544,7 +544,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .hero .hero-destra:not(.aperta) .fb-ritaglio{clip-path:inset(-40% -40% 0 0 round 0 0 7px 7px)}
   .hero .hero-destra:not(.aperta) .fb-valore,.hero .hero-destra:not(.aperta) .fb-etichetta,.hero .hero-destra:not(.aperta) .battuta{opacity:0;visibility:hidden}
   .hero .hero-destra .fb-valore,.hero .hero-destra .fb-etichetta,.hero .hero-destra .battuta{transition:opacity .3s ease}
-  .hero .hero-destra:not(.aperta) .charlie-disegno{rotate:20deg;scale:1.22;translate:0% 4%;transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
+  .hero .hero-destra:not(.aperta) .charlie-disegno{rotate:20deg;scale:1.34;translate:-5% 8%;transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
   .hero .hero-destra .charlie-disegno{transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
   .hero .hero-destra.aperta .charlie{width:260px;right:calc(50% - 130px);top:176px;rotate:0deg;animation:none}
   .hero .hero-destra .banda-piede{justify-content:flex-end}
@@ -568,7 +568,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .banda-tocco{display:block;position:absolute;inset:0;z-index:4;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .banda-tocco:focus-visible{outline:3px solid #fff;outline-offset:-6px;border-radius:12px}
   /* aperta: testo in alto al centro, testa al centro con il fumetto, tinte in fondo */
-  .hero .hero-destra.aperta{height:720px}
+  .hero .hero-destra.aperta{height:650px}
   .hero .hero-destra.aperta .frase{left:50%;top:26px;width:88%;justify-items:center;text-align:center;transform:translateX(-50%) rotate(-2deg);transform-origin:50% 50%}
   .hero-destra.aperta .banda-invito{opacity:0;pointer-events:none}
   .hero-destra.aperta .testa{width:300px;right:calc(50% - 150px);top:150px;rotate:0deg;animation:none}
@@ -905,7 +905,7 @@ function colora(i){
 /* Telefono: la pillola dello stato mostra gli orari, la banda di Charlie si apre al tocco */
 bandaEl.classList.add('nero');
 // da chiusa la banda arriva fino in fondo al primo schermo
-function misuraBanda(){ if (!MOBILE() || bandaEl.classList.contains('aperta')) return; bandaEl.style.setProperty('--banda-h', Math.max(330, Math.round(innerHeight - bandaEl.offsetTop)) + 'px'); }
+function misuraBanda(){ if (!MOBILE() || bandaEl.classList.contains('aperta')) return; bandaEl.style.setProperty('--banda-h', '330px'); }
 misuraBanda(); addEventListener('load', misuraBanda); if (document.fonts) document.fonts.ready.then(() => { misuraBanda(); dispatchEvent(new Event('resize')); });
 let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs = setTimeout(misuraBanda, 120); });
 (function(){
