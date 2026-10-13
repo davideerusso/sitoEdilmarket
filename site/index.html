@@ -517,8 +517,8 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
      url(img/negozio-grigio.webp) 50% 100%/cover no-repeat;
     background-blend-mode:normal,normal,multiply,normal}
   .hero-testo{flex:none;justify-content:flex-start;padding:4px 0 24px;gap:16px}
-  .hero .hero-testo > h1,.hero .hero-testo > p:not(.indirizzo):not(.orari-testata){transform:translateY(20px)}
-  .hero-testo .stato-box{margin-top:10px;margin-bottom:-6px}
+  .hero .hero-testo > h1,.hero .hero-testo > p:not(.indirizzo):not(.orari-testata){transform:translateY(32px)}
+  .hero-testo .stato-box{margin-top:16px;margin-bottom:-12px}
   .hero .hero-destra{margin-top:auto;margin-bottom:36px}
   .hero .hero-destra:not(.aperta){overflow:visible}
   .stato-box{display:grid;justify-items:center;border-radius:22px;background:rgba(255,255,255,.18);transition:border-radius .3s ease}
@@ -958,7 +958,8 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
     const fine = () => bandaEl.classList.remove('flip');
     if (anim) anim.onfinish = anim.oncancel = fine; else fine();
     // ricalcolo le animazioni della pagina subito, prima che parta il movimento, non a metà
-    if (window.ScrollTrigger) ScrollTrigger.refresh(); else dispatchEvent(new Event('resize'));
+    dispatchEvent(new Event('resize'));   // la pagina ricalcola le tappe di scorrimento con la banda già aperta
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
     requestAnimationFrame(() => {
       if (document.body.classList.contains('spazio') && window.__lenis && window.__V) window.__lenis.scrollTo(window.__V.idx.heroFine * window.__V.seg, {duration:1, lock:true, force:true});
       else bandaEl.scrollIntoView({behavior:'smooth', block:'center'});
