@@ -493,7 +493,12 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .destra .btn.mappa span{display:none}
   /* testata: solo stato, titolo e testo */
   .hero .azioni,.hero-testo .indirizzo,.hero-testo .orari-testata{display:none}
-  .hero{padding-block:84px 0;gap:0}
+  .hero{padding-block:84px 0;gap:0;
+    background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 92%,transparent) 0%,color-mix(in oklab,var(--c1) 72%,transparent) 42%,color-mix(in oklab,var(--c1) 40%,transparent) 100%),
+     radial-gradient(80% 40% at 70% 78%,color-mix(in oklab,var(--c3) 45%,transparent) 0%,transparent 72%),
+     linear-gradient(180deg,var(--c1) 0,var(--c2) 70%,var(--c3) 100%),
+     url(img/negozio-grigio.webp) 50% 100%/cover no-repeat;
+    background-blend-mode:normal,normal,multiply,normal}
   .hero-testo{padding:4px 0 18px;gap:18px}
   .stato-box{display:grid;justify-items:center;border-radius:22px;background:rgba(255,255,255,.18);transition:border-radius .3s ease}
   .hero .stato-box .stato{background:none;cursor:pointer;touch-action:manipulation}
@@ -509,23 +514,30 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .hero-testo > p:not(.indirizzo):not(.orari-testata){font-size:16px;line-height:1.5}
   /* la banda di Charlie, chiusa: titolo a sinistra, testa che sborda a destra */
   .hero .hero-destra{position:relative;display:block;flex:none;align-self:stretch;height:var(--banda-h,330px);margin:0 calc(-1 * var(--gutter));padding:0;overflow:hidden;
-    background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 0%,transparent),color-mix(in oklab,var(--c1) 70%,#000) 100%);transition:height .55s cubic-bezier(.3,.7,.2,1)}
-  .hero .hero-destra .frase{position:absolute;z-index:2;left:22px;top:62px;width:54%;max-width:none;display:grid;gap:12px;justify-items:start;text-align:left;
+    background:none;transition:height .55s cubic-bezier(.3,.7,.2,1)}
+  .hero .hero-destra .frase{position:absolute;z-index:2;left:22px;top:52px;width:47%;max-width:none;display:grid;gap:12px;justify-items:start;text-align:left;
     transform:rotate(-7deg);transform-origin:0 50%;transition:left .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),width .55s,transform .55s cubic-bezier(.3,.7,.2,1)}
-  .hero .hero-destra .frase h2{display:block;margin:0;font-size:clamp(32px,9.6vw,40px);line-height:.92;text-transform:none;letter-spacing:-.01em;transform:none;white-space:normal}
+  .hero .hero-destra .frase h2{display:block;margin:0;font-size:clamp(28px,8.2vw,34px);line-height:.92;text-transform:none;letter-spacing:-.01em;transform:none;white-space:normal}
   .hero .hero-destra .frase h2 > span{display:inline;white-space:normal}
+  .hero .hero-destra .frase h2 span{white-space:normal}
   .hero .hero-destra .frase h2 span.solo-stretto{display:inline}
   .hero .hero-destra .scintilla{display:none}
   .hero .hero-destra .frase p{display:block;margin:0;font-size:15px;line-height:1.25;max-width:none;text-align:inherit;transform:none}
   .hero .hero-destra .frase p span{display:block;white-space:normal}
-  .hero .hero-destra .charlie{display:none}
-  .banda-invito{display:inline-block;position:absolute;z-index:2;left:30px;top:226px;padding:9px 16px;border-radius:999px;background:var(--c3);color:var(--c1);font:700 12px/1 var(--f-testo);letter-spacing:.12em;text-transform:uppercase;rotate:-7deg;box-shadow:0 10px 20px -12px rgba(0,0,0,.6);transition:opacity .3s ease}
+  .testa,.hero-destra .banda-tinta{display:none!important}
+  .hero .hero-destra .charlie{position:absolute;z-index:1;margin:0;width:224px;right:-72px;top:22px;rotate:-10deg;
+    transition:width .55s cubic-bezier(.3,.7,.2,1),right .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),rotate .55s cubic-bezier(.3,.7,.2,1),transform .6s var(--ease);
+    animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
+  .hero .hero-destra .charlie .battuta{font-size:14px}
+  .hero .hero-destra.aperta .charlie{width:260px;right:calc(50% - 130px);top:176px;rotate:0deg;animation:none}
+  .hero .hero-destra .banda-piede{justify-content:flex-end}
+  .banda-invito{display:inline-block;position:absolute;z-index:2;left:30px;top:244px;padding:9px 16px;border-radius:999px;background:var(--c3);color:var(--c1);font:700 12px/1 var(--f-testo);letter-spacing:.12em;text-transform:uppercase;rotate:-7deg;box-shadow:0 10px 20px -12px rgba(0,0,0,.6);transition:opacity .3s ease}
   .testa{display:block;position:absolute;z-index:1;width:270px;aspect-ratio:270/290;right:-60px;top:10px;rotate:-12deg;
     transition:width .55s cubic-bezier(.3,.7,.2,1),right .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),rotate .55s cubic-bezier(.3,.7,.2,1);
     animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
   .testa-disegno{position:absolute;left:-28%;top:-7%;width:137%;aspect-ratio:1121/1403;-webkit-mask-image:linear-gradient(180deg,#000 50%,rgba(0,0,0,.5) 62%,transparent 72%);mask-image:linear-gradient(180deg,#000 50%,rgba(0,0,0,.5) 62%,transparent 72%)}
   .testa-disegno > *{position:absolute;inset:0;width:100%;height:100%;display:block}
-  @keyframes sbircia{0%{translate:160px 0;rotate:4deg}55%{translate:-8px 0;rotate:-16deg}75%{translate:4px 0;rotate:-9deg}100%{translate:0 0;rotate:-12deg}}
+  @keyframes sbircia{0%{translate:170px 0;rotate:2deg}55%{translate:-8px 0;rotate:-14deg}75%{translate:4px 0;rotate:-7deg}100%{translate:0 0;rotate:-10deg}}
   .testa-fumetto{position:absolute;z-index:3;left:-6%;bottom:30%;margin:0;display:grid;justify-items:center;gap:2px;padding:7px 12px 8px;border-radius:14px;background:#fff;color:#1E1F24;text-align:center;
     box-shadow:0 0 0 3px #1E1F24,5px 6px 0 #1E1F24;rotate:-8deg;opacity:0;scale:.6;transition:opacity .3s ease,scale .3s cubic-bezier(.3,1.6,.5,1)}
   .testa-fumetto span{font:400 24px/1 "Yellowtail",cursive}
@@ -539,7 +551,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .banda-tocco{display:block;position:absolute;inset:0;z-index:4;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .banda-tocco:focus-visible{outline:3px solid #fff;outline-offset:-6px;border-radius:12px}
   /* aperta: testo in alto al centro, testa al centro con il fumetto, tinte in fondo */
-  .hero .hero-destra.aperta{height:620px}
+  .hero .hero-destra.aperta{height:720px}
   .hero .hero-destra.aperta .frase{left:50%;top:26px;width:88%;justify-items:center;text-align:center;transform:translateX(-50%) rotate(-3deg);transform-origin:50% 50%}
   .hero-destra.aperta .banda-invito{opacity:0;pointer-events:none}
   .hero-destra.aperta .testa{width:300px;right:calc(50% - 150px);top:150px;rotate:0deg;animation:none}
