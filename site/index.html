@@ -529,21 +529,22 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
     transition:width .55s cubic-bezier(.3,.7,.2,1),right .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),rotate .55s cubic-bezier(.3,.7,.2,1),transform .6s var(--ease);
     animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
   .hero .hero-destra .charlie .battuta{font-size:14px}
+  .hero .hero-destra .charlie{transform:rotate(-2deg)!important}
 
   /* banda chiusa: testo breve, francobollo più ruotato, Charlie dritto e più grande, senza targhette */
-  .banda-breve{display:grid;position:absolute;z-index:2;left:22px;top:74px;width:44%;margin:0;gap:10px;transform:rotate(-7deg);transform-origin:0 50%;transition:opacity .3s ease}
+  .banda-breve{display:grid;position:absolute;z-index:2;left:20px;top:74px;width:40%;margin:0;gap:10px;transform:rotate(-7deg);transform-origin:0 50%;transition:opacity .3s ease}
   .banda-breve b{font:400 clamp(30px,9vw,38px)/.95 "DM Serif Display",Georgia,serif;color:var(--c3);transition:color .9s ease}
   .banda-breve span{font:italic 400 17px/1.2 "Instrument Serif",Georgia,serif;color:#fff}
   .hero .hero-destra:not(.aperta) .frase{opacity:0;visibility:hidden}
   .hero .hero-destra.aperta .banda-breve{opacity:0;visibility:hidden}
   .hero .hero-destra .frase{transition:opacity .35s ease .2s,left .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),width .55s,transform .55s cubic-bezier(.3,.7,.2,1)}
   .banda-invito{top:212px}
-  .hero .hero-destra:not(.aperta) .charlie{rotate:-18deg;width:236px;right:-58px;top:30px}
-  .hero .hero-destra:not(.aperta) .charlie::before{height:calc(100% - 36px)}
-  .hero .hero-destra:not(.aperta) .fb-campo{margin-bottom:-36px}
+  .hero .hero-destra:not(.aperta) .charlie{rotate:-16deg;width:206px;right:-22px;top:44px}
+  .hero .hero-destra:not(.aperta) .fb-etichetta{display:none}
+  .hero .hero-destra:not(.aperta) .fb-ritaglio{clip-path:inset(-40% -40% 0 0 round 0 0 7px 7px)}
   .hero .hero-destra:not(.aperta) .fb-valore,.hero .hero-destra:not(.aperta) .fb-etichetta,.hero .hero-destra:not(.aperta) .battuta{opacity:0;visibility:hidden}
   .hero .hero-destra .fb-valore,.hero .hero-destra .fb-etichetta,.hero .hero-destra .battuta{transition:opacity .3s ease}
-  .hero .hero-destra:not(.aperta) .charlie-disegno{rotate:18deg;scale:1.22;translate:2% 6%;transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
+  .hero .hero-destra:not(.aperta) .charlie-disegno{rotate:20deg;scale:1.22;translate:16% 4%;transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
   .hero .hero-destra .charlie-disegno{transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
   .hero .hero-destra.aperta .charlie{width:260px;right:calc(50% - 130px);top:176px;rotate:0deg;animation:none}
   .hero .hero-destra .banda-piede{justify-content:flex-end}
@@ -553,7 +554,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
     animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
   .testa-disegno{position:absolute;left:-28%;top:-7%;width:137%;aspect-ratio:1121/1403;-webkit-mask-image:linear-gradient(180deg,#000 50%,rgba(0,0,0,.5) 62%,transparent 72%);mask-image:linear-gradient(180deg,#000 50%,rgba(0,0,0,.5) 62%,transparent 72%)}
   .testa-disegno > *{position:absolute;inset:0;width:100%;height:100%;display:block}
-  @keyframes sbircia{0%{translate:170px 0;rotate:-4deg}55%{translate:-8px 0;rotate:-22deg}75%{translate:4px 0;rotate:-15deg}100%{translate:0 0;rotate:-18deg}}
+  @keyframes sbircia{0%{translate:240px 0;rotate:-2deg}55%{translate:-8px 0;rotate:-20deg}75%{translate:4px 0;rotate:-13deg}100%{translate:0 0;rotate:-16deg}}
   .testa-fumetto{position:absolute;z-index:3;left:-6%;bottom:30%;margin:0;display:grid;justify-items:center;gap:2px;padding:7px 12px 8px;border-radius:14px;background:#fff;color:#1E1F24;text-align:center;
     box-shadow:0 0 0 3px #1E1F24,5px 6px 0 #1E1F24;rotate:-8deg;opacity:0;scale:.6;transition:opacity .3s ease,scale .3s cubic-bezier(.3,1.6,.5,1)}
   .testa-fumetto span{font:400 24px/1 "Yellowtail",cursive}
@@ -568,7 +569,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .banda-tocco:focus-visible{outline:3px solid #fff;outline-offset:-6px;border-radius:12px}
   /* aperta: testo in alto al centro, testa al centro con il fumetto, tinte in fondo */
   .hero .hero-destra.aperta{height:720px}
-  .hero .hero-destra.aperta .frase{left:50%;top:26px;width:88%;justify-items:center;text-align:center;transform:translateX(-50%) rotate(-3deg);transform-origin:50% 50%}
+  .hero .hero-destra.aperta .frase{left:50%;top:26px;width:88%;justify-items:center;text-align:center;transform:translateX(-50%) rotate(-2deg);transform-origin:50% 50%}
   .hero-destra.aperta .banda-invito{opacity:0;pointer-events:none}
   .hero-destra.aperta .testa{width:300px;right:calc(50% - 150px);top:150px;rotate:0deg;animation:none}
   .hero-destra.aperta.nero .testa-fumetto{opacity:1;scale:1}
@@ -1245,7 +1246,7 @@ function dividi(el){
 if (hasGsap && !RIDOTTO) {
   // ingresso della testata, breve, da stato visibile in poco tempo
   gsap.from('#titolo .riga > span', {yPercent:105, duration:1, ease:'expo.out', stagger:.08, delay:.1});
-  gsap.from('.hero-testo > :not(h1), .hero-destra > *', {y:24, opacity:0, duration:.9, ease:'expo.out', stagger:.08, delay:.45, clearProps:'transform,opacity'});
+  gsap.from(MOBILE() ? '.hero-testo > :not(h1)' : '.hero-testo > :not(h1), .hero-destra > *', {y:24, opacity:0, duration:.9, ease:'expo.out', stagger:.08, delay:.45, clearProps:'transform,opacity'});
   if (!SPAZIO) document.querySelectorAll('.rivela').forEach(el => {
     const p = dividi(el);
     const r = el.getBoundingClientRect();
