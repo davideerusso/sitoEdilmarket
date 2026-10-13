@@ -552,6 +552,8 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .hero .hero-destra .charlie .battuta{font-size:14px}
   .hero .hero-destra .charlie{transform:rotate(-2deg)!important}
 
+  /* banda alzata di 10px */
+  .hero .hero-destra{translate:0 -10px}
   /* banda chiusa: testo breve, francobollo più ruotato, Charlie dritto e più grande, senza targhette */
   .banda-breve{display:grid;position:absolute;z-index:2;left:clamp(20px,5vw,44px);top:auto;bottom:calc(var(--banda-h,330px) * .26 + clamp(56px,13vw,92px));width:max-content;max-width:60%;margin:0;gap:clamp(8px,1.6vw,14px);transform:rotate(-7deg);transform-origin:0 50%;transition:opacity .3s ease}
   .banda-breve b{white-space:nowrap;font:400 clamp(28px,7.6vw,56px)/1 "DM Serif Display",Georgia,serif;color:var(--c3);transition:color .9s ease}
