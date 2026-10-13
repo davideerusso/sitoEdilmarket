@@ -292,7 +292,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 @keyframes scorri{to{transform:translateX(-100%)}}
 
 /* Dove siamo */
-.dove{background:var(--rosso);color:var(--bianco);padding-block:140px;position:relative;overflow:hidden}
+.dove{background:var(--rosso);color:var(--bianco);padding-block:140px 64px;position:relative;overflow:hidden}
 .dove h2{font-size:clamp(40px,min(6.6vw,12vh),112px)}
 .dove-griglia{display:grid;grid-template-columns:1fr minmax(0,520px);gap:64px;margin-top:64px;align-items:start}
 .dove .info{display:grid;gap:28px;min-width:0}
@@ -313,7 +313,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .orari .chiuso{color:var(--grigio)}
 
 /* Piede */
-.piede{background:linear-gradient(180deg,var(--rosso) 0,var(--inchiostro) min(34vh,300px));color:var(--grigio-chiaro);padding-block:calc(80px + min(26vh,230px)) 0;overflow:hidden}
+.piede{background:linear-gradient(180deg,var(--rosso) 0,var(--inchiostro) min(34vh,300px));color:var(--grigio-chiaro);padding-block:calc(56px + min(18vh,160px)) 0;overflow:hidden}
 .piede-griglia{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
 .piede h4{color:var(--bianco);font:700 16px/1 var(--f-testo);margin:0 0 14px}
 .piede p{margin:0;font-size:15px;line-height:1.8}
@@ -419,7 +419,8 @@ body:not(.spazio) .hero.mazzo{z-index:4}
   .lama{width:100%;height:auto;min-height:280px}
   .lama .campo{padding:22px}
   .reparti-testa{padding-block:72px 28px}
-  .dove{padding-block:88px}
+  .dove{padding-block:88px 24px}
+  .piede{padding-top:calc(40px + min(16vh,120px))}
   .dove-griglia{grid-template-columns:1fr;gap:36px;margin-top:40px}
   .orari{padding:20px}
   .orari td{padding:10px 5px;font-size:14px}
@@ -467,7 +468,7 @@ body.spazio{overscroll-behavior:none}
   .spazio .storia-testo h2{font-size:min(9.4vw,5vh)}
   .spazio .storia-testo p{font-size:min(16px,2.1vh);line-height:1.45}
   /* Claudio più grande: se non ci sta, esce dal bordo destro (la schiena) */
-  .spazio .claudio{position:absolute;left:16vw;right:auto;bottom:0;transform:none;width:auto;padding:0;margin:0}
+  .spazio .claudio{position:absolute;left:16vw;right:auto;bottom:20px;transform:none;width:auto;padding:0;margin:0}
   .spazio .claudio img{height:max(260px,calc(100vh - 390px));width:auto;max-width:none}
   .spazio .claudio figcaption{left:-10%;bottom:9%}
   .spazio .reparti{align-items:center}
@@ -485,6 +486,11 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 @media (max-width:900px){
   /* intestazione: logo, telefono, posizione; sfondo quando la pagina scorre */
   .menu{transition:background-color .3s ease,box-shadow .3s ease}
+  /* fascia sfumata sotto logo e icone: sfoca quello che scorre sotto */
+  .menu::before{content:"";position:absolute;inset:0 0 -34px;z-index:-1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(20,16,12,.38) 0%,rgba(20,16,12,.16) 62%,rgba(20,16,12,0) 100%);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent);mask-image:linear-gradient(180deg,#000 55%,transparent)}
   .destra{gap:10px}
   .btn-icona,.destra .btn.mappa{display:grid;place-items:center;width:50px;height:50px;min-height:0;padding:0;border-radius:14px;box-shadow:0 10px 24px -14px rgba(22,24,29,.5)}
   .btn-icona{background:var(--bianco);color:var(--blu)}
