@@ -589,7 +589,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .banda-tocco{display:block;position:absolute;inset:0;z-index:4;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .banda-tocco:focus-visible{outline:3px solid #fff;outline-offset:-6px;border-radius:12px}
   /* aperta: testo in alto al centro, testa al centro con il fumetto, tinte in fondo */
-  .hero .hero-destra.aperta{height:696px}
+  .hero .hero-destra.aperta{height:672px}
   .hero .hero-destra.aperta .frase{left:50%;top:26px;width:88%;justify-items:center;text-align:center;transform:translateX(-50%) rotate(-2deg);transform-origin:50% 50%}
   .hero-destra.aperta .banda-invito{opacity:0;pointer-events:none}
   .hero-destra.aperta .testa{width:300px;right:calc(50% - 150px);top:150px;rotate:0deg;animation:none}
@@ -666,7 +666,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
         <div class="testa-disegno"><div class="charlie-inchiostro"></div><img src="img/charlie-ombra.webp" alt="" width="1121" height="1403"><div class="charlie-carta"></div></div>
         <p class="testa-fumetto"><span>Nero?</span><b>Che noia!</b></p>
       </div>
-      <div class="banda-piede"><span class="banda-tinta" aria-live="polite">Tinta: <b>Nero</b></span><button type="button" class="banda-chiudi">Chiudi <span aria-hidden="true">✕</span></button></div>
+      <div class="banda-piede"><span class="banda-tinta" aria-live="polite">Tinta: <b>Nero</b></span></div>
       <div class="pelo" id="pelo" role="group" aria-labelledby="t-charlie"></div>
       <div class="banda-tocco" role="button" tabindex="0" aria-expanded="false" aria-controls="pelo" aria-label="Tocca Charlie per scegliere il colore del suo pelo"></div>
     </div>
@@ -949,7 +949,7 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
   }
   tocco.addEventListener('click', apri);
   tocco.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); apri(); } });
-  chiudi.addEventListener('click', chiudiBanda);
+  if (chiudi) chiudi.addEventListener('click', chiudiBanda);
 })();
 /* Francobollo che si inclina: col mouse sul computer, tenendo premuto e trascinando sul telefono */
 (function(){
