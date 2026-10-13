@@ -497,11 +497,11 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
     background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 92%,transparent) 0%,color-mix(in oklab,var(--c1) 72%,transparent) 42%,color-mix(in oklab,var(--c1) 40%,transparent) 100%),
      radial-gradient(240px 230px at calc(100% - 70px) calc(100% - 150px),color-mix(in oklab,var(--c3) 62%,transparent) 0%,transparent 75%),
      linear-gradient(180deg,var(--c1) 0,var(--c2) 70%,var(--c3) 100%),
-     url(img/negozio-grigio.webp) 50% 100%/auto 520px no-repeat;
+     url(img/negozio-grigio.webp) 50% 100%/cover no-repeat;
     background-blend-mode:normal,normal,multiply,normal}
   .hero-testo{flex:none;justify-content:flex-start;padding:4px 0 24px;gap:16px}
   .hero-testo .stato-box{margin-bottom:4px}
-  .hero .hero-destra{margin-top:auto}
+  .hero .hero-destra{margin-top:auto;margin-bottom:36px}
   .stato-box{display:grid;justify-items:center;border-radius:22px;background:rgba(255,255,255,.18);transition:border-radius .3s ease}
   .hero .stato-box .stato{background:none;cursor:pointer;touch-action:manipulation}
   .stato .freccia{display:block;width:16px;height:16px;margin-left:2px;transition:transform .3s ease}
@@ -541,7 +541,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .hero .hero-destra.aperta .banda-breve{opacity:0;visibility:hidden}
   .hero .hero-destra .frase{transition:opacity .35s ease .2s,left .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),width .55s,transform .55s cubic-bezier(.3,.7,.2,1)}
   .hero .hero-destra .banda-invito{top:auto;bottom:84px}
-  .hero .hero-destra:not(.aperta) .charlie{rotate:-16deg;width:clamp(206px,calc(var(--banda-h,330px) * .55),248px);right:-22px;top:auto;bottom:-8px}
+  .hero .hero-destra:not(.aperta) .charlie{rotate:-16deg;width:clamp(206px,calc(var(--banda-h,330px) * .55),248px);right:-22px;top:auto;bottom:22px}
   .hero .hero-destra:not(.aperta) .fb-etichetta{display:none}
   .hero .hero-destra:not(.aperta) .fb-ritaglio{clip-path:inset(-40% -40% 0 0 round 0 0 7px 7px)}
   .hero .hero-destra:not(.aperta) .fb-valore,.hero .hero-destra:not(.aperta) .fb-etichetta,.hero .hero-destra:not(.aperta) .battuta{opacity:0;visibility:hidden}
@@ -907,7 +907,7 @@ function colora(i){
 /* Telefono: la pillola dello stato mostra gli orari, la banda di Charlie si apre al tocco */
 bandaEl.classList.add('nero');
 // da chiusa la banda arriva fino in fondo al primo schermo
-function misuraBanda(){ if (!MOBILE() || bandaEl.classList.contains('aperta')) return; bandaEl.style.setProperty('--banda-h', Math.max(330, Math.min(600, Math.round(innerHeight - bandaEl.offsetTop))) + 'px'); }
+function misuraBanda(){ if (!MOBILE() || bandaEl.classList.contains('aperta')) return; bandaEl.style.setProperty('--banda-h', Math.max(330, Math.min(440, Math.round(innerHeight - bandaEl.offsetTop - 36))) + 'px'); }
 misuraBanda(); addEventListener('load', misuraBanda); if (document.fonts) document.fonts.ready.then(() => { misuraBanda(); dispatchEvent(new Event('resize')); });
 let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs = setTimeout(misuraBanda, 120); });
 (function(){
