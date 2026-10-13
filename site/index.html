@@ -597,6 +597,8 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .banda-tocco:focus-visible{outline:3px solid #fff;outline-offset:-6px;border-radius:12px}
   /* aperta: testo in alto al centro, testa al centro con il fumetto, tinte in fondo */
   .hero .hero-destra.aperta{height:672px}
+  /* telefoni stretti: colori più vicini al francobollo (distanza circa dimezzata) */
+  @media (max-width:399px){.hero .hero-destra.aperta{height:638px}}
   .hero .hero-destra.aperta .frase{left:50%;top:46px;width:88%;justify-items:center;text-align:center;transform:translateX(-50%) rotate(-2deg);transform-origin:50% 50%}
   .hero-destra.aperta .banda-invito{opacity:0;pointer-events:none}
   .hero-destra.aperta .testa{width:300px;right:calc(50% - 150px);top:150px;rotate:0deg;animation:none}
