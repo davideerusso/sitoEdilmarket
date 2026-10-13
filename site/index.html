@@ -572,13 +572,17 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .hero .hero-destra .charlie-disegno{transition:rotate .55s cubic-bezier(.3,.7,.2,1),scale .55s cubic-bezier(.3,.7,.2,1),translate .55s}
   .hero .hero-destra.aperta .charlie{width:260px;right:calc(50% - 130px);top:176px;rotate:0deg;animation:none}
   .hero .hero-destra .banda-piede{justify-content:flex-end}
+  /* apertura fluida: niente transizioni di misure, solo trasformazioni animate da JS */
+  .hero .hero-destra.flip,.hero .hero-destra.flip .charlie{transition:none!important}
+  .hero .hero-destra.flip .frase{transition:opacity .35s ease .25s!important}
+  .hero .hero-destra.flip .charlie{will-change:translate,scale,rotate}
   .banda-invito{display:inline-block;position:absolute;z-index:2;left:30px;top:244px;padding:9px 16px;border-radius:999px;background:var(--c3);color:var(--c1);font:700 12px/1 var(--f-testo);letter-spacing:.12em;text-transform:uppercase;rotate:-7deg;box-shadow:0 10px 20px -12px rgba(0,0,0,.6);transition:opacity .3s ease}
   .testa{display:block;position:absolute;z-index:1;width:270px;aspect-ratio:270/290;right:-60px;top:10px;rotate:-12deg;
     transition:width .55s cubic-bezier(.3,.7,.2,1),right .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),rotate .55s cubic-bezier(.3,.7,.2,1);
     animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
   .testa-disegno{position:absolute;left:-28%;top:-7%;width:137%;aspect-ratio:1121/1403;-webkit-mask-image:linear-gradient(180deg,#000 50%,rgba(0,0,0,.5) 62%,transparent 72%);mask-image:linear-gradient(180deg,#000 50%,rgba(0,0,0,.5) 62%,transparent 72%)}
   .testa-disegno > *{position:absolute;inset:0;width:100%;height:100%;display:block}
-  @keyframes sbircia{0%{translate:240px 0;rotate:-2deg}55%{translate:-8px 0;rotate:-20deg}75%{translate:4px 0;rotate:-13deg}100%{translate:0 0;rotate:-16deg}}
+  @keyframes sbircia{0%{translate:240px 0;rotate:-2deg}55%{translate:-8px 0;rotate:-20deg}75%{translate:4px 0;rotate:-10deg}100%{translate:0 0;rotate:-13deg}}
   .testa-fumetto{position:absolute;z-index:3;left:-6%;bottom:30%;margin:0;display:grid;justify-items:center;gap:2px;padding:7px 12px 8px;border-radius:14px;background:#fff;color:#1E1F24;text-align:center;
     box-shadow:0 0 0 3px #1E1F24,5px 6px 0 #1E1F24;rotate:-8deg;opacity:0;scale:.6;transition:opacity .3s ease,scale .3s cubic-bezier(.3,1.6,.5,1)}
   .testa-fumetto span{font:400 24px/1 "Yellowtail",cursive}
@@ -938,10 +942,25 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
   const tocco = bandaEl.querySelector('.banda-tocco'), chiudi = bandaEl.querySelector('.banda-chiudi');
   function dopo(fn){ let fatto = false; const f = () => { if (fatto) return; fatto = true; fn(); }; bandaEl.addEventListener('transitionend', e => { if (e.target === bandaEl && e.propertyName === 'height') f(); }, {once:true}); setTimeout(f, 700); }
   function apri(){
-    bandaEl.classList.add('aperta'); tocco.setAttribute('aria-expanded', 'true');
-    dopo(() => {
-      dispatchEvent(new Event('resize'));
-      if (document.body.classList.contains('spazio') && window.__lenis && window.__V) setTimeout(() => window.__lenis.scrollTo(window.__V.idx.heroFine * window.__V.seg, {duration:1, lock:true, force:true}), 60);
+    if (bandaEl.classList.contains('aperta')) return;
+    const fb = bandaEl.querySelector('.charlie');
+    // FLIP: misuro il francobollo chiuso, apro di colpo, poi lo porto dalla vecchia posizione alla nuova solo con trasformazioni
+    const r0 = parseFloat(getComputedStyle(fb).rotate) || 0, w0 = fb.offsetWidth, h0 = fb.offsetHeight;
+    const cx0 = fb.offsetLeft + w0 / 2, cy0 = fb.offsetTop + h0 / 2;
+    bandaEl.classList.add('flip', 'aperta'); tocco.setAttribute('aria-expanded', 'true');
+    const w1 = fb.offsetWidth, tx1 = fb.offsetLeft + w1 / 2, ty1 = fb.offsetTop, s = w0 / w1, a = r0 * Math.PI / 180;
+    // il bordo alto del francobollo chiuso, ruotato attorno al suo centro
+    const dx = cx0 + (h0 / 2) * Math.sin(a) - tx1, dy = cy0 - (h0 / 2) * Math.cos(a) - ty1;
+    const anim = fb.animate ? fb.animate([
+      {translate: dx + 'px ' + dy + 'px', scale: String(s), rotate: r0 + 'deg', transformOrigin: '50% 0'},
+      {translate: '0px 0px', scale: '1', rotate: '0deg', transformOrigin: '50% 0'}
+    ], {duration: 650, easing: 'cubic-bezier(.3,.7,.2,1)'}) : null;
+    const fine = () => bandaEl.classList.remove('flip');
+    if (anim) anim.onfinish = anim.oncancel = fine; else fine();
+    // ricalcolo le animazioni della pagina subito, prima che parta il movimento, non a metà
+    if (window.ScrollTrigger) ScrollTrigger.refresh(); else dispatchEvent(new Event('resize'));
+    requestAnimationFrame(() => {
+      if (document.body.classList.contains('spazio') && window.__lenis && window.__V) window.__lenis.scrollTo(window.__V.idx.heroFine * window.__V.seg, {duration:1, lock:true, force:true});
       else bandaEl.scrollIntoView({behavior:'smooth', block:'center'});
       const primo = bandaEl.querySelector('.pelo button'); if (primo && document.activeElement === tocco) primo.focus({preventScroll:true});
     });
