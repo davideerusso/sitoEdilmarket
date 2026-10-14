@@ -266,10 +266,16 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .reparti-testa p{margin:0;color:var(--grigio-chiaro);max-width:48ch;font-size:19px}
 .binario{display:flex;gap:20px;padding:0 var(--gutter) 120px;width:max-content}
 .lama{--c:#E23128;--t:#fff;position:relative;width:min(72vw,540px);height:clamp(360px,calc(100svh - 430px),560px);background:var(--bianco);border-radius:16px;padding:10px;display:grid;grid-template-rows:1fr auto;flex:none;container-type:inline-size}
-.lama .campo{background:var(--c);color:var(--t);border-radius:10px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+/* foto del reparto al posto del colore: sfumature scure dove ci sono titolo e testo; finché la foto non arriva resta il colore */
+/* card selezionata (quella dell'oggetto 3D) un po' più grande, le altre più piccole e spente */
+.con-scelta .lama{transition:scale .45s cubic-bezier(.2,.8,.2,1),opacity .45s ease,filter .45s ease;scale:.93;opacity:.55;filter:saturate(.45) brightness(.82)}
+.con-scelta .lama.attiva{scale:1.04;opacity:1;filter:none}
+@media (prefers-reduced-motion:reduce){.con-scelta .lama{transition:none}}
+.lama .campo{background:linear-gradient(180deg,rgba(15,17,22,.62) 0%,rgba(15,17,22,0) 34%,rgba(15,17,22,0) 52%,rgba(15,17,22,.82) 100%),var(--foto,none) center/cover no-repeat,var(--c);color:#fff;border-radius:10px;padding:28px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
 /* il nome del reparto si adatta alla larghezza della card: la parola più lunga (11 lettere) entra sempre */
 .lama h3{font-size:clamp(30px,3.5vw,56px);font-size:clamp(22px,calc((100cqi - 84px) / 10),56px);overflow-wrap:normal}
-.lama .campo p{margin:0;font-size:18px;max-width:30ch;opacity:.9}
+.lama .campo p{margin:0;font-size:18px;max-width:30ch;opacity:.92}
+.lama h3,.lama .campo p{text-shadow:0 1px 14px rgba(0,0,0,.35)}
 .lama .etichetta{display:flex;justify-content:space-between;align-items:center;color:var(--inchiostro);padding:16px 14px 8px}
 .lama .etichetta b{font:700 17px/1 var(--f-testo)}
 .lama .foro{width:18px;height:18px;border-radius:50%;background:var(--inchiostro);box-shadow:inset 0 0 0 5px #3a3f48}
@@ -332,6 +338,7 @@ body:not(.spazio) .tav-guscio{overflow:hidden}
 .piede a{display:inline-block;padding-block:10px;margin-block:-10px;text-underline-offset:3px}
 .piede .logo{display:inline-flex;margin-bottom:20px}
 .marchio-gigante{font-size:clamp(52px,14.6vw,280px);color:var(--bianco);line-height:.78;margin-top:80px;white-space:nowrap;transform:translateY(12%)}
+.legale .crediti{opacity:.7;font-size:12px}
 .legale{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-block:20px;font-size:14px;position:relative;z-index:1;background:var(--inchiostro)}
 
 /* telefono: sezioni a mazzo di carte */
@@ -431,8 +438,10 @@ body:not(.spazio) .hero.mazzo{z-index:4}
   .lama{width:100%;height:auto;min-height:280px}
   .lama .campo{padding:22px}
   .reparti-testa{padding-block:72px 28px}
-  .dove{padding-block:88px 24px}
-  .piede{padding-top:calc(40px + min(16vh,120px))}
+  .dove{padding-block:88px 64px}
+  /* "Ti aspettiamo" resta sulla stessa riga: il titolo si rimpicciolisce sui telefoni stretti */
+  .dove h2{font-size:min(clamp(40px,min(6.6vw,12vh),112px),calc((100vw - 2 * var(--gutter)) / 10.4))}
+  .piede{padding-top:32px}
   .dove-griglia{grid-template-columns:1fr;gap:36px;margin-top:40px}
   .orari{padding:20px}
   .orari td{padding:10px 5px;font-size:14px}
@@ -443,7 +452,6 @@ body:not(.spazio) .hero.mazzo{z-index:4}
   .marchi{padding-block:56px 88px}
   .marchio{width:150px;height:84px}
   .marchio img{max-width:120px;max-height:46px}
-  .piede{padding-top:calc(56px + min(22vh,180px))}
   .marchio-gigante{margin-top:48px}
   .bottega{grid-template-columns:1fr;align-items:start}
   .bottega-sfondo{background-image:url(img/bottega-m.webp)}
@@ -476,7 +484,7 @@ body.spazio{overscroll-behavior:none}
   .spazio .dati dd{font-size:min(13px,1.7vh)}
   /* dal 1986: testo in alto, Claudio intero in basso */
   .spazio .storia-palco .bottega{display:block}
-  .spazio .storia-testo{padding:84px var(--gutter) 0;gap:14px}
+  .spazio .storia-testo{padding:112px var(--gutter) 0;gap:14px}
   .spazio .storia-testo h2{font-size:min(9.4vw,5vh)}
   .spazio .storia-testo p{font-size:min(16px,2.1vh);line-height:1.45}
   /* Claudio più grande: se non ci sta, esce dal bordo destro (la schiena) */
@@ -748,7 +756,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   <section class="reparti" id="reparti" aria-labelledby="t-rep">
     <div class="reparti-testa wrap">
       <h2 class="disp rivela" id="t-rep">Otto reparti, un solo banco.</h2>
-      <p>Dalla vite inox alla cassaforte, per il cantiere e per la casa. Ogni reparto ha il suo colore, come una mazzetta aperta sul banco.</p>
+      <p>Dalla vite inox alla cassaforte, per il cantiere e per la casa. Scorri i reparti: per ognuno, l’attrezzo giusto è già sul banco.</p>
     </div>
     <div class="binario" id="binario"></div>
   </section>
@@ -807,7 +815,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
     <div><h4>Dati aziendali</h4><p>P.IVA 02452660752<br>PEC edilmarket62@pec.it<br><a href="/privacy">Privacy Policy</a></p></div>
   </div>
   <div class="marchio-gigante disp" aria-hidden="true">Edil Market</div>
-  <div class="legale wrap"><span>© 2026 Edilmarket di Russo Claudio</span><span>Strudà, Lecce</span></div>
+  <div class="legale wrap"><span>© 2026 Edilmarket di Russo Claudio</span><span class="crediti">Modelli 3D da Thingiverse (CC BY): <a href="https://www.thingiverse.com/thing:4711036" target="_blank" rel="noopener">Vite M10 x 30</a> di enriko71, <a href="https://www.thingiverse.com/thing:3237313" target="_blank" rel="noopener">Paint Bucket Pen Holder</a> di atuor, <a href="https://www.thingiverse.com/thing:3574098" target="_blank" rel="noopener">Another Magic Faucet</a> di Indianin666; da Poly Pizza (CC BY): <a href="https://poly.pizza/m/6ssvUix7Ycr" target="_blank" rel="noopener">Light bulb</a> e <a href="https://poly.pizza/m/b1XMMDEWe1i" target="_blank" rel="noopener">Key</a> di Poly by Google</span><span>Strudà, Lecce</span></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -843,9 +851,12 @@ const binario = document.getElementById('binario');
 REPARTI.forEach(([n,d,c,t]) => {
   const el = document.createElement('article');
   el.className = 'lama'; el.style.setProperty('--c',c); el.style.setProperty('--t',t);
-  el.innerHTML = `<div class="campo"><h3 class="disp">${n}</h3><p>${d}</p></div><div class="etichetta"><b>${n}</b><span class="codice">${c}</span><i class="foro" aria-hidden="true"></i></div>`;
+  el.innerHTML = `<div class="campo"><h3 class="disp">${n}</h3><p>${d}</p></div><div class="etichetta"><b>${n}</b><i class="foro" aria-hidden="true"></i></div>`;
+  el.dataset.foto = 'img/reparti/' + n.normalize('NFD').replace(/[^a-zA-Z]/g, '').toLowerCase() + '.jpg';
   binario.appendChild(el);
 });
+// le foto dei reparti arrivano dopo il resto della pagina
+addEventListener('load', () => document.querySelectorAll('.lama[data-foto]').forEach(l => l.style.setProperty('--foto', `url(${l.dataset.foto})`)));
 const pista = document.getElementById('pista'), pista2 = document.getElementById('pista2');
 MARCHI.forEach(m => {
   const html = `<div class="marchio"><img src="img/m-${m}.webp" alt="${NOMI_M[m]}" loading="lazy"></div>`;
@@ -1360,15 +1371,17 @@ if (hasGsap && !RIDOTTO) {
     let inVolo = false, obiettivo = null, fineVolo = 0, ultimoEvento = 0, ultimoOk = 0, fermo = null, ultimaY = scrollY, dir = 1;
     function prossimo(y, d){ const p = punti(); if (d > 0) return p.find(v => v > y + 3) ?? null; for (let k = p.length-1; k >= 0; k--) if (p[k] < y - 3) return p[k]; return null; }
     const tappa = y => V.stops && V.stops[Math.round(y / V.seg)];
-    function vola(m, da){
+    function vola(m, da, durata){
       const y = da ?? scrollY; if (m == null || Math.abs(m - y) < 2) return false;
       clearTimeout(fermo);
       const tappe = Math.abs(m - y) / V.seg, s1 = tappa(y), s2 = tappa(m);
       const stessa = s1 && s2 && s1.k === s2.k;
-      const dur = stessa ? (s1.k === 'rep' ? .55 : (s1.tav || s2.tav) ? .7 : 1.15) : Math.min(1.9, .85 + tappe*.7);
+      const dur = durata ?? (stessa ? (s1.k === 'rep' ? .55 : (s1.tav || s2.tav) ? .7 : 1.15) : Math.min(1.9, .85 + tappe*.7));
       inVolo = true; obiettivo = m; fineVolo = performance.now() + dur*1000;
-      lenis.scrollTo(m, {duration:dur, easing:ease, lock:true, force:true, onComplete:() => { inVolo = false; obiettivo = null; }});
-      setTimeout(() => { if (performance.now() >= fineVolo) { inVolo = false; obiettivo = null; } }, dur*1000 + 200);
+      // l'oggetto 3D dei reparti cambia quando parte l'aggancio, verso la card di arrivo
+      V.cardDest = s2 && s2.k === 'rep' ? Math.max(0, Math.round(m / V.seg) - V.idx.rep - (MOBILE() ? 1 : 0)) : null;
+      lenis.scrollTo(m, {duration:dur, easing:ease, lock:true, force:true, onComplete:() => { inVolo = false; obiettivo = null; V.cardDest = null; }});
+      setTimeout(() => { if (performance.now() >= fineVolo) { inVolo = false; obiettivo = null; V.cardDest = null; } }, dur*1000 + 200);
       return true;
     }
     // nei reparti si scorre liberamente, anche veloce: si vola solo per entrare o uscire dalla sezione
@@ -1379,7 +1392,9 @@ if (hasGsap && !RIDOTTO) {
       if (!inVolo && e.type === 'wheel' && nelRep(scrollY)) {
         const st = scrollY / V.seg, I = V.idx;
         const esce = (d > 0 && st >= I.repFine - .02) || (d < 0 && st <= I.rep + .02);
-        if (!esce) { ultimoOk = ora; clearTimeout(fermo); return; }   // ci pensa lo scorrimento morbido
+        // rotella a scatti: ogni scatto porta subito alla card successiva
+        if (!esce && tacca) { e.preventDefault(); e.stopPropagation(); ultimoOk = ora; vola(prossimo(scrollY, d), scrollY, .45); return; }
+        if (!esce) { ultimoOk = ora; clearTimeout(fermo); return; }   // trackpad: scorre libero e poi si aggancia
       }
       const base = inVolo && obiettivo != null ? obiettivo : scrollY;
       const m = prossimo(base, d);
@@ -1425,6 +1440,13 @@ if (hasGsap && !RIDOTTO) {
       const y = scrollY; if (y !== ultimaY) { dir = y > ultimaY ? 1 : -1; ultimaY = y; }
       clearTimeout(fermo);
       if (!inVolo && !nelRep(scrollY)) fermo = setTimeout(() => { const yy = scrollY, r = yy % V.seg; if (r > 3 && V.seg - r > 3 && !nelRep(yy)) vola(dir > 0 ? yy - r + V.seg : yy - r); }, 160);
+      // nei reparti la card si aggancia appena ci si ferma: basta superarne un quinto per passare alla successiva
+      else if (!inVolo) fermo = setTimeout(() => {
+        const yy = scrollY, I = V.idx, f = yy / V.seg - Math.floor(yy / V.seg);
+        if (f * V.seg < 3 || (1 - f) * V.seg < 3) return;
+        const k = Math.min(I.repFine, Math.max(I.rep, dir > 0 ? (f > .2 ? Math.ceil(yy / V.seg) : Math.floor(yy / V.seg)) : (f < .8 ? Math.floor(yy / V.seg) : Math.ceil(yy / V.seg))));
+        const m = k * V.seg; vola(m, yy, Math.min(.45, .2 + Math.abs(m - yy) / V.seg * .4));
+      }, performance.now() - ultimoEvento > 60 && Math.abs(lenis.velocity || 0) < 4 ? 0 : 90);   // senza aspettare la coda dello scorrimento morbido
     });
   }
   // inclinazione delle pitture al passaggio del mouse
@@ -1477,9 +1499,10 @@ scene.add(new THREE.AmbientLight(0xffffff, .35)); { const sole = new THREE.Direc
 const metallo = new THREE.MeshStandardMaterial({color:0xdfe3ea, metalness:1, roughness:.22});
 const metalloScuro = new THREE.MeshStandardMaterial({color:0x8b93a1, metalness:1, roughness:.35});
 
-/* Vite */
+/* Oggetto dei reparti: il contenitore segue lo scroll, dentro c'è un oggetto per reparto */
 const vite = new THREE.Group(); scene.add(vite);
-(function(){
+const modelloVite = new THREE.Group();
+(function(vite){
   const testa = new THREE.Mesh(new THREE.CylinderGeometry(.62,.62,.26,48), metallo); testa.position.y = 1.6; vite.add(testa);
   const croce1 = new THREE.Mesh(new THREE.BoxGeometry(.8,.1,.12), metalloScuro); croce1.position.y = 1.7; vite.add(croce1);
   const croce2 = croce1.clone(); croce2.rotation.y = Math.PI/2; vite.add(croce2);
@@ -1487,8 +1510,207 @@ const vite = new THREE.Group(); scene.add(vite);
   class Elica extends THREE.Curve { getPoint(t, o = new THREE.Vector3()){ const g = t*Math.PI*2*15; return o.set(Math.cos(g)*.24, 1.45 - t*3.2, Math.sin(g)*.24); } }
   const filetto = new THREE.Mesh(new THREE.TubeGeometry(new Elica(), 600, .055, 8, false), metallo); vite.add(filetto);
   const punta = new THREE.Mesh(new THREE.ConeGeometry(.22,.5,32), metallo); punta.rotation.x = Math.PI; punta.position.y = -1.75; vite.add(punta);
-})();
+})(modelloVite);
 vite.rotation.z = -.5;
+// modello 3D di ogni reparto: chi non ce l'ha ancora usa la vite
+// stessi metalli della vite, con un solo accento preso dalla palette del sito
+const legno = new THREE.MeshStandardMaterial({color:0xA8743F, metalness:0, roughness:.5, envMapIntensity:.45});
+const ottone = new THREE.MeshStandardMaterial({color:0xD9A441, metalness:1, roughness:.25});
+const rossoEM = new THREE.MeshStandardMaterial({color:0xDF2F26, metalness:0, roughness:.32, envMapIntensity:.4});
+const nero = new THREE.MeshStandardMaterial({color:0x23262E, metalness:0, roughness:.5, envMapIntensity:.35});
+[legno, rossoEM, nero].forEach(m => m.color.convertSRGBToLinear());   // i colori del sito sono in sRGB
+const pezzo = (geo, mat, x=0, y=0, z=0, rx=0, ry=0, rz=0, g) => { const m = new THREE.Mesh(geo, mat); m.position.set(x,y,z); m.rotation.set(rx,ry,rz); g.add(m); return m; };
+const tubo = (punti, r, mat, g) => pezzo(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(punti.map(v => new THREE.Vector3(...v))), 64, r, 16, false), mat, 0,0,0, 0,0,0, g);
+const MODELLI = {
+  Ferramenta(){ // martello
+    const g = new THREE.Group();
+    pezzo(new THREE.CylinderGeometry(.15,.17,2.6,24), legno, 0,-.3,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.21,.2,1.1,24), nero, 0,-1.15,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.3,.3,1.05,32), metallo, .3,1.3,0, 0,0,Math.PI/2, g);
+    pezzo(new THREE.CylinderGeometry(.36,.36,.14,32), metallo, .86,1.3,0, 0,0,Math.PI/2, g);
+    pezzo(new THREE.CylinderGeometry(.33,.22,.3,32), metalloScuro, 0,1.3,0, 0,0,0, g);
+    const penna = pezzo(new THREE.BoxGeometry(.85,.32,.26), metallo, -.6,1.2,0, 0,0,.42, g);
+    pezzo(new THREE.BoxGeometry(.06,.34,.28), metalloScuro, -.98,1.02,0, 0,0,.42, g);   // taglio della penna
+    g.position.y = .1; return g;
+  },
+  Colorificio(){ // barattolo aperto col pennello
+    const g = new THREE.Group();
+    pezzo(new THREE.CylinderGeometry(.95,.95,1.35,48,1,true), metallo, 0,-.95,0, 0,0,0, g).material = metallo;
+    pezzo(new THREE.CircleGeometry(.95,48), metalloScuro, 0,-1.62,0, Math.PI/2,0,0, g);
+    pezzo(new THREE.TorusGeometry(.95,.05,12,48), metallo, 0,-.28,0, Math.PI/2,0,0, g);
+    pezzo(new THREE.TorusGeometry(.95,.04,12,48), metalloScuro, 0,-1.6,0, Math.PI/2,0,0, g);
+    pezzo(new THREE.CircleGeometry(.92,48), rossoEM, 0,-.38,0, -Math.PI/2,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.97,.97,.5,48,1,true), rossoEM, 0,-.95,0, 0,0,0, g);   // etichetta
+    pezzo(new THREE.TorusGeometry(1.02,.03,8,32,Math.PI), metallo, 0,-.6,0, 0,0,0, g);       // manico
+    const p = new THREE.Group(); p.position.set(.25,-.2,0); p.rotation.z = -.38; g.add(p);
+    pezzo(new THREE.BoxGeometry(.62,.55,.2), rossoEM, 0,-.1,0, 0,0,0, p);                    // setole intinte
+    pezzo(new THREE.BoxGeometry(.6,.35,.18), nero, 0,.33,0, 0,0,0, p);
+    pezzo(new THREE.BoxGeometry(.66,.32,.24), metallo, 0,.62,0, 0,0,0, p);                   // ghiera
+    pezzo(new THREE.CylinderGeometry(.11,.15,1.5,20), legno, 0,1.5,0, 0,0,0, p);
+    g.position.y = .25; return g;
+  },
+  'Elettricità'(){ // lampadina accesa
+    const g = new THREE.Group(), pr = [[.42,-.55],[.48,-.35]];
+    for (let i = 0; i <= 24; i++) { const a = 2.3 - 2.3*i/24; pr.push([Math.sin(a)*1.02 + .001, .8 + Math.cos(a)*1.02]); }
+    const vetro = new THREE.MeshStandardMaterial({color:0xFFF4DC, emissive:0xFFD27A, emissiveIntensity:.18, metalness:0, roughness:.05, transparent:true, opacity:.22, side:THREE.DoubleSide, depthWrite:false});
+    pezzo(new THREE.LatheGeometry(pr.map(([x,y]) => new THREE.Vector2(x,y)), 48), vetro, 0,0,0, 0,0,0, g);
+    const luce = new THREE.MeshBasicMaterial({color:0xFFB547, transparent:true, opacity:.35, blending:THREE.AdditiveBlending, depthWrite:false});
+    const alone = pezzo(new THREE.SphereGeometry(.42,24,16), luce, 0,.72,0, 0,0,0, g);
+    const filo = new THREE.MeshBasicMaterial({color:0xFFE9A8});
+    pezzo(new THREE.TorusGeometry(.26,.035,8,32,Math.PI), filo, 0,.7,0, 0,0,Math.PI, g);
+    pezzo(new THREE.CylinderGeometry(.015,.015,1.1,6), metalloScuro, -.26,.15,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.015,.015,1.1,6), metalloScuro, .26,.15,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.47,.42,.8,32), metallo, 0,-.95,0, 0,0,0, g);
+    for (const y of [-.72,-.92,-1.12]) pezzo(new THREE.TorusGeometry(.46,.05,10,32), metallo, 0,y,0, Math.PI/2,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.38,.22,.18,32), nero, 0,-1.44,0, 0,0,0, g);
+    pezzo(new THREE.SphereGeometry(.12,16,10), ottone, 0,-1.55,0, 0,0,0, g);
+    g.userData.anima = t => { const v = .85 + Math.sin(t*3.1)*.08 + Math.sin(t*7.3)*.04; alone.scale.setScalar(v*1.15); luce.opacity = .28 + v*.12; };
+    g.position.y = -.1; return g;
+  },
+  Edilizia(){ // cazzuola
+    const g = new THREE.Group(), sh = new THREE.Shape();
+    sh.moveTo(0,-1.85); sh.quadraticCurveTo(.98,-.35,.82,.42); sh.quadraticCurveTo(0,.52,-.82,.42); sh.quadraticCurveTo(-.98,-.35,0,-1.85);
+    const lama = new THREE.ExtrudeGeometry(sh, {depth:.04, bevelEnabled:true, bevelThickness:.015, bevelSize:.015, bevelSegments:2, curveSegments:32});
+    pezzo(lama, metallo, 0,0,-.02, 0,0,0, g);
+    tubo([[0,.2,.04],[0,.42,.12],[0,.58,.38],[0,.82,.5]], .07, metalloScuro, g);
+    pezzo(new THREE.CylinderGeometry(.08,.12,.16,20), metallo, 0,.9,.5, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.18,.15,1.25,24), legno, 0,1.6,.5, 0,0,0, g);
+    pezzo(new THREE.SphereGeometry(.18,20,12,0,Math.PI*2,0,Math.PI/2), legno, 0,2.22,.5, 0,0,0, g);
+    g.position.y = -.15; return g;
+  },
+  'Fai da Te'(){ // cacciavite
+    const g = new THREE.Group();
+    pezzo(new THREE.CylinderGeometry(.34,.4,1.5,8), rossoEM, 0,.95,0, 0,0,0, g);                    // manico sfaccettato
+    pezzo(new THREE.SphereGeometry(.34,24,12,0,Math.PI*2,0,Math.PI/2), rossoEM, 0,1.7,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.4,.3,.3,24), nero, 0,.08,0, 0,0,0, g);                        // ghiera
+    pezzo(new THREE.CylinderGeometry(.09,.09,1.9,20), metallo, 0,-.98,0, 0,0,0, g);                 // asta
+    pezzo(new THREE.BoxGeometry(.24,.32,.05), metallo, 0,-2.05,0, 0,0,0, g);                        // punta piatta
+    g.position.y = .15; return g;
+  },
+  Idraulica(){ // rubinetto che gocciola
+    const g = new THREE.Group();
+    pezzo(new THREE.CylinderGeometry(.55,.6,.16,40), metallo, 0,-1.55,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.3,.34,1.7,40), metallo, -.2,-.65,0, 0,0,0, g).position.x = 0;
+    tubo([[0,.1,0],[0,.75,0],[.25,1.2,0],[.85,1.3,0],[1.3,1.0,0],[1.42,.55,0]], .17, metallo, g);
+    pezzo(new THREE.CylinderGeometry(.2,.2,.22,24), metalloScuro, 1.43,.42,0, 0,0,0, g);
+    pezzo(new THREE.SphereGeometry(.31,32,16), metallo, 0,.28,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.26,.3,.42,32), metallo, 0,.7,0, 0,0,0, g);                     // cartuccia
+    tubo([[0,.85,0],[-.35,1.02,0],[-.85,1.2,0]], .075, metallo, g);                                  // leva
+    pezzo(new THREE.CylinderGeometry(.14,.14,.04,24), new THREE.MeshStandardMaterial({color:new THREE.Color(0x2E90CC).convertSRGBToLinear(), metalness:0, roughness:.3, envMapIntensity:.4}), 0,.92,0, 0,0,0, g);
+    const acqua = new THREE.MeshStandardMaterial({color:0x5DB4E8, metalness:0, roughness:.05, transparent:true, opacity:.8});
+    const goccia = pezzo(new THREE.SphereGeometry(.11,20,14), acqua, 1.43,.2,0, 0,0,0, g); goccia.scale.y = 1.35;
+    g.userData.anima = t => { const f = (t*.8) % 1; goccia.position.y = .2 - (f < .35 ? 0 : (f-.35)*(f-.35)*6); goccia.scale.setScalar(f < .35 ? .4 + f*1.7 : 1); goccia.scale.y *= 1.35; acqua.opacity = f > .85 ? (1-f)*5 : .8; };
+    g.position.y = .05; return g;
+  },
+  Sicurezza(){ // chiave in ottone
+    const g = new THREE.Group();
+    pezzo(new THREE.TorusGeometry(.55,.17,20,48), ottone, 0,1.25,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.22,.22,.18,32), ottone, 0,.62,0, 0,0,0, g);
+    pezzo(new THREE.CylinderGeometry(.12,.12,2.3,24), ottone, 0,-.6,0, 0,0,0, g);
+    pezzo(new THREE.ConeGeometry(.12,.16,24), ottone, 0,-1.83,0, Math.PI,0,0, g);
+    [[-1.0,.34],[-1.22,.22],[-1.44,.4],[-1.66,.26]].forEach(([y,w]) => pezzo(new THREE.BoxGeometry(w,.2,.09), ottone, .1+w/2,y,0, 0,0,0, g));
+    g.position.y = -.05; return g;
+  }
+};
+const oggetti = REPARTI.map(([n], i) => {
+  const o = new THREE.Group(), m = MODELLI[n] ? MODELLI[n]() : modelloVite.clone();
+  o.add(m); o.userData.anima = m.userData.anima; o.userData.k = {s: i ? 0 : 1, giro: 0, dx: 0};
+  vite.add(o); return o;
+});
+// modelli da Thingiverse (CC BY, autori nel piè di pagina) e Poly Pizza (CC0 e CC BY): arrivano dopo il caricamento
+// della pagina e prendono il posto di quelli disegnati; se non arrivano resta il disegno.
+// Formato .bin: vedi strumenti/converti-stl.py (posizioni a 16 bit, normali a 8 bit, indici)
+async function caricaBin(url){
+  const b = await (await fetch(url)).arrayBuffer(), dv = new DataView(b);
+  const nV = dv.getUint32(0,true), nI = dv.getUint32(4,true);
+  const mn = [8,12,16].map(o => dv.getFloat32(o,true)), ps = [20,24,28].map(o => dv.getFloat32(o,true));
+  const q = new Uint16Array(b, 32, nV*3), nq = new Int8Array(b, 32 + nV*6, nV*3);
+  let off = 32 + nV*9; off += (4 - off%4) % 4;
+  const idx = nV > 65535 ? new Uint32Array(b, off, nI) : new Uint16Array(b, off, nI);
+  const pos = new Float32Array(nV*3), nor = new Float32Array(nV*3);
+  for (let i = 0; i < nV*3; i++) { const c = i%3; pos[i] = mn[c] + q[i]*ps[c]; nor[i] = nq[i]/127; }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos,3)); g.setAttribute('normal', new THREE.BufferAttribute(nor,3)); g.setIndex(new THREE.BufferAttribute(idx,1));
+  return g;
+}
+// i file sono in millimetri: scala, rotazione per metterli in piedi, centratura e inclinazione rispetto alla vite
+function montaggio(sc, rx, y, rz, parti){
+  const g = new THREE.Group(), d = new THREE.Group(); g.add(d); g.rotation.z = rz;
+  d.scale.setScalar(sc); d.rotation.x = rx; d.position.y = y;
+  parti.forEach(([geo, mat, x=0, py=0, z=0, prx=0]) => pezzo(geo, mat, x,py,z, prx,0,0, d));
+  return [g, d];
+}
+// stessa presenza per tutti: ingombro visivo (altezza × larghezza) uguale a quello della vite disegnata,
+// senza superare un'altezza e una larghezza massime (gli oggetti sottili non diventano lunghissimi)
+function sostituisci(nome, g){
+  const o = oggetti[REPARTI.findIndex(r => r[0] === nome)], rz = g.rotation.z;
+  g.rotation.z = 0; const z = new THREE.Box3().setFromObject(g).getSize(new THREE.Vector3()); g.rotation.z = rz;
+  const w = Math.max(z.x, z.z), h = z.y;
+  g.scale.multiplyScalar(Math.min(2.7 / Math.sqrt(w*h), 4.4 / h, 3.2 / w));
+  o.clear(); o.add(g); o.userData.anima = g.userData.anima;
+}
+async function modelliVeri(){
+  try {
+    const L = n => caricaBin('modelli/' + n + '.bin');
+    const [vt, sc, sm, sz, r1, r2, r3, r4, ca, cf, cm] = await Promise.all(['vite','secchio','secchio-manico','schizzo','rubinetto-MF1','rubinetto-MF2','rubinetto-MF3','rubinetto-MF4','cacciavite-asta','cacciavite-fascia','cacciavite-manico'].map(L));
+    const [cac, dc] = montaggio(.018, -Math.PI/2, .22, .15, [[ca, metallo], [cf, nero], [cm, rossoEM]]); dc.position.z = .27;   // Poly Pizza, CC0
+    sostituisci('Fai da Te', cac);
+    // lampadina (Poly by Google, CC BY): vetro trasparente con filamento e bagliore accesi dentro
+    const [ll, ls, lc] = await Promise.all(['lampadina-scuro','lampadina-grigio','lampadina-chiaro'].map(L));   // contatto, attacco, vetro
+    const vetro = new THREE.MeshStandardMaterial({color:0xFFF4DC, emissive:0xFFD27A, emissiveIntensity:.4, metalness:0, roughness:.05, transparent:true, opacity:.24, side:THREE.DoubleSide, depthWrite:false});
+    const [lamp, dl] = montaggio(.095, 0, -1.85, .3, [[ll, ottone], [ls, metallo], [lc, vetro]]);
+    const luce = new THREE.MeshBasicMaterial({color:0xFFB547, transparent:true, opacity:.35, blending:THREE.AdditiveBlending, depthWrite:false});
+    const alone = pezzo(new THREE.SphereGeometry(5,24,16), luce, 0,26,0, 0,0,0, dl);
+    pezzo(new THREE.TorusGeometry(2.6,.35,8,32,Math.PI), new THREE.MeshBasicMaterial({color:0xFFE9A8}), 0,25,0, 0,0,Math.PI, dl);
+    for (const x of [-2.6, 2.6]) pezzo(new THREE.CylinderGeometry(.15,.15,15,6), metalloScuro, x,17.5,0, 0,0,0, dl);
+    lamp.userData.anima = t => { const v = .85 + Math.sin(t*3.1)*.08 + Math.sin(t*7.3)*.04; alone.scale.setScalar(v*1.15); luce.opacity = .28 + v*.12; };
+    sostituisci('Elettricità', lamp);
+    // martello (Poly Pizza, CC0): testa messa di traverso per vederne bene la sagoma
+    const [mm, mt, mf] = await Promise.all(['martello-manico','martello-testa','martello-fascia'].map(L));
+    const [mar, dm] = montaggio(.0106, -Math.PI/2, .95, .15, [[mm, legno], [mt, metallo], [mf, nero]]);
+    dm.rotation.z = Math.PI/2; dm.position.x = -.12;
+    sostituisci('Ferramenta', mar);
+    // chiave (Poly by Google, CC BY): il file è disteso in orizzontale, la mettiamo in piedi
+    const [ch, dch] = montaggio(.011, 0, 0, .2, [[await L('chiave'), ottone]]);
+    dch.rotation.z = -Math.PI/2; dch.position.x = -.75;   // impugnatura in alto
+    sostituisci('Sicurezza', ch);
+    sostituisci('Viteria', montaggio(.1, Math.PI/2, 1.3, 0, [[vt, metallo]])[0]);
+    sostituisci('Colorificio', montaggio(.045, -Math.PI/2, -1.95, .3, [[sc, metallo], [sm, metallo, 0,0,50, -Math.PI/2 + 1.25], [sz, rossoEM, 0,0,47]])[0]);
+    const [rub, d] = montaggio(.03, 0, -.35, .5, [[r1, metallo], [r2, metallo, 30], [r3, metallo, 0,-29], [r4, metallo, 0,-50]]);
+    const acqua = new THREE.MeshStandardMaterial({color:0x5DB4E8, metalness:0, roughness:.05, transparent:true, opacity:.8});
+    const goccia = pezzo(new THREE.SphereGeometry(4,20,14), acqua, -47,-40,0, 0,0,0, d);
+    rub.userData.anima = t => { const f = (t*.8) % 1; goccia.position.y = -40 - (f < .35 ? 0 : (f-.35)*(f-.35)*200); goccia.scale.setScalar(f < .35 ? .4 + f*1.7 : 1); goccia.scale.y *= 1.35; acqua.opacity = f > .85 ? (1-f)*5 : .8; };
+    sostituisci('Idraulica', rub);
+  } catch(e) {}
+}
+if (document.readyState === 'complete') setTimeout(modelliVeri, 300); else addEventListener('load', () => setTimeout(modelliVeri, 300));
+// la card attiva: nel viaggio 3D è quella verso cui sta andando l'aggancio (lo scorrimento libero
+// non cambia l'oggetto, così un tocco che poi torna indietro non lo fa cambiare); altrimenti la più vicina al centro
+const lame = [...document.querySelectorAll('.lama')]; let contaF = 0, fPrec = -1;
+function cardAlCentro(){
+  if (SPAZIO && V.idx.rep != null) {
+    if (V.cardDest != null) return Math.min(lame.length-1, V.cardDest);
+    // fermo fuori da un aggancio (es. barra di scorrimento): si allinea alla card dove si è
+    const f = Math.min(lame.length-1, Math.max(0, V.st - V.idx.rep - (MOBILE() ? 1 : 0)));
+    const fermo = Math.abs(f - fPrec) < .001; fPrec = f;
+    return fermo ? Math.round(f) : attivo;
+  }
+  let i0 = attivo, dmin = Infinity; const cx = innerWidth/2;
+  lame.forEach((l, i) => { const r = l.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return; const d = Math.abs(r.left + r.width/2 - cx); if (d < dmin) { dmin = d; i0 = i; } });
+  return i0;
+}
+// cambio di card: l'oggetto attuale gira via e si rimpicciolisce, il nuovo entra girando dall'altra parte
+let attivo = 0;
+function segnaCard(n){ lame.forEach((l, i) => l.classList.toggle('attiva', i === n)); }
+binario.classList.add('con-scelta'); segnaCard(0);
+function cambiaOggetto(n){
+  if (n === attivo) return;
+  segnaCard(n);
+  const dir = n > attivo ? 1 : -1, via = oggetti[attivo].userData.k, ecco = oggetti[n].userData.k; attivo = n;
+  if (!hasGsap || RIDOTTO) { oggetti.forEach((o, i) => { o.userData.k.s = i === n ? 1 : 0; }); return; }
+  gsap.to(via, {s:0, giro:-dir*Math.PI*1.4, dx:-dir*1.6, duration:.25, ease:'power2.in', overwrite:true});
+  gsap.fromTo(ecco, {s:0, giro:dir*Math.PI*1.4, dx:dir*1.6}, {s:1, giro:0, dx:0, duration:.42, delay:.05, ease:'back.out(1.6)', overwrite:true});
+}
 
 /* Dado e rondella */
 function esagono(r){ const s = new THREE.Shape(); for (let i=0;i<6;i++){ const a = i*Math.PI/3; i? s.lineTo(Math.cos(a)*r,Math.sin(a)*r) : s.moveTo(Math.cos(a)*r,Math.sin(a)*r);} s.closePath(); const h = new THREE.Path(); h.absarc(0,0,r*.48,0,Math.PI*2,true); s.holes.push(h); return s; }
@@ -1527,7 +1749,7 @@ if (hasGsap && !RIDOTTO && !SPAZIO) {
 addEventListener('pointermove', e => { S.mx = e.clientX/innerWidth - .5; S.my = e.clientY/innerHeight - .5; }, {passive:true});
 
 const orologio = new THREE.Clock();
-let rx = 0, ry = 0, vis = true;
+let rx = 0, ry = 0, vis = true, repX = .62, repY = .15;
 document.addEventListener('visibilitychange', () => { vis = !document.hidden; });
 function frame(){
   requestAnimationFrame(frame);
@@ -1537,8 +1759,16 @@ function frame(){
   const sc = Math.min(1, vh/6.3) * (MOBILE() ? .62 : .9);
   if (SPAZIO && V.idx.rep != null) {
     const st = V.st, I = V.idx, rp = (a,b) => Math.min(1, Math.max(0, (st-a)/(b-a))), L = (a,b,t) => a+(b-a)*t;
-    const v1 = rp(I.rep-1, I.rep), v2 = rp(I.repFine, I.repFine+.8);
-    S.viteX = L(L(1.7, .62, v1), -1.9, v2); S.viteY = L(L(-.7, .15, v1), .95, v2); S.progRep = rp(I.rep, I.repFine);
+    // sul telefono la prima fermata è solo il titolo: l'oggetto entra insieme alla prima card
+    const v1 = MOBILE() ? rp(I.rep, I.rep+1) : rp(I.rep-1, I.rep), v2 = rp(I.repFine, I.repFine+.8);
+    // sul computer l'oggetto segue la card selezionata, appoggiato al suo bordo destro (ne copre solo un lembo),
+    // e si sposta con lei durante l'aggancio
+    if (!MOBILE()) {
+      const r = lame[attivo].getBoundingClientRect(), k = 11/12;   // l'oggetto sta un po' davanti al piano delle card
+      const tx = ((r.right + r.width*.1) / innerWidth*2 - 1) * k, ty = -((r.top + r.height*.48) / innerHeight*2 - 1) * k;
+      if (r.width > 0) { repX += (tx - repX)*.2; repY += (ty - repY)*.2; }
+    }
+    S.viteX = L(L(1.7, repX, v1), -1.9, v2); S.viteY = L(L(-.7, repY, v1), .95, v2); S.progRep = rp(I.rep, I.repFine);
     const d1 = rp(I.bott-1, I.bott), d2 = rp(I.bottFine, I.bottFine+.8);
     S.dadoX = L(L(1.7, .84, d1), 1.8, d2); S.dadoY = L(L(.95, .74, d1), 1.3, d2); S.rondX = L(L(1.8, .9, d1), 1.9, d2); S.rondY = L(L(-.95, -.78, d1), -1.3, d2);
   }
@@ -1548,6 +1778,8 @@ function frame(){
   vite.rotation.y = S.progRep*Math.PI*6 + (RIDOTTO?0:t*.25);
   vite.rotation.x = .35 + rx;
   vite.visible = Math.abs(S.viteX) < 1.55;
+  if (vite.visible && ++contaF % 2 === 0) cambiaOggetto(cardAlCentro());
+  for (const o of oggetti) { const k = o.userData.k; o.visible = k.s > .001; o.scale.setScalar(Math.max(k.s, .001)); o.rotation.y = k.giro; o.position.x = k.dx; if (o.visible && o.userData.anima && !RIDOTTO) o.userData.anima(t); }
   // dado e rondella
   dado.position.set(S.dadoX*vw/2, S.dadoY*vh/2, .5); dado.scale.setScalar(sc*.9);
   dado.rotation.set(t*.35 + rx, t*.5 + ry, .3);
