@@ -265,11 +265,12 @@ main,header,footer{position:relative;z-index:1}
   .tav-chips.solo-mazzetta{width:100%}
   .tav-chips .apri-mazzetta.esteso{flex:1 1 auto!important;width:100%!important}
   .apri-mazzetta.esteso .mz-freccia{margin-left:auto;rotate:-90deg}
-  .tav-tinte[data-amb="interni"] .tav-tinta,.tav-tinte[data-amb="esterni"] .tav-tinta{text-align:left}
+  .tav-tinte[data-amb="interni"] .tav-tinta,.tav-tinte[data-amb="esterni"] .tav-tinta,.tav-tinte[data-amb="ferro"] .tav-tinta{text-align:left}
 }
 .tav-chips .apri-mazzetta{display:grid;place-items:center;background:conic-gradient(from 200deg,#DECCAB,#C3C3CB,#B9CDD7,#C2CFC8,#C4CBCB,#D2BFAD,#DECCAB)}
 .apri-mazzetta svg{width:58%;height:58%;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
-.finestra-tinte{position:fixed;inset:0;z-index:200;background:rgba(21,23,28,0);transition:background .25s ease}
+@media (pointer:coarse){html:has(body.finestra-aperta),body.finestra-aperta{overflow:hidden;overscroll-behavior:none}}
+.finestra-tinte{position:fixed;inset:0;z-index:200;overscroll-behavior:none;touch-action:none;background:rgba(21,23,28,0);transition:background .25s ease}
 .finestra-tinte.aperta{background:rgba(21,23,28,.28)}
 .mz-carta{--s:26px;position:absolute;width:max-content;max-width:calc(100vw - 24px);background:var(--carta-libro);color:var(--inchiostro-libro);border-radius:18px;padding:16px 18px 14px;box-shadow:0 30px 70px -20px rgba(21,23,28,.55),0 0 0 1px rgba(43,37,32,.08);
   opacity:0;transform:scale(.6) translateY(10px);transition:opacity .22s ease,transform .32s cubic-bezier(.2,1.25,.4,1)}
@@ -1113,7 +1114,7 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
   const TINTE = {
     interni:[],   // solo la mazzetta Boero "I Contemporanei", nella finestrella
     esterni:[],   // solo la mazzetta delle facciate, nella finestrella
-    ferro:[['Bianco','#F2EFE8'],['Avorio','#E6DCC3'],['Grigio antracite','#3E4247'],['Nero','#1E1F22'],['Verde inglese','#24402F'],['Blu','#22385A'],['Rosso ossido','#7E2E22'],['Ferro micaceo','#5A544D']],
+    ferro:[],   // solo la cartella Boero degli smalti all'acqua, nella finestrella
     legno:[['Neutro','#EED7AF'],['Douglas','#DB9B5D'],['Castagno','#8C6045'],['Mogano','#B65D43'],['Ciliegio','#D7783C'],['Noce chiaro','#BC8556'],['Noce scuro','#976546'],['Wengé','#786555'],['Quercia','#E4B57A'],['Bianco','#FEF9E7']]
   };
   // mazzetta Boero "I Contemporanei": codice|nome|colore, colonna per colonna (16 piani di tinta × 6 righe).
@@ -1123,13 +1124,19 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
   // mazzetta Boero "1831 Esterni": una selezione di 20 scale da 5 tinte (100 delle 410), codice|colore dal sito Boero.
   // 4 famiglie: bianchi e grigi, pietre e sabbie del Salento, gialli e cotti, verdi e azzurri
   const FACCIATE = 'ED-01021|D6CEC8,ED-01022|BCB0A9,ED-01023|ACA19B,ED-01024|7A6C63,ED-01025|4D423A,ED-07011|E1D8C9,ED-07012|C2B6A5,ED-07013|8F806C,ED-07014|736755,ED-07015|564C3D,ED-09011|DFE0D7,ED-09012|D0D0C5,ED-09013|BFBEB2,ED-09014|959385,ED-09015|7B786A,ED-11011|D0D2CA,ED-11012|B2B4AC,ED-11013|9C9F96,ED-11014|73756B,ED-11015|565951,ED-33001|E6E8E4,ED-33002|DEE0DC,ED-33003|BDBEBB,ED-33004|6F6F6D,ED-33005|494A47,EC-08031|EADDCA,EC-08032|D4C1A4,EC-08033|BDA380,EC-08034|967B5A,EC-08035|745C40,EC-09041|E7CFA7,EC-09042|DDBE90,EC-09043|D2AF79,EC-09044|C09962,EC-09045|997140,EC-10031|E4CFA3,EC-10032|DFC698,EC-10033|CFB37E,EC-10034|BD9D67,EC-10035|947748,EC-08041|F8E1BB,EC-08042|E2BE8E,EC-08043|CCA576,EC-08044|B48656,EC-08045|976B3D,EC-11031|EDE6CC,EC-11032|DED0A8,EC-11033|C6B282,EC-11034|9E8A5B,EC-11035|7F6C41,EC-09061|FEF0C3,EC-09062|FDE6AD,EC-09063|F8C670,EC-09064|EFB458,EC-09065|DF9731,EC-07551|FBE4B9,EC-07552|F0C28B,EC-07553|E9B577,EC-07554|D09054,EC-07555|B7733C,EC-05051|FCE7D5,EC-05052|F8CAB0,EC-05053|F2BB9D,EC-05054|E19975,EC-05055|C3704B,EC-03541|EFD3C2,EC-03542|DDB099,EC-03543|CD9A81,EC-03544|9B634C,EC-03545|7F4B34,EC-02041|F2DED8,EC-02042|DDBDB5,EC-02043|CEA79F,EC-02044|9C6C62,EC-02045|754738,EC-15041|EEEFD3,EC-15042|D7DAB0,EC-15043|C8CA9A,EC-15044|979C63,EC-15045|7A8048,EC-17031|EBF4E4,EC-17032|D4E3CC,EC-17033|C4D6B9,EC-17034|93AC85,EC-17035|7F9A72,EC-20031|E9F6F5,EC-20032|CEE3E0,EC-20033|B0CECE,EC-20034|8EB2B0,EC-20035|49706D,ED-24021|D1E0E4,ED-24022|C0D0D7,ED-24023|AABDC7,ED-24024|94AAB4,ED-24025|5E7582,EC-24041|C9DBE1,EC-24042|9BB8C9,EC-24043|91AFBF,EC-24044|557B93,EC-24045|3B596C'.split(',').map(t => { const [cod, hex] = t.split('|'); return {cod, nome:'', hex:'#' + hex}; });
+  // cartella Boero "Smalti all'acqua": 70 tinte SA più bianco e nero, divise per famiglia di colore
+  // (nella cartella ogni gruppo ha due tinte stampate sulla foto che appartengono ad altre famiglie: qui stanno nella loro).
+  // Colori campionati dalla cartella, quindi indicativi
+  const SMALTI = 'SA101|Giallo ocra|C99853,SA102|Terra cotta|956749,SA103|Marrone rossiccio|725248,SA104|Rosso mattone|91503F,SA105|Beige|D2BA94,SA106|Beige grigiastro|AEA08E,SA107|Marrone pallido|826F5F,SA108|Terra ombra|5D4840,SA130|Grigio beige|857E6F,SA111|Rosa toscano|F7C3AF,SA112|Rosso salmone|D0806A,SA113|Rosso vivo|C44D3E,SA114|Rosso carminio|A44B42,SA140|Rosso marrone|844842,SA115|Rosa chiaro|D9AFB2,SA116|Rosato|CD7271,SA117|Viola rossastro|A1646D,SA118|Viola bordeaux|724451,SA169|Porpora traffico|A36190,SA159|Rosa pastello|EDDCCF,SA120|Violetto pastello|A899A0,SA139|Lilla bluastro|8883A9,SA149|Viola erica|C87DA0,SA121|Avorio antico|FEF4D5,SA122|Giallo mimosa|FDC21E,SA123|Giallo sole|E9A42A,SA124|Arancio giallastro|DA842F,SA170|Giallo zolfo|FCE243,SA125|Giallo crema|FDF0AC,SA126|Frumento|FCD461,SA127|Giallo oro|E1AD2D,SA128|Giallo miele|CA9C28,001|Bianco|FAFAF7,SA141|Bianco crema|EAE7DC,SA142|Bianco perla|E6E2D1,SA143|Bianco Dover|DCE8ED,SA144|Avorio chiaro|E7DBC2,SA145|Bianco panna|CADEE0,SA146|Bianco ghiaccio|E2E7E0,SA147|Bianco grigiastro|DCDED3,SA148|Bianco papiro|CFD5CF,SA131|Grigio luce|CACFCB,SA132|Grigio antico|B5C0C5,SA133|Grigio tele 2|8F9799,SA134|Grigio ardesia|616A6F,SA119|Grigio ombra|5C5F5C,SA135|Grigio tele 4|CDD1CF,SA136|Grigio pietra|A8A99E,SA137|Grigio polvere|8B8F8D,SA138|Grigio tenda|6C726C,SA160|Grigio platino|A0A0A0,201|Nero|1C1C1C,SA151|Azzurro topazio|95CFE2,SA152|Blu luce|4599C0,SA153|Blu oceano|2487B7,SA154|Blu genziana|276890,SA129|Blu turchese|449C9E,SA155|Azzurro ceramica|C6E2F3,SA156|Blu pastello|78A5B9,SA157|Blu Capri|2A7494,SA158|Blu verdastro|3B6479,SA109|Azzurro pastello|D5E4E4,SA161|Verde lime|C6CF8B,SA162|Verde giallastro|72A550,SA163|Verde smeraldo|507C51,SA164|Verde pineta|3E5845,SA110|Verde reseda|7F9171,SA165|Verde biancastro|BDD4B9,SA166|Verde pallido|9BAB8D,SA167|Turchese menta|609890,SA168|Verde opale|187364,SA150|Verde chiaro|90C4BF'.split(',').map(t => { const [cod, nome, hex] = t.split('|'); return {cod, nome, hex:'#' + hex}; });
   const MAZZETTE = {
     interni:{tinte:BOERO, colonne:4, righe:6, stacco:4, titolo:'Boero · I Contemporanei', sotto:'96 tinte da provare sulle pareti', pulsante:'Mazzetta Boero · 96 tinte',
       ventaglio:[58,70,64,52,46,40,16,33],   // 209-50, 211-50, 210-50, 208-50, 207-50, 206-50, 202-50, 205-40 davanti
       nota:'Colori indicativi: in negozio li vedi dal vero sulla mazzetta.'},
     esterni:{tinte:FACCIATE, colonne:5, righe:5, stacco:-1, titolo:'Boero · 1831 Esterni', sotto:'100 tinte scelte per le facciate', pulsante:'Mazzetta Boero · 100 tinte',
       pagine:['Bianchi e grigi','Pietre e sabbie','Gialli e cotti','Verdi e azzurri'],
-      ventaglio:[98,88,83,73,68,63,58,53], nota:'Una selezione dalla mazzetta 1831 Esterni (410 tinte): in negozio la sfogli tutta.'}
+      ventaglio:[98,88,83,73,68,63,58,53], nota:'Una selezione dalla mazzetta 1831 Esterni (410 tinte): in negozio la sfogli tutta.'},
+    ferro:{tinte:SMALTI, colonne:5, gruppi:[['Terre',9],['Rossi e viola',14],['Gialli',9],['Bianchi',9],['Grigi',11],['Blu e azzurri',10],['Verdi',10]], titolo:'Boero · Smalti all’acqua', sotto:'72 tinte da provare sul ferro', pulsante:'Smalti Boero · 72 tinte',
+      ventaglio:[55,64,70,18,26,24,25,11], nota:'Colori indicativi: in negozio li vedi dal vero sulla cartella.'}
   };
   const COSA = {interni:'', esterni:'', legno:'', ferro:''};
   const carica = src => new Promise((ok, ko) => { const i = new Image(); i.decoding = 'async'; i.onload = () => ok(i); i.onerror = ko; i.src = src; });
@@ -1203,13 +1210,19 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
     gruppo.appendChild(apri); bottoni.push(apri);
     const fin = document.createElement('div'); fin.className = 'finestra-tinte'; fin.hidden = true;
     fin.setAttribute('role', 'dialog'); fin.setAttribute('aria-modal', 'true'); fin.setAttribute('aria-label', M.titolo);
-    const C = M.colonne, R = M.righe, P = M.perRiga ? 0 : M.tinte.length / (C*R);
-    const blocchi = M.perRiga ? `<div class="mz-flusso" style="--c:${M.perRiga}">` + M.tinte.map((t, n) => `<button type="button" class="mz-tinta" style="background:${t.hex}" data-n="${n}" aria-label="${nomeDi(t)}" title="${nomeDi(t)}"></button>`).join('') + '</div>' : Array.from({length:P}, (_, b) => '<div class="mz-pagina">' + (M.pagine ? `<span class="mz-famiglia">${M.pagine[b]}</span>` : '') + Array.from({length:R}, (_, r) => Array.from({length:C}, (_, c) => {
+    const C = M.colonne, R = M.righe, P = M.perRiga ? 0 : Math.ceil(M.tinte.length / (C*R));
+    let da = 0;
+    const blocchi = M.gruppi ? M.gruppi.map(([nomeG, quante]) => { const parte = M.tinte.slice(da, da + quante).map((t, i) => { const n = da + i;
+        return `<button type="button" class="mz-tinta" style="background:${t.hex}" data-n="${n}" aria-label="${nomeDi(t)}" title="${nomeDi(t)}"></button>`; }).join('');
+        da += quante; return `<div class="mz-pagina"><span class="mz-famiglia">${nomeG}</span>${parte}</div>`; }).join('')
+      : M.perRiga ? `<div class="mz-flusso" style="--c:${M.perRiga}">` + M.tinte.map((t, n) => `<button type="button" class="mz-tinta" style="background:${t.hex}" data-n="${n}" aria-label="${nomeDi(t)}" title="${nomeDi(t)}"></button>`).join('') + '</div>' : Array.from({length:P}, (_, b) => '<div class="mz-pagina">' + (M.pagine ? `<span class="mz-famiglia">${M.pagine[b]}</span>` : '') + Array.from({length:R}, (_, r) => Array.from({length:C}, (_, c) => {
       const n = (b*C + c)*R + r, t = M.tinte[n];
+      if (!t) return '<i></i>';
       return `<button type="button" class="mz-tinta${r === M.stacco ? ' mz-urbani' : ''}" style="background:${t.hex}" data-n="${n}" aria-label="${nomeDi(t)}" title="${nomeDi(t)}"></button>`;
     }).join('')).join('') + '</div>').join('');
     fin.innerHTML = `<div class="mz-carta" style="--k:${M.colonne || 4}"><div class="mz-testa"><p><b>${M.titolo}</b><span>${M.sotto}</span></p><button type="button" class="mz-chiudi" aria-label="Chiudi la mazzetta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="mz-pagine">${blocchi}</div><div class="mz-piede"><p class="mz-nome" aria-live="polite">Tocca una tinta</p><button type="button" class="mz-originale">Colore originale</button></div><p class="mz-nota">${M.nota}</p></div>`;
     document.body.appendChild(fin);
+    fin.addEventListener('touchmove', e => { if (e.cancelable) e.preventDefault(); }, {passive:false});
     const nome = fin.querySelector('.mz-nome'), carta = fin.querySelector('.mz-carta'), tinte = [...fin.querySelectorAll('.mz-tinta')];
     let scelta = null;
     const scrivi = t => { nome.innerHTML = t ? (t.cod ? `<b>${t.cod}</b> ${t.nome}` : t.nome) : 'Tocca una tinta'; };
