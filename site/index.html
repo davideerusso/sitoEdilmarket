@@ -234,6 +234,82 @@ main,header,footer{position:relative;z-index:1}
 .tav-chips button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--carta-libro),0 0 0 5px var(--ink);transform:translateY(-3px)}
 @media (hover:hover) and (pointer:fine){.tav-chips button:hover{transform:translateY(-3px)}}
 .tav-chips button:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+/* bottone e finestrella della mazzetta Boero */
+.tav-chips.solo-mazzetta{position:static!important;flex-direction:row!important;background:none!important;padding:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.tav-chips .apri-mazzetta.esteso{position:relative;display:inline-flex;align-items:center;gap:14px;width:auto!important;height:auto!important;min-height:58px;aspect-ratio:auto!important;flex:none!important;padding:8px 10px 8px 56px;margin-left:0;border-radius:16px;background:#fff;color:var(--ink);text-align:left;
+  box-shadow:0 10px 24px -14px rgba(43,37,32,.45),inset 0 0 0 1px rgba(43,37,32,.14);transition:transform .25s var(--ease),box-shadow .25s var(--ease);-webkit-tap-highlight-color:transparent}
+.tav-chips .apri-mazzetta.esteso[aria-pressed="true"]{box-shadow:0 10px 24px -14px rgba(43,37,32,.45),inset 0 0 0 1px rgba(43,37,32,.14);transform:none}
+.tav-chips .apri-mazzetta.esteso:focus:not(:focus-visible){outline:none}
+.mz-scritta{display:grid;gap:3px}
+.mz-scritta b{font:700 16px/1.1 var(--f-testo)}
+.mz-scritta small{font:500 12.5px/1.2 var(--f-testo);opacity:.7}
+.mz-freccia{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);margin-left:4px;transition:transform .25s var(--ease)}
+.apri-mazzetta .mz-freccia svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+/* ventaglio: i campioni girano attorno al perno in basso, come una mazzetta aperta */
+/* sul bordo sinistro del pulsante, metà dentro e metà fuori, inclinato di 30° verso sinistra */
+.mz-ventaglio{position:absolute;left:6px;top:50%;width:52px;height:44px;margin-top:-26px;transform:rotate(-30deg);transform-origin:50% 92%}
+.mz-ventaglio i{position:absolute;left:19px;bottom:1px;width:14px;height:40px;border-radius:3px 3px 2px 2px;transform-origin:50% 92%;box-shadow:0 0 0 1px rgba(43,37,32,.14);
+  transform:rotate(calc((var(--i) - 3.5) * 7deg));transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+@media (hover:hover) and (pointer:fine){
+  .tav-chips .apri-mazzetta.esteso:hover{transform:translateY(-3px);box-shadow:0 16px 30px -14px rgba(43,37,32,.5),inset 0 0 0 1px rgba(43,37,32,.2)}
+  .apri-mazzetta.esteso:hover .mz-ventaglio i{transform:rotate(calc((var(--i) - 3.5) * 13deg))}
+  .apri-mazzetta.esteso:hover .mz-freccia{transform:translateX(3px)}
+}
+.apri-mazzetta.invita .mz-ventaglio i{animation:mzVentaglio 3.4s cubic-bezier(.3,1.3,.5,1) infinite;animation-delay:calc(var(--i) * 30ms)}
+.apri-mazzetta.invita .mz-freccia{animation:mzSpinta 3.4s ease-in-out infinite}
+@keyframes mzVentaglio{0%,55%,100%{transform:rotate(calc((var(--i) - 3.5) * 7deg))}70%,85%{transform:rotate(calc((var(--i) - 3.5) * 14deg))}}
+@keyframes mzSpinta{0%,55%,100%{transform:none}70%,85%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.apri-mazzetta.invita .mz-ventaglio i,.apri-mazzetta.invita .mz-freccia{animation:none}}
+/* telefono: il pulsante occupa tutta la larghezza e la freccia punta in alto, dove sale la finestrella */
+@media (max-width:900px){
+  .tav-chips.solo-mazzetta{width:100%}
+  .tav-chips .apri-mazzetta.esteso{flex:1 1 auto!important;width:100%!important}
+  .apri-mazzetta.esteso .mz-freccia{margin-left:auto;rotate:-90deg}
+  .tav-tinte[data-amb="interni"] .tav-tinta,.tav-tinte[data-amb="esterni"] .tav-tinta{text-align:left}
+}
+.tav-chips .apri-mazzetta{display:grid;place-items:center;background:conic-gradient(from 200deg,#DECCAB,#C3C3CB,#B9CDD7,#C2CFC8,#C4CBCB,#D2BFAD,#DECCAB)}
+.apri-mazzetta svg{width:58%;height:58%;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round}
+.finestra-tinte{position:fixed;inset:0;z-index:200;background:rgba(21,23,28,0);transition:background .25s ease}
+.finestra-tinte.aperta{background:rgba(21,23,28,.28)}
+.mz-carta{--s:26px;position:absolute;width:max-content;max-width:calc(100vw - 24px);background:var(--carta-libro);color:var(--inchiostro-libro);border-radius:18px;padding:16px 18px 14px;box-shadow:0 30px 70px -20px rgba(21,23,28,.55),0 0 0 1px rgba(43,37,32,.08);
+  opacity:0;transform:scale(.6) translateY(10px);transition:opacity .22s ease,transform .32s cubic-bezier(.2,1.25,.4,1)}
+.finestra-tinte.aperta .mz-carta{opacity:1;transform:none}
+.mz-testa{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:12px}
+.mz-testa p{margin:0;display:grid;gap:2px;font:500 13px/1.3 var(--f-testo);color:#6B625A}
+.mz-testa b{font:700 16px/1.2 var(--f-testo);color:var(--inchiostro-libro)}
+.mz-chiudi,.mz-originale{all:unset;box-sizing:border-box;cursor:pointer}
+.mz-chiudi{display:grid;place-items:center;width:34px;height:34px;margin:-6px -8px 0 0;border-radius:10px}
+.mz-chiudi svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.mz-pagine{display:grid;grid-template-columns:repeat(4,auto);gap:14px}
+.mz-pagina{display:grid;grid-template-columns:repeat(var(--k,4),var(--s));gap:4px;align-content:start}
+.mz-pagine:has(.mz-flusso){display:block}
+.mz-flusso{display:grid;grid-template-columns:repeat(var(--c),var(--s));gap:4px}
+.mz-famiglia{grid-column:1 / -1;font:600 11px/1.2 var(--f-testo);letter-spacing:.04em;text-transform:uppercase;color:#8A8178;margin-bottom:2px}
+.mz-tinta{all:unset;box-sizing:border-box;width:var(--s);height:calc(var(--s)*1.15);border-radius:4px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(43,37,32,.12);transition:transform .15s ease}
+.mz-tinta.mz-urbani{margin-top:8px}
+.mz-tinta[aria-pressed="true"]{box-shadow:0 0 0 2px var(--carta-libro),0 0 0 4px var(--inchiostro-libro);position:relative;z-index:1}
+@media (hover:hover) and (pointer:fine){.mz-tinta:hover{transform:scale(1.18);position:relative;z-index:2;box-shadow:0 6px 14px -6px rgba(0,0,0,.45),inset 0 0 0 1px rgba(43,37,32,.12)}.mz-chiudi:hover{background:rgba(43,37,32,.07)}.mz-originale:hover{background:rgba(43,37,32,.07)}}
+.mz-tinta:focus-visible,.mz-chiudi:focus-visible,.mz-originale:focus-visible{outline:2px solid var(--inchiostro-libro);outline-offset:2px}
+.mz-piede{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px;min-height:34px}
+.mz-nome{margin:0;font:500 15px/1.2 var(--f-testo)}
+.mz-nome b{font-family:var(--f-mono,ui-monospace,monospace);font-weight:600;margin-right:4px}
+.mz-originale{font:600 13px/1 var(--f-testo);padding:9px 12px;border-radius:10px;box-shadow:inset 0 0 0 1px rgba(43,37,32,.2)}
+.mz-nota{margin:8px 0 0;font:400 12px/1.3 var(--f-testo);color:#8A8178}
+@media (max-width:700px){
+  .mz-carta{left:0;right:0;bottom:0;width:auto;max-width:none;border-radius:20px 20px 0 0;padding:16px 16px calc(14px + env(safe-area-inset-bottom));transform:translateY(100%);
+    --s:calc((100vw - 32px - 14px - (var(--k,4)*2 - 2)*4px) / (var(--k,4)*2))}
+  .mz-pagine{grid-template-columns:repeat(2,auto);gap:14px;justify-content:center}
+  .mz-flusso{grid-template-columns:repeat(10,1fr)}
+  .mz-flusso .mz-tinta{width:auto;height:calc((100vw - 68px) / 10 * .56)}
+  .mz-tinta{height:calc(var(--s)*.56)}
+  .mz-tinta.mz-urbani{margin-top:6px}
+  .mz-testa{margin-bottom:10px}
+  .mz-piede{margin-top:10px}
+  /* sul telefono la finestrella lascia vedere le pareti in alto: lo sfondo resta quasi chiaro */
+  .finestra-tinte.aperta{background:rgba(21,23,28,.1)}
+}
+@media (max-width:700px) and (max-height:700px){.mz-tinta{height:calc(var(--s)*.44)}.mz-nota{display:none}}
+@media (prefers-reduced-motion:reduce){.mz-carta,.finestra-tinte{transition:none}}
 .tav-img.amb.salta{animation:ambSalto .5s cubic-bezier(.3,.7,.3,1)}
 @keyframes ambSalto{40%{filter:brightness(1.06)}}
 .tavola::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,var(--carta-libro) 0%,rgba(254,252,248,.96) 34%,rgba(254,252,248,0) 54%)}
@@ -1035,12 +1111,27 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
 (function(){
   // colori indicativi: in negozio si vedono dal vero sulla mazzetta
   const TINTE = {
-    interni:[['Bianco latte','#F4F1EA'],['Grigio perla','#C9C6BF'],['Salvia','#A9B59B'],['Azzurro polvere','#A7BBCB'],['Giallo grano','#E3C27A'],['Terracotta','#C0714F'],['Verde bosco','#3F5A44'],['Blu notte','#2B3A55']],
-    esterni:[['Bianco calce','#F1ECE0'],['Sabbia','#DCC6A4'],['Giallo Salento','#E6B85C'],['Ocra','#C98F45'],['Rosa antico','#D49A8C'],['Terracotta','#B9603F'],['Verde salvia','#9FAE93'],['Azzurro cielo','#9DB9CF']],
+    interni:[],   // solo la mazzetta Boero "I Contemporanei", nella finestrella
+    esterni:[],   // solo la mazzetta delle facciate, nella finestrella
     ferro:[['Bianco','#F2EFE8'],['Avorio','#E6DCC3'],['Grigio antracite','#3E4247'],['Nero','#1E1F22'],['Verde inglese','#24402F'],['Blu','#22385A'],['Rosso ossido','#7E2E22'],['Ferro micaceo','#5A544D']],
     legno:[['Neutro','#EED7AF'],['Douglas','#DB9B5D'],['Castagno','#8C6045'],['Mogano','#B65D43'],['Ciliegio','#D7783C'],['Noce chiaro','#BC8556'],['Noce scuro','#976546'],['Wengé','#786555'],['Quercia','#E4B57A'],['Bianco','#FEF9E7']]
   };
-  const COSA = {interni:'sulle pareti', esterni:'sulla facciata', legno:'', ferro:''};
+  // mazzetta Boero "I Contemporanei": codice|nome|colore, colonna per colonna (16 piani di tinta × 6 righe).
+  // I colori sono presi dalla cartella in pdf: sullo schermo sono indicativi
+  const BOERO = '200-10|Luce|EBEFE7,200-20|Selce Pallida|EDF1E4,200-30|Cotone Grezzo|E8E6D3,200-40|Bianco Speziato|E7E3C8,200-50|Alabastro|D9D3BA,200-60|Arena|D1C09A,201-10|Bianco Caldo|F2EDDA,201-20|Tufo|E6DABE,201-30|Spago|DECCAB,201-40|Cumino|CEC3AB,201-50|Fibra Naturale|BCB39C,201-60|Oliva|9A8F7C,202-10|Gesso|EDEBDC,202-20|Pietra di Finale|E9E5D2,202-30|Pergamena|E6DDCB,202-40|Stuoia|DCCFB7,202-50|Cartone|D5BB99,202-60|Sughero|C0A483,203-10|Bianco Pallido|E8E8DF,203-20|Ossi di Seppia|E4DCD0,203-30|Terracotta|D2BFAD,203-40|Intonaco Romano|BFAF9E,203-50|Creta|AC9D8F,203-60|Profilo d’Autunno|8B7F73,204-10|Biancorosa|EDEAE2,204-20|Conchiglia|EAE6DE,204-30|Rosantico|E3DBD0,204-40|Rosa Industriale|D8D2CB,204-50|Alba in Città|D9CABE,204-60|Rosa Studio|CFB2A3,205-10|Rosa Incarnato|F0EAE4,205-20|Bacca|E1DBD5,205-30|Rosa del Deserto|CCBCB4,205-40|Rosa Brunito|D1B0A8,205-50|Rosso Toscano|A68982,205-60|Marrone Rosato|92746E,206-10|Marmo Rosato|E9E9E9,206-20|Quarzo|E7E4E3,206-30|Biancoviola|DDD8DD,206-40|Grigio Rosa|D5CDCF,206-50|Malva|C8B1B8,206-60|Rosa Polvere|B19CA4,207-10|Cenere|DADDE0,207-20|Nichel|CBD0D9,207-30|Nebbia Viola|C3C3CB,207-40|Lilla Chiaro|BAB7C9,207-50|Viola Strada|968FA1,207-60|Mirtillo|7F798D,208-10|Cristallo|E5EAEC,208-20|Ghiaccio|DEE7EE,208-30|Glicine|CFDDEE,208-40|Violagrigio|C3D2E3,208-50|Crepuscolo|AEBBCD,208-60|Note di Notte|9FA5B9,209-10|Polo|D6E0E3,209-20|Passaggio a Nord|C4D5DC,209-30|Celeste Oriente|B9CDD7,209-40|Metallo Blu|A4BFCE,209-50|Blu Industria|8EA8B9,209-60|Blu Divisa|7A93A4,210-10|Raggio Verde|E7EFEE,210-20|Giada|DEEEEF,210-30|Verde Freddo|D2E0DE,210-40|Celeste Glaciale|C1D2D7,210-50|Grigio Verde|A4B3B3,210-60|Oceano Mare|8DA0A1,211-10|Verde Acquarello|E0E7E0,211-20|Salvia Tenue|D3DCD4,211-30|Verde Celadon|C2CFC8,211-40|Ginepro|A5B5AC,211-50|Verde Mimetico|8FA29B,211-60|The Verde|7D8C8A,212-10|Cielo d’inverno|E3ECEF,212-20|Peltro|D0D9E0,212-30|Bruma|C4CBCB,212-40|Matita|B9C1C2,212-50|Acciaio|ABB4B8,212-60|Asfalto|9FA9AD,213-10|Bianco Loft|F1F4F1,213-20|Ghiaccio Tortora|DFE3E1,213-30|Grigio Morbido|BFC3BF,213-40|Grigio Minerale|AEB0AE,213-50|Metropolitana|9B9B9A,213-60|Basalto|767573,214-10|Calcare|E8ECED,214-20|Porcellana|E0E1E0,214-30|Ombra Rosa|E2E0E1,214-40|Rosa Urbano|C8C5C5,214-50|Ghiaia|B7B5B6,214-60|Grattacielo|A19E9F,215-10|Latte|E2E2DC,215-20|Cashmere|CCCAC4,215-30|Duna|CCC6BB,215-40|Rame Grigio|B8B0A6,215-50|Cemento|A59F96,215-60|Fango|857D73'.split(',').map(t => { const [cod, nome, hex] = t.split('|'); return {cod, nome, hex:'#' + hex}; });
+  const boero = cod => BOERO.find(t => t.cod === cod);
+  // mazzetta Boero "1831 Esterni": una selezione di 20 scale da 5 tinte (100 delle 410), codice|colore dal sito Boero.
+  // 4 famiglie: bianchi e grigi, pietre e sabbie del Salento, gialli e cotti, verdi e azzurri
+  const FACCIATE = 'ED-01021|D6CEC8,ED-01022|BCB0A9,ED-01023|ACA19B,ED-01024|7A6C63,ED-01025|4D423A,ED-07011|E1D8C9,ED-07012|C2B6A5,ED-07013|8F806C,ED-07014|736755,ED-07015|564C3D,ED-09011|DFE0D7,ED-09012|D0D0C5,ED-09013|BFBEB2,ED-09014|959385,ED-09015|7B786A,ED-11011|D0D2CA,ED-11012|B2B4AC,ED-11013|9C9F96,ED-11014|73756B,ED-11015|565951,ED-33001|E6E8E4,ED-33002|DEE0DC,ED-33003|BDBEBB,ED-33004|6F6F6D,ED-33005|494A47,EC-08031|EADDCA,EC-08032|D4C1A4,EC-08033|BDA380,EC-08034|967B5A,EC-08035|745C40,EC-09041|E7CFA7,EC-09042|DDBE90,EC-09043|D2AF79,EC-09044|C09962,EC-09045|997140,EC-10031|E4CFA3,EC-10032|DFC698,EC-10033|CFB37E,EC-10034|BD9D67,EC-10035|947748,EC-08041|F8E1BB,EC-08042|E2BE8E,EC-08043|CCA576,EC-08044|B48656,EC-08045|976B3D,EC-11031|EDE6CC,EC-11032|DED0A8,EC-11033|C6B282,EC-11034|9E8A5B,EC-11035|7F6C41,EC-09061|FEF0C3,EC-09062|FDE6AD,EC-09063|F8C670,EC-09064|EFB458,EC-09065|DF9731,EC-07551|FBE4B9,EC-07552|F0C28B,EC-07553|E9B577,EC-07554|D09054,EC-07555|B7733C,EC-05051|FCE7D5,EC-05052|F8CAB0,EC-05053|F2BB9D,EC-05054|E19975,EC-05055|C3704B,EC-03541|EFD3C2,EC-03542|DDB099,EC-03543|CD9A81,EC-03544|9B634C,EC-03545|7F4B34,EC-02041|F2DED8,EC-02042|DDBDB5,EC-02043|CEA79F,EC-02044|9C6C62,EC-02045|754738,EC-15041|EEEFD3,EC-15042|D7DAB0,EC-15043|C8CA9A,EC-15044|979C63,EC-15045|7A8048,EC-17031|EBF4E4,EC-17032|D4E3CC,EC-17033|C4D6B9,EC-17034|93AC85,EC-17035|7F9A72,EC-20031|E9F6F5,EC-20032|CEE3E0,EC-20033|B0CECE,EC-20034|8EB2B0,EC-20035|49706D,ED-24021|D1E0E4,ED-24022|C0D0D7,ED-24023|AABDC7,ED-24024|94AAB4,ED-24025|5E7582,EC-24041|C9DBE1,EC-24042|9BB8C9,EC-24043|91AFBF,EC-24044|557B93,EC-24045|3B596C'.split(',').map(t => { const [cod, hex] = t.split('|'); return {cod, nome:'', hex:'#' + hex}; });
+  const MAZZETTE = {
+    interni:{tinte:BOERO, colonne:4, righe:6, stacco:4, titolo:'Boero · I Contemporanei', sotto:'96 tinte da provare sulle pareti', pulsante:'Mazzetta Boero · 96 tinte',
+      ventaglio:[58,70,64,52,46,40,16,33],   // 209-50, 211-50, 210-50, 208-50, 207-50, 206-50, 202-50, 205-40 davanti
+      nota:'Colori indicativi: in negozio li vedi dal vero sulla mazzetta.'},
+    esterni:{tinte:FACCIATE, colonne:5, righe:5, stacco:-1, titolo:'Boero · 1831 Esterni', sotto:'100 tinte scelte per le facciate', pulsante:'Mazzetta Boero · 100 tinte',
+      pagine:['Bianchi e grigi','Pietre e sabbie','Gialli e cotti','Verdi e azzurri'],
+      ventaglio:[98,88,83,73,68,63,58,53], nota:'Una selezione dalla mazzetta 1831 Esterni (410 tinte): in negozio la sfogli tutta.'}
+  };
+  const COSA = {interni:'', esterni:'', legno:'', ferro:''};
   const carica = src => new Promise((ok, ko) => { const i = new Image(); i.decoding = 'async'; i.onload = () => ok(i); i.onerror = ko; i.src = src; });
   document.querySelectorAll('.tav-img.amb').forEach(box => {
     const k = box.dataset.amb, art = box.closest('.tavola');
@@ -1054,6 +1145,7 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
       b.addEventListener('click', () => tingi(scelta === i ? -1 : i));
       gruppo.appendChild(b); return b;
     });
+    if (MAZZETTE[k]) mazzetta(gruppo, bottoni, t => tingi(t ? -2 : -1, t), MAZZETTE[k]);
     Promise.all([carica(src), carica(src.replace('.webp', '-zona.webp'))]).then(([img, msk]) => {
       W = img.naturalWidth; H = img.naturalHeight;
       const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d', {willReadFrequently:true});
@@ -1083,18 +1175,81 @@ if (!SPAZIO) { const inTesta = () => document.body.classList.toggle('in-testata'
       }
       return out;
     }
-    function tingi(i){
-      if (!pronto) return;
+    // i: tinta della riga (-1 originale, -2 scelta dalla mazzetta, passata in "da")
+    function tingi(i, da){
+      if (!pronto) return false;
       scelta = i;
-      bottoni.forEach((b, n) => b.setAttribute('aria-pressed', n === i ? 'true' : 'false'));
-      etichetta.textContent = i < 0 ? 'colore originale' : (TINTE[k][i][0] + ' ' + COSA[k]).trim();
-      const img = i < 0 ? base : dipingi(TINTE[k][i][1]);
+      const t = da || TINTE[k][i];
+      bottoni.forEach((b, n) => b.setAttribute('aria-pressed', n === i || (i === -2 && b.classList.contains('apri-mazzetta')) ? 'true' : 'false'));
+      etichetta.textContent = i === -1 ? 'colore originale' : (t[0] + ' ' + COSA[k]).trim();
+      const img = i === -1 ? base : dipingi(t[1]);
       sopra.classList.remove('vai'); sopra.getContext('2d').putImageData(img, 0, 0);
       void sopra.offsetWidth; sopra.classList.add('vai');
       box.classList.remove('salta'); void box.offsetWidth; box.classList.add('salta');
       clearTimeout(box._t); box._t = setTimeout(() => { sotto.getContext('2d').putImageData(img, 0, 0); sopra.classList.remove('vai'); }, 480);
+      return true;
     }
   });
+
+  /* finestrella con la mazzetta: si apre dal pulsante a ventaglio, come una cartella colori aperta sul banco.
+     M: {tinte:[{cod,nome,hex}] colonna per colonna, colonne per pagina, righe, stacco (riga staccata dalle altre),
+         titolo, sotto, pulsante, ventaglio (indici delle tinte), nota, pagine (nomi delle famiglie, facoltativi)} */
+  function mazzetta(gruppo, bottoni, scegli, M){
+    const nomeDi = t => [t.nome, t.cod].filter(Boolean).join(' ');
+    const apri = document.createElement('button'); apri.type = 'button'; apri.className = 'apri-mazzetta esteso invita';
+    apri.setAttribute('aria-label', 'Apri ' + M.titolo + ': ' + M.tinte.length + ' tinte'); apri.setAttribute('aria-haspopup', 'dialog'); apri.setAttribute('aria-expanded', 'false'); apri.setAttribute('aria-pressed', 'false');
+    gruppo.classList.add('solo-mazzetta');   // un pulsante unico al posto dei colori singoli
+    apri.innerHTML = '<span class="mz-ventaglio" aria-hidden="true">' + M.ventaglio.map((n, i) => `<i style="background:${M.tinte[n].hex};--i:${i}"></i>`).join('') + `</span><span class="mz-scritta"><b>Scegli il colore</b><small>${M.pulsante}</small></span><span class="mz-freccia" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span>`;
+    gruppo.appendChild(apri); bottoni.push(apri);
+    const fin = document.createElement('div'); fin.className = 'finestra-tinte'; fin.hidden = true;
+    fin.setAttribute('role', 'dialog'); fin.setAttribute('aria-modal', 'true'); fin.setAttribute('aria-label', M.titolo);
+    const C = M.colonne, R = M.righe, P = M.perRiga ? 0 : M.tinte.length / (C*R);
+    const blocchi = M.perRiga ? `<div class="mz-flusso" style="--c:${M.perRiga}">` + M.tinte.map((t, n) => `<button type="button" class="mz-tinta" style="background:${t.hex}" data-n="${n}" aria-label="${nomeDi(t)}" title="${nomeDi(t)}"></button>`).join('') + '</div>' : Array.from({length:P}, (_, b) => '<div class="mz-pagina">' + (M.pagine ? `<span class="mz-famiglia">${M.pagine[b]}</span>` : '') + Array.from({length:R}, (_, r) => Array.from({length:C}, (_, c) => {
+      const n = (b*C + c)*R + r, t = M.tinte[n];
+      return `<button type="button" class="mz-tinta${r === M.stacco ? ' mz-urbani' : ''}" style="background:${t.hex}" data-n="${n}" aria-label="${nomeDi(t)}" title="${nomeDi(t)}"></button>`;
+    }).join('')).join('') + '</div>').join('');
+    fin.innerHTML = `<div class="mz-carta" style="--k:${M.colonne || 4}"><div class="mz-testa"><p><b>${M.titolo}</b><span>${M.sotto}</span></p><button type="button" class="mz-chiudi" aria-label="Chiudi la mazzetta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="mz-pagine">${blocchi}</div><div class="mz-piede"><p class="mz-nome" aria-live="polite">Tocca una tinta</p><button type="button" class="mz-originale">Colore originale</button></div><p class="mz-nota">${M.nota}</p></div>`;
+    document.body.appendChild(fin);
+    const nome = fin.querySelector('.mz-nome'), carta = fin.querySelector('.mz-carta'), tinte = [...fin.querySelectorAll('.mz-tinta')];
+    let scelta = null;
+    const scrivi = t => { nome.innerHTML = t ? (t.cod ? `<b>${t.cod}</b> ${t.nome}` : t.nome) : 'Tocca una tinta'; };
+    const segna = b => tinte.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    function posiziona(){
+      // sul computer la finestrella si apre accanto al pulsante; sul telefono sale dal fondo
+      if (innerWidth <= 700) { carta.style.left = carta.style.top = ''; carta.style.transformOrigin = '50% 100%'; return; }
+      const r = apri.getBoundingClientRect(), w = carta.offsetWidth, h = carta.offsetHeight;
+      let x = r.left + r.width/2 - w/2, y = r.top - h - 14;
+      if (y < 12) y = Math.min(innerHeight - h - 12, r.bottom + 14);
+      x = Math.max(12, Math.min(innerWidth - w - 12, x)); y = Math.max(12, y);
+      carta.style.left = x + 'px'; carta.style.top = y + 'px';
+      carta.style.transformOrigin = `${r.left + r.width/2 - x}px ${r.top < y ? 0 : h}px`;
+    }
+    function chiudi(){
+      if (fin.hidden) return;
+      fin.classList.remove('aperta'); apri.setAttribute('aria-expanded', 'false'); document.body.classList.remove('finestra-aperta');
+      window.__lenis && window.__lenis.start();
+      setTimeout(() => { if (!fin.classList.contains('aperta')) fin.hidden = true; }, 260);
+      apri.focus({preventScroll:true});
+    }
+    apri.addEventListener('click', () => {
+      apri.classList.remove('invita');   // il ventaglio smette di aprirsi da solo dopo il primo uso
+      fin.hidden = false; posiziona(); void fin.offsetWidth;
+      fin.classList.add('aperta'); apri.setAttribute('aria-expanded', 'true'); document.body.classList.add('finestra-aperta');
+      window.__lenis && window.__lenis.stop();
+      (tinte[scelta] || tinte[0]).focus({preventScroll:true});
+    });
+    fin.addEventListener('click', e => {
+      const b = e.target.closest('.mz-tinta');
+      if (b) { const n = +b.dataset.n, t = M.tinte[n]; if (scegli([nomeDi(t), t.hex]) !== false) { scelta = n; segna(b); scrivi(t); } return; }
+      if (e.target.closest('.mz-originale')) { scegli(null); scelta = null; segna(null); scrivi(null); return; }
+      if (e.target.closest('.mz-chiudi') || !e.target.closest('.mz-carta')) chiudi();
+    });
+    fin.addEventListener('pointerover', e => { const b = e.target.closest('.mz-tinta'); if (b) scrivi(M.tinte[+b.dataset.n]); });
+    fin.addEventListener('pointerleave', () => scrivi(M.tinte[scelta]));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') chiudi(); });
+    addEventListener('resize', () => { if (!fin.hidden) posiziona(); });
+  }
+
 })();
 
 /* ---------- Tavole dei secchi: ogni tavola ha un guscio che porta la sfocatura ---------- */
@@ -1410,20 +1565,22 @@ if (hasGsap && !RIDOTTO) {
       if (!tacca && pausa < 240 && ora - ultimoOk < 2500) return;
       ultimoOk = ora; vola(m);
     }
+    const finestraAperta = () => document.body.classList.contains('finestra-aperta');
     document.addEventListener('wheel', e => {
+      if (finestraAperta()) return;
       if (Math.abs(e.deltaY) < 1) return;
       const tacca = Math.abs(e.deltaY) >= 60 && Number.isInteger(e.deltaY);
       passo(e, e.deltaY > 0 ? 1 : -1, tacca);
     }, {capture:true, passive:false});
     document.addEventListener('keydown', e => {
-      if (e.target.closest('input,textarea,select')) return;
+      if (finestraAperta() || e.target.closest('input,textarea,select')) return;
       if (e.key === ' ' && e.target.closest('button,a')) return;   // lo spazio preme il bottone, non fa partire il viaggio
       const giu = ['ArrowDown','PageDown','ArrowRight'].includes(e.key) || (e.key === ' ' && !e.shiftKey), su = ['ArrowUp','PageUp','ArrowLeft'].includes(e.key) || (e.key === ' ' && e.shiftKey);
       if (giu) passo(e, 1, true); else if (su) passo(e, -1, true);
     }, {capture:true});
     // telefono: ogni passata del dito porta alla fermata successiva, come uno scatto della rotella
     let tY = null, tX = 0;
-    document.addEventListener('touchstart', e => { if (e.touches.length !== 1) { tY = null; return; } tY = e.touches[0].clientY; tX = e.touches[0].clientX; }, {passive:true});
+    document.addEventListener('touchstart', e => { if (e.touches.length !== 1 || finestraAperta()) { tY = null; return; } tY = e.touches[0].clientY; tX = e.touches[0].clientX; }, {passive:true});
     document.addEventListener('touchmove', e => { if (tY !== null && e.cancelable) e.preventDefault(); }, {passive:false});
     document.addEventListener('touchend', e => {
       if (tY === null) return;
