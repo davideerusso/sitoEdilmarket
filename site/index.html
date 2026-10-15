@@ -1353,12 +1353,28 @@ if (SPAZIO) (function viaggio(){
   addEventListener('load', impagina);
   if (document.fonts) document.fonts.ready.then(impagina);
 
-  // menu: porta la telecamera alla fermata giusta
+  // menu: porta la telecamera alla fermata giusta. Se è lontana non attraversa tutto il viaggio:
+  // la scena si dissolve, salta lì e ricompare; la sezione accanto invece ci si arriva volando
   const MAP = {inizio:'hero', colorificio:'camp', reparti:'rep', storia:'bott', dove:'dove'};
+  const scena3d = document.getElementById('scena');
+  let salto = 0;
   document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const k = MAP[a.getAttribute('href').slice(1)]; if (!k) return;
     e.preventDefault(); e.stopImmediatePropagation();
-    const yv = V.idx[k]*V.seg; if (window.__lenis) window.__lenis.scrollTo(yv, {duration:2.2}); else scrollTo({top:yv, behavior:'smooth'});
+    const yv = V.idx[k]*V.seg, lenis = window.__lenis;
+    const vai = immediato => lenis ? lenis.scrollTo(yv, immediato ? {immediate:true, force:true} : {duration:1.1, force:true}) : scrollTo({top:yv, behavior: immediato ? 'auto' : 'smooth'});
+    if (Math.abs(yv - scrollY) / V.seg < 1.5) { vai(false); return; }
+    if (RIDOTTO) { vai(true); return; }
+    const mio = ++salto, strati = [vista, scena3d].filter(Boolean);
+    strati.forEach(el => { el.style.transition = 'opacity .22s ease'; el.style.opacity = '0'; });
+    setTimeout(() => {
+      if (mio !== salto) return;
+      vai(true);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (mio !== salto) return;
+        strati.forEach(el => { el.style.transition = 'opacity .45s ease'; el.style.opacity = ''; });
+      }));
+    }, 230);
   }, true));
 
   let mx = 0, my = 0, sx = 0, sy = 0;
