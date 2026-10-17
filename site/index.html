@@ -595,36 +595,44 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 .orari-pill dt{font-weight:600}
 .orari-pill dd{margin:0}
 /* card dello shop: blister su cartoncino stampato, linguetta con foro a sombrero, plastica solo attorno al prodotto */
-.card-shop{position:relative;display:block;width:360px;max-width:100%;margin:6px 0 0 2px;color:var(--bianco);text-decoration:none;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;
+@property --cs{syntax:"<color>";inherits:true;initial-value:#8C1710}
+.card-shop{--cs:#8C1710;transition:--cs .7s var(--ease);position:relative;display:block;width:360px;max-width:100%;margin:6px 0 0 2px;color:var(--bianco);text-decoration:none;cursor:grab;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;
   filter:drop-shadow(0 18px 18px rgba(0,0,0,.3)) drop-shadow(0 2px 3px rgba(0,0,0,.15))}
 .card-shop.tira{cursor:grabbing}
 .cs-blister{--gx:0px;position:relative;display:block;aspect-ratio:360/178;overflow:hidden;
-  background:radial-gradient(90% 120% at 20% 10%,#F4683D 0%,#E43A2A 48%,#C51E16 100%);
+  background:radial-gradient(90% 120% at 20% 10%,color-mix(in oklab,var(--cs) 62%,#fff) 0%,var(--cs) 55%,color-mix(in oklab,var(--cs) 78%,#000) 100%);
   transform-origin:50% 10px;transform:perspective(820px) rotateX(7deg) rotateY(-14deg);will-change:transform;touch-action:none;
   -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 178'%3E%3Cpath fill-rule='evenodd' d='M16 22H104L117.5 4.5Q120 0 125 0H235Q240 0 242.5 4.5L256 22H344Q360 22 360 38V162Q360 178 344 178H16Q0 178 0 162V38Q0 22 16 22Z M163 15a2 2 0 0 1 2-2h8c1.6 0 1.6-7 7-7s5.4 7 7 7h8a2 2 0 0 1 0 4H165a2 2 0 0 1-2-2Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 178'%3E%3Cpath fill-rule='evenodd' d='M16 22H104L117.5 4.5Q120 0 125 0H235Q240 0 242.5 4.5L256 22H344Q360 22 360 38V162Q360 178 344 178H16Q0 178 0 162V38Q0 22 16 22Z M163 15a2 2 0 0 1 2-2h8c1.6 0 1.6-7 7-7s5.4 7 7 7h8a2 2 0 0 1 0 4H165a2 2 0 0 1-2-2Z'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat}
 /* luce che scorre sul cartoncino lucido */
 .cs-blister::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
   background:linear-gradient(105deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.16) 42%,rgba(255,255,255,0) 54%) calc(var(--gx) * .6) 0/220% 100% no-repeat}
-.cs-logo{position:absolute;z-index:0;right:-8px;top:26px;height:172px;aspect-ratio:553/518;background:#F7744B;opacity:.85;-webkit-mask:url(img/shop/logo-sagoma.webp) 0 0/100% 100% no-repeat;mask:url(img/shop/logo-sagoma.webp) 0 0/100% 100% no-repeat}
+.cs-logo{position:absolute;z-index:0;right:-8px;top:26px;height:172px;aspect-ratio:553/518;background:color-mix(in oklab,var(--cs) 70%,#fff);opacity:.75;-webkit-mask:url(img/shop/logo-sagoma.webp) 0 0/100% 100% no-repeat;mask:url(img/shop/logo-sagoma.webp) 0 0/100% 100% no-repeat}
 .cs-marca{position:absolute;z-index:1;left:16px;top:30px;font:800 25px/1 var(--f-display);font-stretch:108%;letter-spacing:-.005em;text-transform:uppercase}
 .cs-giostra{position:absolute;z-index:2;left:8px;right:8px;top:68px;aspect-ratio:818/156;pointer-events:none}
 .cs-pezzo{position:absolute;inset:0;opacity:0;transform:translateX(24px) scale(.94);transition:opacity .45s ease,transform .6s var(--ease)}
 .cs-pezzo.attivo{opacity:1;transform:none}
 .cs-pezzo.esce{opacity:0;transform:translateX(-24px) scale(.96)}
 .cs-pezzo img{position:absolute;inset:0;width:100%;height:100%}
-.cs-pezzo .prod{filter:drop-shadow(1px 3px 2px rgba(60,8,4,.35)) drop-shadow(5px 12px 10px rgba(60,8,4,.35))}
-.cs-pezzo .bolla{filter:drop-shadow(3px 7px 7px rgba(60,8,4,.25))}
+.cs-pezzo .prod{filter:drop-shadow(1px 3px 2px rgba(0,0,0,.3)) drop-shadow(5px 12px 10px rgba(0,0,0,.3))}
+.cs-pezzo .bolla{filter:drop-shadow(3px 7px 7px rgba(0,0,0,.22))}
 .cs-pezzo .lucido{position:absolute;inset:0;pointer-events:none;-webkit-mask:var(--bolla) 0 0/100% 100% no-repeat;mask:var(--bolla) 0 0/100% 100% no-repeat;
   background:linear-gradient(100deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.7) 46%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 60%,rgba(255,255,255,.35) 63%,rgba(255,255,255,0) 66%) calc(50% + var(--gx) * 1.4) 0/240% 100% no-repeat}
 .cs-vai{position:absolute;z-index:3;left:16px;bottom:14px;display:inline-flex;align-items:center;gap:9px;font:700 15px/1 var(--f-testo);letter-spacing:-.01em}
-.cs-vai i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--bianco);color:var(--rosso);transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
+.cs-vai i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--bianco);color:var(--cs);transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
 .cs-vai svg{width:12px;height:12px}
 .cs-foro{position:absolute;z-index:6;left:160px;top:4px;width:40px;height:16px;overflow:visible;pointer-events:none}
 .cs-foro path{fill:none;stroke-width:1.1}
-.cs-foro .ombra{stroke:rgba(90,10,6,.55);transform:translateY(-.6px)}
-.cs-foro .luce{stroke:rgba(255,200,185,.8);transform:translateY(.9px)}
+.cs-foro .ombra{stroke:color-mix(in oklab,var(--cs) 55%,#000);transform:translateY(-.6px)}
+.cs-foro .luce{stroke:color-mix(in oklab,var(--cs) 45%,#fff);transform:translateY(.9px)}
+/* Charlie nero: il cartoncino è bianco */
+.card-shop.chiaro{color:var(--inchiostro)}
+.card-shop.chiaro .cs-blister{background:linear-gradient(165deg,#FFFFFF 0%,#F1F2F4 60%,#E4E7EB 100%)}
+.card-shop.chiaro .cs-logo{background:#E2E5EA;opacity:1}
+.card-shop.chiaro .cs-vai i{background:var(--inchiostro);color:var(--bianco)}
+.card-shop.chiaro .cs-foro .ombra{stroke:rgba(70,78,90,.45)}
+.card-shop.chiaro .cs-foro .luce{stroke:#FFFFFF}
 .hero .card-shop:focus-visible{outline:3px solid var(--bianco);outline-offset:4px}
-@media (hover:hover) and (pointer:fine){.card-shop:hover .cs-vai i{transform:rotate(45deg);background:var(--inchiostro);color:var(--bianco)}}
+@media (hover:hover) and (pointer:fine){.card-shop:hover .cs-vai i{transform:rotate(45deg);background:var(--inchiostro);color:var(--bianco)}.card-shop.chiaro:hover .cs-vai i{background:var(--rosso)}}
 @media (prefers-reduced-motion:reduce){.cs-pezzo,.cs-vai i{transition:none}}
 /* schermi bassi: la card resta sopra la piega */
 @media (min-width:901px) and (max-height:820px){.hero-testo{gap:16px}.card-shop{zoom:.9}}
@@ -781,7 +789,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
         <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama<span class="solo-largo"> 320 417 3656</span></a>
       </div>
       <p class="indirizzo">Provinciale Lecce-Vernole, 73029 Strudà (LE)</p>
-      <a class="card-shop" href="shop" aria-label="Shop online: tutto per dipingere. Vai allo shop">
+      <a class="card-shop chiaro" href="shop" aria-label="Shop online: apri lo shop e ordina pennelli, nastri, carta e teli">
         <span class="cs-blister">
           <svg class="cs-foro" viewBox="160 4 40 16" aria-hidden="true"><path class="ombra" d="M163 15a2 2 0 0 1 2-2h8c1.6 0 1.6-7 7-7s5.4 7 7 7h8a2 2 0 0 1 0 4H165a2 2 0 0 1-2-2Z"/><path class="luce" d="M163 15a2 2 0 0 1 2-2h8c1.6 0 1.6-7 7-7s5.4 7 7 7h8a2 2 0 0 1 0 4H165a2 2 0 0 1-2-2Z"/></svg>
           <span class="cs-logo" aria-hidden="true"></span>
@@ -790,7 +798,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
             <!-- ogni prodotto: foto scontornata + plastica sagomata (generate con strumenti/blister.py) -->
             <span class="cs-pezzo attivo" style="--bolla:url(img/shop/pennello-bolla.webp)"><img class="prod" src="img/shop/pennello-prodotto.webp" alt="" width="818" height="156" decoding="async"><img class="bolla" src="img/shop/pennello-bolla.webp" alt="" width="818" height="156" decoding="async"><i class="lucido"></i></span>
           </span>
-          <span class="cs-vai"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></i>Tutto per dipingere</span>
+          <span class="cs-vai"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></i>Apri lo shop e ordina</span>
         </span>
       </a>
     </div>
@@ -1074,6 +1082,8 @@ function colora(i){
   battutaEl.classList.remove('pop'); void battutaEl.offsetWidth; battutaEl.classList.add('pop');
   // il colorificio prende lo stesso colore scelto per Charlie
   document.documentElement.style.setProperty('--tinta', ink);
+  // la card dello shop prende il colore del pelo; con il nero diventa bianca
+  const cardShop = document.querySelector('.card-shop'); if (cardShop) { cardShop.style.setProperty('--cs', ink); cardShop.classList.toggle('chiaro', i < 0); }
   nomeCharlie.textContent = nome; cielo = c;
   charlieEl.setAttribute('aria-label', `Disegno a incisione di Charlie, il labrador del negozio, colorato in ${nome}`);
   // Charlie fa un piccolo salto a ogni tinta
