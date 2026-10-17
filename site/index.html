@@ -616,7 +616,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 .cs-titolo span:last-child{color:#9A9DA4}
 .cs-vai{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--inchiostro);color:var(--bianco);transition:transform .3s var(--ease),background .3s var(--ease)}
 .cs-vai svg{width:14px;height:14px}
-.cs-giostra{position:relative;z-index:1;align-self:center;width:min(100%,262px);aspect-ratio:612/242;pointer-events:none}
+.cs-giostra{position:relative;z-index:1;align-self:center;width:min(100%,304px);aspect-ratio:818/156;margin:10px 0 8px;pointer-events:none}
 .cs-pezzo{position:absolute;inset:0;opacity:0;transform:translateX(24px) scale(.94);transition:opacity .45s ease,transform .6s var(--ease)}
 .cs-pezzo.attivo{opacity:1;transform:none}
 .cs-pezzo.esce{opacity:0;transform:translateX(-24px) scale(.96)}
@@ -630,7 +630,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .card-shop:hover .cs-vai{transform:rotate(45deg);background:var(--rosso)}}
 @media (prefers-reduced-motion:reduce){.cs-blister{animation:none}.cs-pezzo,.cs-vai{transition:none}}
 /* schermi bassi: la card resta sopra la piega */
-@media (min-width:901px) and (max-height:820px){.hero-testo{gap:16px}.cs-giostra{width:min(100%,200px)}.cs-titolo{font-size:18px}.cs-guscio{padding:10px 12px 4px}.cs-blister{padding-bottom:7px}}
+@media (min-width:901px) and (max-height:820px){.hero-testo{gap:16px}.cs-giostra{width:min(100%,270px);margin:6px 0}.cs-titolo{font-size:18px}.cs-guscio{padding:10px 12px 4px}.cs-blister{padding-bottom:7px}}
 @media (max-width:900px){
   /* intestazione: logo, telefono, posizione; sfondo quando la pagina scorre */
   .menu{transition:background-color .3s ease,box-shadow .3s ease}
@@ -794,7 +794,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
             </span>
             <span class="cs-giostra" aria-hidden="true">
               <!-- ogni prodotto: foto scontornata + plastica sagomata (generate con strumenti/blister.py) -->
-              <span class="cs-pezzo attivo"><img class="prod" src="img/shop/pennello-prodotto.webp" alt="" width="612" height="242" decoding="async"><img class="bolla" src="img/shop/pennello-bolla.webp" alt="" width="612" height="242" decoding="async"></span>
+              <span class="cs-pezzo attivo"><img class="prod" src="img/shop/pennello-prodotto.webp" alt="" width="818" height="156" decoding="async"><img class="bolla" src="img/shop/pennello-bolla.webp" alt="" width="818" height="156" decoding="async"></span>
             </span>
           </span>
         </span>
