@@ -605,11 +605,9 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 /* luce che scorre sul cartoncino lucido */
 .cs-blister::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;
   background:linear-gradient(105deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.16) 42%,rgba(255,255,255,0) 54%) calc(var(--gx) * .6) 0/220% 100% no-repeat}
-.cs-em{position:absolute;z-index:0;left:-10px;bottom:-34px;font:800 150px/1 var(--f-display);font-stretch:112%;letter-spacing:-.04em;color:#F7744B;opacity:.85}
+.cs-logo{position:absolute;z-index:0;right:-8px;top:26px;height:172px;aspect-ratio:553/518;background:#F7744B;opacity:.85;-webkit-mask:url(img/shop/logo-sagoma.webp) 0 0/100% 100% no-repeat;mask:url(img/shop/logo-sagoma.webp) 0 0/100% 100% no-repeat}
 .cs-marca{position:absolute;z-index:1;left:16px;top:31px;font:600 10px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.9}
-.cs-verticale{position:absolute;z-index:1;right:10px;top:22px;bottom:0;display:grid;place-items:center;writing-mode:vertical-rl;transform:rotate(180deg);
-  font:800 21px/1 var(--f-display);font-stretch:105%;letter-spacing:.01em;text-transform:uppercase}
-.cs-giostra{position:absolute;z-index:2;left:14px;top:58px;width:286px;aspect-ratio:818/156;pointer-events:none}
+.cs-giostra{position:absolute;z-index:2;left:8px;right:8px;top:66px;aspect-ratio:818/156;pointer-events:none}
 .cs-pezzo{position:absolute;inset:0;opacity:0;transform:translateX(24px) scale(.94);transition:opacity .45s ease,transform .6s var(--ease)}
 .cs-pezzo.attivo{opacity:1;transform:none}
 .cs-pezzo.esce{opacity:0;transform:translateX(-24px) scale(.96)}
@@ -786,9 +784,8 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
       <a class="card-shop" href="shop" aria-label="Shop online: tutto per dipingere. Vai allo shop">
         <span class="cs-blister">
           <svg class="cs-foro" viewBox="160 4 40 16" aria-hidden="true"><path class="ombra" d="M163 15a2 2 0 0 1 2-2h8c1.6 0 1.6-7 7-7s5.4 7 7 7h8a2 2 0 0 1 0 4H165a2 2 0 0 1-2-2Z"/><path class="luce" d="M163 15a2 2 0 0 1 2-2h8c1.6 0 1.6-7 7-7s5.4 7 7 7h8a2 2 0 0 1 0 4H165a2 2 0 0 1-2-2Z"/></svg>
-          <span class="cs-em" aria-hidden="true">EM</span>
-          <span class="cs-marca" aria-hidden="true">Edil Market · Strudà</span>
-          <span class="cs-verticale" aria-hidden="true">Shop online</span>
+          <span class="cs-logo" aria-hidden="true"></span>
+          <span class="cs-marca" aria-hidden="true">Shop online</span>
           <span class="cs-giostra" aria-hidden="true">
             <!-- ogni prodotto: foto scontornata + plastica sagomata (generate con strumenti/blister.py) -->
             <span class="cs-pezzo attivo" style="--bolla:url(img/shop/pennello-bolla.webp)"><img class="prod" src="img/shop/pennello-prodotto.webp" alt="" width="818" height="156" decoding="async"><img class="bolla" src="img/shop/pennello-bolla.webp" alt="" width="818" height="156" decoding="async"><i class="lucido"></i></span>
