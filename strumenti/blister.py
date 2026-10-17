@@ -27,6 +27,8 @@ pad = 60
 pen = pen.crop(pen.getbbox())
 big = Image.new('RGBA', (pen.width + 2*pad, pen.height + 2*pad)); big.paste(pen, (pad, pad))
 pen = big.rotate(ang, resample=Image.BICUBIC, expand=True)
+P = 18
+pen = Image.fromarray(np.pad(np.asarray(pen), ((P, P), (P, P), (0, 0))), 'RGBA')
 m = np.asarray(pen)[:, :, 3] > 128
 # plastica termoformata: contorno gonfiato e arrotondato attorno al pennello
 d = nd.distance_transform_edt(~m)
@@ -43,6 +45,16 @@ def add(mask_alpha, rgb):
     S[..., :3] = S[..., :3] * (1 - al) + np.array(rgb) * al
     S[..., 3:] = S[..., 3:] + al * (1 - S[..., 3:])
 inside = sb.astype(float)
+# pareti: la bolla è alta, si vede il fianco in basso a destra
+wall = np.zeros_like(sb)
+for k in range(1, 13):
+    wall |= nd.shift(sb.astype(float), (k, k * .5), order=0) > .5
+wall &= ~sb
+wy = nd.distance_transform_edt(~wall) if wall.any() else wall
+dw = nd.distance_transform_edt(wall)
+add(wall * .62, (150, 158, 171))
+add(wall * np.clip(1 - dw / 4, 0, 1) * .35, (225, 230, 236))
+add((wall & (nd.distance_transform_edt(wall) < 1.6)) * .55, (120, 128, 140))
 add(inside * .10, (255, 255, 255))                                   # velo di plastica
 add(inside * np.clip(1 - din / 14, 0, 1) ** 1.6 * .55, (176, 184, 196))  # spessore: più scuro verso il bordo
 add(((din > 0) & (din < 1.8)) * .75, (118, 126, 138))                # filo esterno
@@ -53,7 +65,9 @@ add(np.asarray(Image.fromarray((rim*255).astype(np.uint8)).filter(ImageFilter.Ga
 # ombra interna in basso a destra
 sh2 = nd.shift(sb.astype(float), (-7, -7), order=0) > .5
 low = sb & ~sh2 & (din < 12)
-add(np.asarray(Image.fromarray((low*255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(3)))/255 * .35, (80, 88, 100))
+add(np.asarray(Image.fromarray((low*255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(3)))/255 * .5, (80, 88, 100))
+# cupola: più chiara al centro-alto, più scura verso il basso
+add(inside * np.clip((yy - yy[sb].min()) / max(1, np.ptp(yy[sb])), 0, 1) ** 2 * .16, (90, 98, 110))
 # striscia lucida diagonale
 t = (xx * .55 + yy) / (W * .55 + H)
 for c, w, k in [(.30, .04, .6), (.37, .012, .55), (.68, .025, .35)]:
