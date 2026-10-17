@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <defs>
+    <linearGradient id="nastro" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F3E4BA"/><stop offset=".55" stop-color="#E6CF93"/><stop offset="1" stop-color="#C9AC66"/>
+    </linearGradient>
+    <linearGradient id="cartone" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8A6235"/><stop offset="1" stop-color="#C79E62"/>
+    </linearGradient>
+    <linearGradient id="manico" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#A81E17"/><stop offset=".35" stop-color="#EF4A40"/><stop offset=".6" stop-color="#DF2F26"/><stop offset="1" stop-color="#9C1B15"/>
+    </linearGradient>
+    <linearGradient id="ghiera" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7C828C"/><stop offset=".3" stop-color="#F4F6F8"/><stop offset=".55" stop-color="#B9BEC6"/><stop offset=".8" stop-color="#E3E6EA"/><stop offset="1" stop-color="#6E747E"/>
+    </linearGradient>
+    <linearGradient id="setole" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3E2A17"/><stop offset=".4" stop-color="#6B4826"/><stop offset="1" stop-color="#352312"/>
+    </linearGradient>
+    <linearGradient id="vernice" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1B3889"/><stop offset=".4" stop-color="#3A5FC9"/><stop offset="1" stop-color="#17306F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- pennello piatto, intinto nel blu Russo -->
+  <g transform="translate(122 118) rotate(28) scale(1.12)">
+    <path d="M-12 -98 Q-14 -60 -15 -16 L15 -16 Q14 -60 12 -98 Q0 -106 -12 -98Z" fill="url(#manico)" stroke="#6E120D" stroke-width="2"/>
+    <circle cy="-84" r="5" fill="#F7F1E4" stroke="#6E120D" stroke-width="1.6"/>
+    <path d="M-5 -70 Q-6 -45 -7 -22" stroke="#FFB3AE" stroke-width="3" stroke-linecap="round" opacity=".7" fill="none"/>
+    <rect x="-27" y="-18" width="54" height="38" rx="5" fill="url(#ghiera)" stroke="#4F555E" stroke-width="2"/>
+    <path d="M-27 -6 H27 M-27 8 H27" stroke="#7C828C" stroke-width="1.6"/>
+    <path d="M-26 20 L-29 74 Q-29 88 -16 88 L16 88 Q29 88 29 74 L26 20Z" fill="url(#setole)" stroke="#24170B" stroke-width="2"/>
+    <path d="M-28.4 56 L28.4 56 L29 74 Q29 88 16 88 L-16 88 Q-29 88 -29 74Z" fill="url(#vernice)" stroke="#0F2157" stroke-width="2"/>
+    <path d="M-4 88 Q-4 104 2 106 Q8 104 8 92" fill="#2649B0" stroke="#0F2157" stroke-width="2"/>
+    <path d="M-16 26 L-18 54 M-6 26 L-7 54 M5 26 L5 54 M16 26 L17 54" stroke="#8C643A" stroke-width="1.4" opacity=".7"/>
+    <path d="M-20 62 Q-21 72 -18 80" stroke="#9DB4F2" stroke-width="3" stroke-linecap="round" fill="none" opacity=".8"/>
+  </g>
+</svg>
