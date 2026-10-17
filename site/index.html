@@ -594,26 +594,43 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 .orari-pill dl > div{display:flex;justify-content:space-between;gap:18px}
 .orari-pill dt{font-weight:600}
 .orari-pill dd{margin:0}
-/* card dello shop: bianca, titolo su due toni, prodotto scontornato tagliato dal bordo */
-.card-shop{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:20px;width:min(100%,380px);min-height:138px;margin:10px 0 0 4px;padding:18px 20px;border-radius:16px;rotate:-2.5deg;
-  background:radial-gradient(120% 140% at 0% 0%,#FFFFFF 0%,#F4F4F1 100%);color:var(--inchiostro);text-decoration:none;box-shadow:0 20px 40px -24px rgba(0,0,0,.5);transition:transform .35s var(--ease),box-shadow .35s var(--ease),rotate .35s var(--ease)}
-.cs-titolo{position:relative;z-index:1;display:grid;font:700 22px/1.1 var(--f-testo);letter-spacing:-.02em}
+/* card dello shop: blister appeso al gancio del pannello forato, il prodotto sotto la bolla */
+.card-shop{position:relative;display:block;width:min(100%,380px);margin:2px 0 0 4px;padding-top:30px;color:var(--inchiostro);text-decoration:none}
+.cs-perno{position:absolute;z-index:2;left:50%;top:7px;width:12px;height:12px;margin-left:-6px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#FFFFFF 0,#C9CDD3 38%,#7D838C 100%);box-shadow:0 2px 3px rgba(0,0,0,.35)}
+.cs-blister{position:relative;display:flex;min-height:128px;border-radius:16px;background:linear-gradient(160deg,#FFFFFF 0%,#F3F2EE 100%);
+  filter:drop-shadow(0 16px 18px rgba(0,0,0,.28)) drop-shadow(0 2px 3px rgba(0,0,0,.12));transform-origin:50% -17px;animation:cs-dondola 6s ease-in-out infinite}
+.cs-blister::before{content:"";position:absolute;left:50%;top:-30px;width:86px;height:31px;margin-left:-43px;border-radius:14px 14px 0 0;background:#FFFFFF;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 14'%3E%3Ccircle cx='18' cy='7' r='6'/%3E%3Crect x='2' y='5' width='32' height='4' rx='2'/%3E%3C/svg%3E") 50% 6px/36px 14px no-repeat,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 14'%3E%3Ccircle cx='18' cy='7' r='6'/%3E%3Crect x='2' y='5' width='32' height='4' rx='2'/%3E%3C/svg%3E") 50% 6px/36px 14px no-repeat exclude,linear-gradient(#000 0 0)}
+.cs-testo{flex:1;display:flex;flex-direction:column;justify-content:space-between;gap:18px;min-width:0;padding:18px 8px 18px 20px}
+.cs-titolo{display:grid;font:700 21px/1.1 var(--f-testo);letter-spacing:-.02em}
 .cs-titolo span:last-child{color:#9A9DA4}
-.cs-vai{position:relative;z-index:1;display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase}
+.cs-vai{display:inline-flex;align-items:center;gap:10px;font-size:12.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase}
 .cs-vai i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--inchiostro);color:var(--bianco);transition:transform .3s var(--ease),background .3s var(--ease)}
 .cs-vai svg{width:13px;height:13px}
-.cs-giostra{position:absolute;z-index:0;right:-46px;bottom:-44px;width:182px;height:182px;pointer-events:none;animation:cs-galleggia 5.5s ease-in-out infinite;transition:scale .45s var(--ease)}
-.cs-giostra img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:translateY(30px) scale(.8) rotate(-12deg);
-  filter:drop-shadow(0 10px 10px rgba(21,23,28,.22)) drop-shadow(0 2px 2px rgba(21,23,28,.14));transition:opacity .45s ease,transform .75s cubic-bezier(.34,1.56,.64,1)}
-.cs-giostra img.attivo{opacity:1;transform:rotate(-4deg)}
-.cs-giostra img.esce{opacity:0;transform:translate(30px,-24px) scale(.9) rotate(14deg);transition:opacity .35s ease,transform .5s ease-in}
-@keyframes cs-galleggia{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -6px;rotate:2.5deg}}
+/* la bolla di plastica: quasi invisibile, solo riflessi e un filo di bordo */
+.cs-bolla{position:relative;flex:none;width:136px;margin:10px;border-radius:20px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(21,23,28,.025),rgba(21,23,28,.06));
+  box-shadow:inset 0 0 0 1px rgba(21,23,28,.10),inset 0 0 0 3px rgba(255,255,255,.7),inset 0 -10px 18px rgba(21,23,28,.06),0 6px 10px -6px rgba(0,0,0,.22)}
+.cs-bolla::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(118deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.18) 22%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 72%,rgba(255,255,255,.4) 100%)}
+.cs-bolla::before{content:"";position:absolute;z-index:3;top:-20%;bottom:-20%;left:-60%;width:40%;pointer-events:none;transform:skewX(-18deg);opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent)}
+.cs-bolla.luccica::before{animation:cs-riflesso .8s ease-out}
+.cs-giostra{position:absolute;inset:-4px;animation:cs-galleggia 4.5s ease-in-out infinite}
+.cs-giostra img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:translateY(18px) scale(.82) rotate(-10deg);
+  filter:drop-shadow(0 8px 8px rgba(21,23,28,.22));transition:opacity .45s ease,transform .7s cubic-bezier(.34,1.56,.64,1)}
+.cs-giostra img.attivo{opacity:1;transform:none}
+.cs-giostra img.esce{opacity:0;transform:translateY(-16px) scale(.9) rotate(12deg);transition:opacity .3s ease,transform .45s ease-in}
+@keyframes cs-dondola{0%,100%{rotate:-2.4deg}50%{rotate:1.6deg}}
+@keyframes cs-galleggia{0%,100%{translate:0 0}50%{translate:0 -3px}}
+@keyframes cs-riflesso{0%{left:-60%;opacity:1}100%{left:130%;opacity:1}}
 .hero .card-shop:focus-visible{outline:3px solid var(--bianco);outline-offset:4px}
 @media (hover:hover) and (pointer:fine){
-  .card-shop:hover{rotate:0deg;transform:translateY(-2px);box-shadow:0 18px 34px -20px rgba(0,0,0,.55)}
-  .card-shop:hover .cs-giostra{scale:1.06}
+  .card-shop:hover .cs-blister{animation-play-state:paused}
   .card-shop:hover .cs-vai i{transform:rotate(45deg);background:var(--rosso)}}
-@media (prefers-reduced-motion:reduce){.card-shop,.cs-giostra,.cs-giostra img,.cs-vai i{transition:none;animation:none}}
+@media (prefers-reduced-motion:reduce){.cs-blister,.cs-giostra,.cs-bolla::before{animation:none}.cs-giostra img,.cs-vai i{transition:none}}
 /* schermi bassi: la card resta sopra la piega */
 @media (min-width:901px) and (max-height:820px){.hero-testo{gap:16px}}
 @media (max-width:900px){
@@ -770,13 +787,18 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
       </div>
       <p class="indirizzo">Provinciale Lecce-Vernole, 73029 Strudà (LE)</p>
       <a class="card-shop" href="shop" aria-label="Shop online: tutto per dipingere. Vai allo shop">
-        <span class="cs-titolo"><span>Shop online</span><span>Tutto per dipingere</span></span>
-        <span class="cs-vai"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></i>Vai allo shop</span>
-        <span class="cs-giostra" aria-hidden="true">
-          <!-- prodotti scontornati (PNG o WebP con sfondo trasparente): cambiano da soli ogni 4 secondi -->
-          <img class="attivo" src="img/shop/kit.svg" alt="" width="240" height="240" decoding="async">
-          <img src="img/shop/pennello.svg" alt="" width="240" height="240" loading="lazy" decoding="async">
-          <img src="img/shop/nastro.svg" alt="" width="240" height="240" loading="lazy" decoding="async">
+        <span class="cs-perno" aria-hidden="true"></span>
+        <span class="cs-blister">
+          <span class="cs-testo">
+            <span class="cs-titolo"><span>Shop online</span><span>Tutto per dipingere</span></span>
+            <span class="cs-vai"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></i>Vai allo shop</span>
+          </span>
+          <span class="cs-bolla" aria-hidden="true"><span class="cs-giostra">
+            <!-- prodotti scontornati (PNG o WebP con sfondo trasparente): cambiano da soli ogni 4 secondi -->
+            <img class="attivo" src="img/shop/kit.svg" alt="" width="240" height="240" decoding="async">
+            <img src="img/shop/pennello.svg" alt="" width="240" height="240" loading="lazy" decoding="async">
+            <img src="img/shop/nastro.svg" alt="" width="240" height="240" loading="lazy" decoding="async">
+          </span></span>
         </span>
       </a>
     </div>
@@ -1075,7 +1097,8 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
   const card = document.querySelector('.card-shop'), foto = card ? [...card.querySelectorAll('.cs-giostra img')] : [];
   if (foto.length < 2) return;
   const ridotto = matchMedia('(prefers-reduced-motion: reduce)'); let i = 0, giro;
-  function avanti(){ const a = foto[i]; a.classList.replace('attivo', 'esce'); setTimeout(() => a.classList.remove('esce'), 520); i = (i + 1) % foto.length; foto[i].classList.add('attivo'); }
+  const bolla = card.querySelector('.cs-bolla');
+  function avanti(){ bolla.classList.remove('luccica'); void bolla.offsetWidth; bolla.classList.add('luccica'); const a = foto[i]; a.classList.replace('attivo', 'esce'); setTimeout(() => a.classList.remove('esce'), 520); i = (i + 1) % foto.length; foto[i].classList.add('attivo'); }
   function riparti(){ clearInterval(giro); if (!ridotto.matches && !document.hidden) giro = setInterval(avanti, 4000); }
   card.addEventListener('mouseenter', () => clearInterval(giro)); card.addEventListener('mouseleave', riparti);
   card.addEventListener('focus', () => clearInterval(giro)); card.addEventListener('blur', riparti);
