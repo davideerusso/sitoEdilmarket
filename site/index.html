@@ -594,32 +594,28 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
 .orari-pill dl > div{display:flex;justify-content:space-between;gap:18px}
 .orari-pill dt{font-weight:600}
 .orari-pill dd{margin:0}
-/* card dello shop: carta da collezione con il prodotto scontornato che esce dal bordo */
-.card-shop{--cs:var(--rosso);position:relative;display:flex;flex-direction:column;width:min(100%,430px);margin:14px 0 0 6px;padding:7px;border:2.5px solid var(--inchiostro);border-radius:22px;background:var(--cs);color:var(--inchiostro);text-decoration:none;
-  box-shadow:0 0 0 3px var(--cs),0 0 0 5.5px var(--inchiostro),0 26px 44px -22px rgba(0,0,0,.65);rotate:-2.5deg;transition:rotate .35s var(--ease),transform .35s var(--ease)}
-.cs-corpo{display:grid;justify-items:start;gap:8px;padding:12px 118px 13px 14px;border:2.5px solid var(--inchiostro);border-radius:15px;background:#FBF8F1}
-.cs-pill{display:inline-flex;align-items:center;gap:8px;padding:4px 12px 4px 4px;border-radius:999px;background:var(--bianco);box-shadow:0 1px 0 rgba(21,23,28,.08),0 4px 12px -6px rgba(21,23,28,.35);font-size:13px;font-weight:500}
-.cs-pill i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--cs);color:var(--bianco)}
-.cs-pill svg{width:14px;height:14px}
-.card-shop strong{font:800 24px/1.05 var(--f-display);letter-spacing:-.02em;white-space:nowrap}
-.cs-riga{display:flex;align-items:center;gap:8px;font-size:13px;line-height:1.25}
-.cs-riga svg,.cs-piede svg{flex:none;width:16px;height:16px}
-.cs-piede{display:flex;align-items:center;gap:8px;padding:8px 10px 2px;font-size:13px;font-weight:500;color:var(--bianco)}
-.cs-piede .vai{width:18px;height:18px;margin-left:auto;transition:transform .25s var(--ease)}
-.cs-giostra{position:absolute;right:-30px;top:-52px;width:170px;height:170px;pointer-events:none;animation:cs-galleggia 5.5s ease-in-out infinite;transition:scale .45s var(--ease)}
-.cs-giostra img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:translateY(26px) scale(.78) rotate(-12deg);
-  filter:drop-shadow(0 14px 14px rgba(21,23,28,.35)) drop-shadow(0 2px 2px rgba(21,23,28,.25));transition:opacity .45s ease,transform .75s cubic-bezier(.34,1.56,.64,1)}
-.cs-giostra img.attivo{opacity:1;transform:rotate(6deg)}
-.cs-giostra img.esce{opacity:0;transform:translateY(-22px) scale(.9) rotate(16deg);transition:opacity .35s ease,transform .5s ease-in}
-@keyframes cs-galleggia{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -9px;rotate:3deg}}
-.hero .card-shop:focus-visible{outline:3px solid var(--bianco);outline-offset:9px}
+/* card dello shop: bianca, titolo su due toni, prodotto scontornato tagliato dal bordo */
+.card-shop{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:26px;width:min(100%,440px);min-height:168px;margin-top:6px;padding:22px 24px;border-radius:16px;
+  background:radial-gradient(120% 140% at 0% 0%,#FFFFFF 0%,#F4F4F1 100%);color:var(--inchiostro);text-decoration:none;box-shadow:0 24px 48px -26px rgba(0,0,0,.55);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.cs-titolo{position:relative;z-index:1;display:grid;font:700 clamp(24px,1.9vw,28px)/1.08 var(--f-testo);letter-spacing:-.02em}
+.cs-titolo span:last-child{color:#9A9DA4}
+.cs-vai{position:relative;z-index:1;display:inline-flex;align-items:center;gap:12px;font-size:14px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.cs-vai i{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--inchiostro);color:var(--bianco);transition:transform .3s var(--ease),background .3s var(--ease)}
+.cs-vai svg{width:15px;height:15px}
+.cs-giostra{position:absolute;z-index:0;right:-58px;bottom:-52px;width:220px;height:220px;pointer-events:none;animation:cs-galleggia 5.5s ease-in-out infinite;transition:scale .45s var(--ease)}
+.cs-giostra img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:translateY(30px) scale(.8) rotate(-12deg);
+  filter:drop-shadow(0 18px 18px rgba(21,23,28,.28)) drop-shadow(0 3px 3px rgba(21,23,28,.18));transition:opacity .45s ease,transform .75s cubic-bezier(.34,1.56,.64,1)}
+.cs-giostra img.attivo{opacity:1;transform:rotate(-4deg)}
+.cs-giostra img.esce{opacity:0;transform:translate(30px,-24px) scale(.9) rotate(14deg);transition:opacity .35s ease,transform .5s ease-in}
+@keyframes cs-galleggia{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -10px;rotate:3deg}}
+.hero .card-shop:focus-visible{outline:3px solid var(--bianco);outline-offset:4px}
 @media (hover:hover) and (pointer:fine){
-  .card-shop:hover{rotate:0deg;transform:translateY(-3px)}
+  .card-shop:hover{transform:translateY(-3px);box-shadow:0 30px 56px -26px rgba(0,0,0,.65)}
   .card-shop:hover .cs-giostra{scale:1.07}
-  .card-shop:hover .cs-piede .vai{transform:translateX(4px)}}
-@media (prefers-reduced-motion:reduce){.card-shop,.cs-giostra,.cs-giostra img{transition:none;animation:none}}
+  .card-shop:hover .cs-vai i{transform:rotate(45deg);background:var(--rosso)}}
+@media (prefers-reduced-motion:reduce){.card-shop,.cs-giostra,.cs-giostra img,.cs-vai i{transition:none;animation:none}}
 /* schermi bassi: la card resta sopra la piega */
-@media (min-width:901px) and (max-height:820px){.hero-testo{gap:16px}.cs-riga{display:none}.card-shop{margin-top:8px}}
+@media (min-width:901px) and (max-height:820px){.hero-testo{gap:16px}.card-shop{min-height:150px;gap:18px;padding-block:18px}}
 @media (max-width:900px){
   /* intestazione: logo, telefono, posizione; sfondo quando la pagina scorre */
   .menu{transition:background-color .3s ease,box-shadow .3s ease}
@@ -773,13 +769,9 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
         <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama<span class="solo-largo"> 320 417 3656</span></a>
       </div>
       <p class="indirizzo">Provinciale Lecce-Vernole, 73029 Strudà (LE)</p>
-      <a class="card-shop" href="shop" aria-label="Shop online: pennelli, nastri, carta e teli. Spedizione o ritiro in negozio">
-        <span class="cs-corpo">
-          <span class="cs-pill"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></i>Shop online</span>
-          <strong>Tutto per dipingere</strong>
-          <span class="cs-riga"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Pennelli, nastri, carta e teli</span>
-        </span>
-        <span class="cs-piede"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>Spedizione o ritiro in negozio<svg class="vai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      <a class="card-shop" href="shop" aria-label="Shop online: tutto per dipingere. Vai allo shop">
+        <span class="cs-titolo"><span>Shop online</span><span>Tutto per dipingere</span></span>
+        <span class="cs-vai"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></i>Vai allo shop</span>
         <span class="cs-giostra" aria-hidden="true">
           <!-- prodotti scontornati (PNG o WebP con sfondo trasparente): cambiano da soli ogni 4 secondi -->
           <img class="attivo" src="img/shop/kit.svg" alt="" width="240" height="240" decoding="async">
