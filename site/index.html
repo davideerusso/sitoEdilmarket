@@ -1083,7 +1083,7 @@ function colora(i){
   // il colorificio prende lo stesso colore scelto per Charlie
   document.documentElement.style.setProperty('--tinta', ink);
   // la card dello shop prende il colore del pelo; con il nero diventa bianca
-  const cardShop = document.querySelector('.card-shop'); if (cardShop) { cardShop.style.setProperty('--cs', ink); cardShop.classList.toggle('chiaro', i < 0); }
+  const cardShop = document.querySelector('.card-shop'); if (cardShop) { cardShop.style.setProperty('--cs', ink); cardShop.classList.toggle('chiaro', i < 0); document.dispatchEvent(new CustomEvent('tinta-charlie')); }
   nomeCharlie.textContent = nome; cielo = c;
   charlieEl.setAttribute('aria-label', `Disegno a incisione di Charlie, il labrador del negozio, colorato in ${nome}`);
   // Charlie fa un piccolo salto a ogni tinta
@@ -1135,6 +1135,8 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
   card.addEventListener('mouseleave', () => { hxT = 0; hyT = 0; });
   card.addEventListener('click', e => { if (mosso) { e.preventDefault(); mosso = false; } });   // trascinare non apre lo shop
   card.addEventListener('dragstart', e => e.preventDefault());
+  // nuova tinta per Charlie: la card riceve un colpetto da destra, dal suo lato
+  document.addEventListener('tinta-charlie', () => { if (!tira) vel += 42 + Math.random() * 16; });
 })();
 (function(){
   const box = document.getElementById('stato-box'), btn = box.querySelector('.stato');
