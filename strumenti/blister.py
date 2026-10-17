@@ -16,9 +16,14 @@ fg = nd.binary_opening(fg, iterations=1)
 # il foro nel manico deve restare vuoto: lo riapro (zona chiara racchiusa e grande)
 holes = light & ~bg
 hl, hn = nd.label(holes)
+# riapro solo fori veri: bianco pieno, compatti e tondeggianti (non i riflessi del metallo)
+pure = np.abs(a - 255).max(axis=2) < 8
 for i in range(1, hn+1):
     m = hl == i
-    if m.sum() > 30: fg &= ~m
+    n = m.sum()
+    if n < 30: continue
+    ys, xs = np.nonzero(m); h, w = np.ptp(ys) + 1, np.ptp(xs) + 1
+    if pure[m].mean() > .9 and n / (h * w) > .6 and max(h, w) / min(h, w) < 1.5: fg &= ~m
 alpha = nd.binary_erosion(fg, iterations=1).astype(np.uint8) * 255
 alpha = np.asarray(Image.fromarray(alpha).filter(ImageFilter.GaussianBlur(.8)))
 rgba = np.dstack([a.astype(np.uint8), alpha])
