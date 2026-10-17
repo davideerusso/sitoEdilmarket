@@ -98,9 +98,6 @@ main,header,footer{position:relative;z-index:1}
 .hero h1 .riga > span{display:block}
 .hero-testo p{margin:0;max-width:40ch;font-size:clamp(17px,1.35vw,20px);line-height:1.55}
 .hero-testo .indirizzo{font-size:15px;line-height:1.5}
-.hero-testo .orari-testata{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:-12px;font-size:15px;line-height:1.3}
-.orari-testata b{padding:5px 9px;border-radius:8px;background:rgba(255,255,255,.18);font-size:14px;font-weight:500}
-.orari-testata .dom{opacity:.85}
 .hero .stato{background:rgba(255,255,255,.18);color:var(--bianco);backdrop-filter:none;-webkit-backdrop-filter:none;font-size:15px}
 .solo-stretto{display:none}
 .azioni{display:flex;gap:12px;flex-wrap:wrap}
@@ -496,7 +493,6 @@ body:not(.spazio) .hero.mazzo{z-index:4}
     background-blend-mode:normal,normal,normal,multiply,normal}
   .hero-testo{flex:none;max-width:none;padding:8px 0 16px;gap:24px;align-items:center;text-align:center}
   .hero-testo p{margin-inline:auto}
-  .hero-testo .orari-testata{justify-content:center}
   .hero h1 .riga > span{text-align:center}
   .hero-destra{flex:none;align-self:stretch}
   .hero h1{font-size:clamp(28px,8.6vw,56px)}
@@ -583,9 +579,32 @@ body.spazio{overscroll-behavior:none}
 @media (max-width:420px){.destra .btn span{display:none}}
 
 /* ===== Telefono: testata essenziale e banda di Charlie che si apre ===== */
-.btn-icona,.banda-invito,.banda-breve,.testa,.banda-piede,.banda-tocco,.orari-pill,.stato .freccia{display:none}
+.btn-icona,.banda-invito,.banda-breve,.testa,.banda-piede,.banda-tocco{display:none}
 .frase h2 span.solo-stretto{display:none}
 button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;cursor:default;margin:0}
+/* stato del negozio: tocchi la pastiglia e si aprono gli orari (computer e telefono) */
+.stato-box{display:grid;justify-items:start;border-radius:22px;background:rgba(255,255,255,.18)}
+.hero .stato-box .stato{background:none;cursor:pointer;touch-action:manipulation}
+.stato .freccia{display:block;width:16px;height:16px;margin-left:2px;transition:transform .3s ease}
+.stato[aria-expanded="true"] .freccia{transform:rotate(180deg)}
+.orari-pill{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease;width:100%}
+.orari-pill > div{overflow:hidden}
+.stato-box.aperto .orari-pill{grid-template-rows:1fr}
+.orari-pill dl{margin:0;padding:2px 18px 14px;display:grid;gap:6px;font-size:14px;font-variant-numeric:tabular-nums;text-align:left}
+.orari-pill dl > div{display:flex;justify-content:space-between;gap:18px}
+.orari-pill dt{font-weight:600}
+.orari-pill dd{margin:0}
+/* card dello shop al posto della riga degli orari */
+.card-shop{display:flex;align-items:center;gap:14px;width:min(100%,420px);margin-top:-4px;padding:12px 18px 12px 12px;border-radius:12px;background:var(--bianco);color:var(--inchiostro);text-decoration:none;box-shadow:0 20px 44px -24px rgba(0,0,0,.6);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.card-shop .ico{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:10px;background:var(--rosso);color:var(--bianco)}
+.card-shop .ico svg{width:26px;height:26px}
+.card-shop .testi{display:grid;gap:3px;min-width:0}
+.card-shop small{font:600 11px/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--rosso)}
+.card-shop strong{font:700 17px/1.2 var(--f-testo)}
+.card-shop .sub{font-size:13px;line-height:1.3;color:var(--grigio)}
+.card-shop .vai{flex:none;width:20px;height:20px;margin-left:auto;transition:transform .2s var(--ease)}
+.hero .card-shop:focus-visible{outline-color:var(--bianco)}
+@media (hover:hover) and (pointer:fine){.card-shop:hover{transform:translateY(-2px);box-shadow:0 26px 50px -24px rgba(0,0,0,.7)}.card-shop:hover .vai{transform:translateX(4px)}}
 @media (max-width:900px){
   /* intestazione: logo, telefono, posizione; sfondo quando la pagina scorre */
   .menu{transition:background-color .3s ease,box-shadow .3s ease}
@@ -600,7 +619,7 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
   .btn-icona svg,.destra .btn.mappa svg{width:22px;height:22px}
   .destra .btn.mappa span{display:none}
   /* testata: solo stato, titolo e testo */
-  .hero .azioni,.hero-testo .indirizzo,.hero-testo .orari-testata{display:none}
+  .hero .azioni,.hero-testo .indirizzo,.hero-testo .card-shop{display:none}
   .hero{padding-block:82px 0;gap:0;min-height:100svh;
     background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 92%,transparent) 0%,color-mix(in oklab,var(--c1) 72%,transparent) 42%,color-mix(in oklab,var(--c1) 40%,transparent) 100%),
      radial-gradient(240px 230px at calc(100% - 70px) calc(100% - 150px),color-mix(in oklab,var(--c3) 62%,transparent) 0%,transparent 75%),
@@ -739,7 +758,11 @@ button.stato{font:inherit;font-size:15px;font-weight:500;border:0;color:inherit;
         <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama<span class="solo-largo"> 320 417 3656</span></a>
       </div>
       <p class="indirizzo">Provinciale Lecce-Vernole, 73029 Strudà (LE)</p>
-      <p class="orari-testata"><span>Lun – Ven</span> <b class="mono">6:30–13:30</b> <b class="mono">15:30–19:30</b> <span class="dom">Sabato 6:30–13:30 · Domenica chiuso</span></p>
+      <a class="card-shop" href="shop">
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3Z"/><path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7"/><path d="M14.5 17.5 4.5 15"/></svg></span>
+        <span class="testi"><small>Shop online</small><strong>Pennelli, nastri, carta e teli</strong><span class="sub">Spedizione a casa o ritiro in negozio</span></span>
+        <svg class="vai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      </a>
     </div>
     <div class="hero-destra">
       <div class="frase">
@@ -1034,7 +1057,7 @@ misuraBanda(); addEventListener('load', misuraBanda); if (document.fonts) docume
 let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs = setTimeout(misuraBanda, 120); });
 (function(){
   const box = document.getElementById('stato-box'), btn = box.querySelector('.stato');
-  btn.addEventListener('click', () => { if (!MOBILE()) return; const ap = !box.classList.contains('aperto'); box.classList.toggle('aperto', ap); btn.setAttribute('aria-expanded', ap ? 'true' : 'false'); });
+  btn.addEventListener('click', () => { const ap = !box.classList.contains('aperto'); box.classList.toggle('aperto', ap); btn.setAttribute('aria-expanded', ap ? 'true' : 'false'); });
   const tocco = bandaEl.querySelector('.banda-tocco'), chiudi = bandaEl.querySelector('.banda-chiudi');
   function dopo(fn){ let fatto = false; const f = () => { if (fatto) return; fatto = true; fn(); }; bandaEl.addEventListener('transitionend', e => { if (e.target === bandaEl && e.propertyName === 'height') f(); }, {once:true}); setTimeout(f, 700); }
   function apri(){
