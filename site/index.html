@@ -616,10 +616,14 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .destra .btn.mappa span{display:none}
   /* testata: solo stato, titolo e testo */
   .hero .azioni,.hero-testo .indirizzo{display:none}
-  /* telefono: la sezione di Charlie lascia il posto al blister dello shop, in fondo alla testata */
-  .hero .hero-destra{display:none!important}
-  .hero-testo{flex:1 1 auto!important}
-  .hero-testo .card-shop{display:block;width:min(360px,100%);margin:auto auto max(28px,4svh)}
+  /* telefono: il blister dello shop è appeso sotto la banda di Charlie, al centro, subito sotto il bordo basso;
+     a sinistra restano "Che colore gli diamo?" e "Prova". Aprendo la banda per il colore il blister lascia il posto alle scritte
+     di Charlie; toccando Charlie la banda si richiude e il blister torna, nel colore scelto */
+  .hero .hero-destra .card-shop{display:block;position:absolute;z-index:2;   /* davanti a Charlie */left:50%;top:calc(100% + 6px);translate:-50% 0;
+    width:360px;scale:.88;rotate:-2deg;transform-origin:50% 0;transition:opacity .3s ease,visibility .3s}   /* rimpicciolito tutto in proporzione, testi compresi */
+  @media (min-width:430px){.hero .hero-destra .card-shop{scale:1}}
+  /* lo spazio sotto la banda per il blister appeso è il margine basso della banda (misuraBanda lo tiene fuori dall'altezza) */
+  .hero .hero-destra.aperta .card-shop{opacity:0;visibility:hidden}
   .hero{padding-block:82px 0;gap:0;min-height:100svh;
     background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 92%,transparent) 0%,color-mix(in oklab,var(--c1) 72%,transparent) 42%,color-mix(in oklab,var(--c1) 40%,transparent) 100%),
      radial-gradient(240px 230px at calc(100% - 70px) calc(100% - 150px),color-mix(in oklab,var(--c3) 62%,transparent) 0%,transparent 75%),
@@ -644,7 +648,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .orari-pill dd{margin:0}
   .hero-testo > p:not(.indirizzo):not(.orari-testata){font-size:16px;line-height:1.5}
   /* la banda di Charlie, chiusa: titolo a sinistra, testa che sborda a destra */
-  .hero .hero-destra{position:relative;display:block;flex:none;align-self:stretch;height:var(--banda-h,330px);margin:0 calc(-1 * var(--gutter));padding:0;overflow:hidden;
+  .hero .hero-destra{position:relative;display:block;flex:none;align-self:stretch;height:var(--banda-h,330px);margin:0 calc(-1 * var(--gutter)) 148px;padding:0;overflow:hidden;
     background:none;transition:height .55s cubic-bezier(.3,.7,.2,1)}
   .hero .hero-destra .frase{position:absolute;z-index:2;left:22px;top:52px;width:47%;max-width:none;display:grid;gap:12px;justify-items:start;text-align:left;
     transform:rotate(-7deg);transform-origin:0 50%;transition:left .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),width .55s,transform .55s cubic-bezier(.3,.7,.2,1)}
@@ -661,6 +665,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
     animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
   .hero .hero-destra .charlie .battuta{font-size:14px}
   .hero .hero-destra .charlie{transform:rotate(-2deg)!important}
+  @media (min-width:430px){.hero .hero-destra{margin-bottom:170px}}
 
   /* banda più vicina al paragrafo; sui telefoni bassi meno, se no Charlie tocca il testo */
   .hero .hero-destra{translate:0 -10px}
@@ -1022,6 +1027,8 @@ const PELO = [
 const heroEl = document.querySelector('.hero'), charlieEl = document.getElementById('charlie');
 const inchiostroEl = charlieEl.querySelector('.charlie-inchiostro'), cartaEl = charlieEl.querySelector('.charlie-carta');
 const testaInk = document.querySelector('.testa .charlie-inchiostro'), testaCarta = document.querySelector('.testa .charlie-carta'), bandaEl = document.querySelector('.hero-destra'), bandaTinta = document.querySelector('.banda-tinta b');
+// telefono: il cartellino dello shop va nella banda di Charlie (sul computer resta sotto l'indirizzo)
+if (MOBILE()) { const cartellino = document.querySelector('.hero-testo .card-shop'); if (cartellino) bandaEl.insertBefore(cartellino, bandaEl.querySelector('.banda-tocco')); }
 const nomeCharlie = document.getElementById('charlie-nome'), figEl = document.getElementById('francobollo'), battutaEl = document.getElementById('battuta');
 let cielo = BASE[3], salti = 0;
 const peloBtn = PELO.map(([nome, ink], i) => {
@@ -1053,7 +1060,7 @@ function colora(i){
 /* Telefono: la pillola dello stato mostra gli orari, la banda di Charlie si apre al tocco */
 bandaEl.classList.add('nero');
 // da chiusa la banda arriva fino in fondo al primo schermo
-function misuraBanda(){ if (!MOBILE() || bandaEl.classList.contains('aperta')) return; bandaEl.style.setProperty('--banda-h', Math.max(330, Math.min(440, Math.round(innerHeight - bandaEl.offsetTop - 36))) + 'px'); }
+function misuraBanda(){ if (!MOBILE() || bandaEl.classList.contains('aperta')) return; bandaEl.style.setProperty('--banda-h', Math.max(360, Math.min(440, Math.round(innerHeight - bandaEl.offsetTop - parseFloat(getComputedStyle(bandaEl).marginBottom)))) + 'px'); }
 misuraBanda(); addEventListener('load', misuraBanda); if (document.fonts) document.fonts.ready.then(() => { misuraBanda(); dispatchEvent(new Event('resize')); });
 let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs = setTimeout(misuraBanda, 120); });
 (function(){
@@ -1090,6 +1097,14 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
     bandaEl.classList.remove('aperta'); tocco.setAttribute('aria-expanded', 'false'); colora(-1);
     dopo(() => { dispatchEvent(new Event('resize')); if (document.body.classList.contains('spazio') && window.__lenis) window.__lenis.scrollTo(0, {duration:.8, force:true}); });
   }
+  // telefono: toccando di nuovo Charlie la banda si richiude, tenendo il colore scelto (il cartellino lo mostra)
+  function richiudi(){
+    if (!bandaEl.classList.contains('aperta')) return;
+    bandaEl.classList.remove('aperta'); tocco.setAttribute('aria-expanded', 'false');
+    dispatchEvent(new Event('resize')); if (window.ScrollTrigger) ScrollTrigger.refresh();
+    if (document.body.classList.contains('spazio') && window.__lenis) window.__lenis.scrollTo(0, {duration:.8, force:true});
+  }
+  bandaEl.querySelector('.charlie').addEventListener('click', () => { if (MOBILE()) richiudi(); });
   tocco.addEventListener('click', apri);
   tocco.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); apri(); } });
   if (chiudi) chiudi.addEventListener('click', chiudiBanda);

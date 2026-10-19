@@ -22,7 +22,7 @@
  *   presto      se presente, lo shop non è ancora aperto: niente link, orologio al posto della freccia
  *
  * Sul telefono il blister segue l'inclinazione del telefono (giroscopio): su iPhone il permesso
- * si chiede la prima volta che si tocca il blister.
+ * si chiede al primo tocco sulla pagina.
  *
  * Nella pagina conviene riservare lo spazio finché lo script non è caricato:
  *   blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio:360/178;visibility:hidden}
@@ -219,8 +219,9 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
         this._hxT = ((e.clientX - r.left) / r.width - .5) * 14; this._hyT = -((e.clientY - r.top) / r.height - .5) * 10;
       });
       const molla = () => { if (!this._tira) return; this._tira = false; this.classList.remove('tira'); this._vel = Math.max(-260, Math.min(260, this._vel)); };
-      // iPhone: il giroscopio va chiesto con un gesto; lo chiediamo al primo tocco sul blister
-      this.addEventListener('pointerup', () => {
+      // iPhone: il giroscopio va chiesto con un gesto; lo chiediamo al primo tocco sulla pagina
+      // (il blister può stare sotto altri elementi, quindi non aspettiamo un tocco proprio su di lui)
+      document.addEventListener('pointerup', () => {
         if (this._chiesto || !touch.matches || typeof DeviceOrientationEvent === 'undefined' || typeof DeviceOrientationEvent.requestPermission !== 'function') return;
         this._chiesto = true;
         DeviceOrientationEvent.requestPermission().then(r => { if (r === 'granted') addEventListener('deviceorientation', this._suGiro); }).catch(() => {});
