@@ -617,13 +617,13 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   /* testata: solo stato, titolo e testo */
   .hero .azioni,.hero-testo .indirizzo{display:none}
   /* telefono: il blister dello shop è appeso sotto la banda di Charlie, al centro, appoggiato al bordo basso del francobollo;
-     a sinistra restano "Che colore gli diamo?" e "Prova". Aprendo la banda per il colore il blister lascia il posto alle scritte
-     di Charlie; toccando Charlie la banda si richiude e il blister torna, nel colore scelto */
+     a sinistra restano "Che colore gli diamo?" e "Prova". Aprendo la banda per il colore il blister resta, appeso sotto le tinte;
+     toccando Charlie la banda si richiude e il blister torna sotto il francobollo, nel colore scelto */
   .hero .hero-destra .card-shop{display:block;position:absolute;z-index:2;   /* davanti a Charlie */left:50%;top:calc(100% - 18px);translate:-50% 0;
-    width:360px;scale:.88;rotate:-2deg;transform-origin:50% 0;transition:opacity .3s ease,visibility .3s}   /* rimpicciolito tutto in proporzione, testi compresi */
+    width:360px;scale:.88;rotate:-2deg;transform-origin:50% 0;transition:opacity .3s ease,visibility .3s,top .55s cubic-bezier(.3,.7,.2,1)}   /* rimpicciolito tutto in proporzione, testi compresi */
   @media (min-width:430px){.hero .hero-destra .card-shop{scale:1}}
   /* lo spazio sotto la banda per il blister appeso è il margine basso della banda (misuraBanda lo tiene fuori dall'altezza) */
-  .hero .hero-destra.aperta .card-shop{opacity:0;visibility:hidden}
+  .hero .hero-destra.aperta .card-shop{top:calc(100% + 14px)}
   .hero{padding-block:82px 0;gap:0;min-height:100svh;
     background:linear-gradient(180deg,color-mix(in oklab,var(--c1) 92%,transparent) 0%,color-mix(in oklab,var(--c1) 72%,transparent) 42%,color-mix(in oklab,var(--c1) 40%,transparent) 100%),
      radial-gradient(240px 230px at calc(100% - 70px) calc(100% - 150px),color-mix(in oklab,var(--c3) 62%,transparent) 0%,transparent 75%),
@@ -720,6 +720,9 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .hero-destra.aperta.nero .testa-fumetto{opacity:1;scale:1}
   .hero-destra.aperta .banda-piede,.hero .hero-destra.aperta .pelo{opacity:1;visibility:visible;transition-delay:.25s}
   .hero-destra.aperta .banda-tocco{display:none}
+  /* aperta: il blister pende sotto le tinte, fuori dalla banda; più spazio sotto per non tagliarlo */
+  .hero .hero-destra.aperta{overflow:visible;margin-bottom:200px}
+  @media (min-width:430px){.hero .hero-destra.aperta{margin-bottom:222px}}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
@@ -1068,8 +1071,11 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
   btn.addEventListener('click', () => { const ap = !box.classList.contains('aperto'); box.classList.toggle('aperto', ap); btn.setAttribute('aria-expanded', ap ? 'true' : 'false'); });
   const tocco = bandaEl.querySelector('.banda-tocco'), chiudi = bandaEl.querySelector('.banda-chiudi');
   function dopo(fn){ let fatto = false; const f = () => { if (fatto) return; fatto = true; fn(); }; bandaEl.addEventListener('transitionend', e => { if (e.target === bandaEl && e.propertyName === 'height') f(); }, {once:true}); setTimeout(f, 700); }
+  // aprendo e chiudendo la banda il blister appeso prende un colpetto, come quando cambia la tinta
+  const botta = () => { const bl = bandaEl.querySelector('blister-shop'); if (bl && bl.colpisci) bl.colpisci(); };
   function apri(){
     if (bandaEl.classList.contains('aperta')) return;
+    botta();
     const fb = bandaEl.querySelector('.charlie');
     // FLIP: misuro il francobollo chiuso, apro di colpo, poi lo porto dalla vecchia posizione alla nuova solo con trasformazioni
     const r0 = parseFloat(getComputedStyle(fb).rotate) || 0, w0 = fb.offsetWidth, h0 = fb.offsetHeight;
@@ -1100,7 +1106,7 @@ let bandaRs; addEventListener('resize', () => { clearTimeout(bandaRs); bandaRs =
   // telefono: toccando di nuovo Charlie la banda si richiude, tenendo il colore scelto (il cartellino lo mostra)
   function richiudi(){
     if (!bandaEl.classList.contains('aperta')) return;
-    bandaEl.classList.remove('aperta'); tocco.setAttribute('aria-expanded', 'false');
+    bandaEl.classList.remove('aperta'); tocco.setAttribute('aria-expanded', 'false'); botta();
     dispatchEvent(new Event('resize')); if (window.ScrollTrigger) ScrollTrigger.refresh();
     if (document.body.classList.contains('spazio') && window.__lenis) window.__lenis.scrollTo(0, {duration:.8, force:true});
   }
