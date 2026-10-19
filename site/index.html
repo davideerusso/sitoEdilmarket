@@ -616,10 +616,10 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .destra .btn.mappa span{display:none}
   /* testata: solo stato, titolo e testo */
   .hero .azioni,.hero-testo .indirizzo{display:none}
-  /* telefono: il blister dello shop è appeso sotto la banda di Charlie, al centro, subito sotto il bordo basso;
+  /* telefono: il blister dello shop è appeso sotto la banda di Charlie, al centro, appoggiato al bordo basso del francobollo;
      a sinistra restano "Che colore gli diamo?" e "Prova". Aprendo la banda per il colore il blister lascia il posto alle scritte
      di Charlie; toccando Charlie la banda si richiude e il blister torna, nel colore scelto */
-  .hero .hero-destra .card-shop{display:block;position:absolute;z-index:2;   /* davanti a Charlie */left:50%;top:calc(100% + 6px);translate:-50% 0;
+  .hero .hero-destra .card-shop{display:block;position:absolute;z-index:2;   /* davanti a Charlie */left:50%;top:calc(100% - 18px);translate:-50% 0;
     width:360px;scale:.88;rotate:-2deg;transform-origin:50% 0;transition:opacity .3s ease,visibility .3s}   /* rimpicciolito tutto in proporzione, testi compresi */
   @media (min-width:430px){.hero .hero-destra .card-shop{scale:1}}
   /* lo spazio sotto la banda per il blister appeso è il margine basso della banda (misuraBanda lo tiene fuori dall'altezza) */
@@ -648,7 +648,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .orari-pill dd{margin:0}
   .hero-testo > p:not(.indirizzo):not(.orari-testata){font-size:16px;line-height:1.5}
   /* la banda di Charlie, chiusa: titolo a sinistra, testa che sborda a destra */
-  .hero .hero-destra{position:relative;display:block;flex:none;align-self:stretch;height:var(--banda-h,330px);margin:0 calc(-1 * var(--gutter)) 148px;padding:0;overflow:hidden;
+  .hero .hero-destra{position:relative;display:block;flex:none;align-self:stretch;height:var(--banda-h,330px);margin:0 calc(-1 * var(--gutter)) 164px;padding:0;overflow:hidden;
     background:none;transition:height .55s cubic-bezier(.3,.7,.2,1)}
   .hero .hero-destra .frase{position:absolute;z-index:2;left:22px;top:52px;width:47%;max-width:none;display:grid;gap:12px;justify-items:start;text-align:left;
     transform:rotate(-7deg);transform-origin:0 50%;transition:left .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),width .55s,transform .55s cubic-bezier(.3,.7,.2,1)}
@@ -665,7 +665,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
     animation:sbircia 1.4s cubic-bezier(.3,.7,.3,1) .5s both}
   .hero .hero-destra .charlie .battuta{font-size:14px}
   .hero .hero-destra .charlie{transform:rotate(-2deg)!important}
-  @media (min-width:430px){.hero .hero-destra{margin-bottom:170px}}
+  @media (min-width:430px){.hero .hero-destra{margin-bottom:186px}}
 
   /* banda più vicina al paragrafo; sui telefoni bassi meno, se no Charlie tocca il testo */
   .hero .hero-destra{translate:0 -10px}
@@ -678,7 +678,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .hero .hero-destra.aperta .banda-breve{opacity:0;visibility:hidden}
   .hero .hero-destra .frase{transition:opacity .35s ease .2s,left .55s cubic-bezier(.3,.7,.2,1),top .55s cubic-bezier(.3,.7,.2,1),width .55s,transform .55s cubic-bezier(.3,.7,.2,1)}
   .hero .hero-destra .banda-invito{top:auto;bottom:calc(var(--banda-h,330px) * .26 - 30px);left:clamp(28px,7vw,56px);padding:clamp(9px,2.2vw,14px) clamp(16px,3.9vw,24px);font-size:clamp(12px,2.9vw,16px)}
-  .hero .hero-destra:not(.aperta) .charlie{rotate:-13deg;width:clamp(206px,calc(var(--banda-h,330px) * .55),248px);right:-22px;top:auto;bottom:32px}
+  .hero .hero-destra:not(.aperta) .charlie{rotate:-13deg;width:clamp(188px,calc(var(--banda-h,330px) * .52),248px);right:-22px;top:auto;bottom:56px}   /* staccato dal blister appeso sotto */
   .hero .hero-destra:not(.aperta) .fb-etichetta{display:none}
   .hero .hero-destra:not(.aperta) .fb-ritaglio{clip-path:inset(-40% -40% 0 0 round 0 0 7px 7px)}
   .hero .hero-destra:not(.aperta) .fb-valore,.hero .hero-destra:not(.aperta) .fb-etichetta,.hero .hero-destra:not(.aperta) .battuta{opacity:0;visibility:hidden}
