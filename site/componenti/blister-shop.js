@@ -69,7 +69,7 @@ a{display:block;color:inherit;text-decoration:none;outline:none;-webkit-user-dra
    passa sopra il fondo e il logo ma sotto le scritte, il prodotto e la plastica (che hanno i loro riflessi fermi) */
 :host(:not([chiaro])) .blister::after{display:none}   /* il riflesso che scorre resta solo sul cartoncino bianco */
 .blister::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:linear-gradient(105deg,rgba(20,24,30,0) 24%,rgba(20,24,30,.09) 35%,rgba(255,255,255,.62) 44%,rgba(255,255,255,.18) 49%,rgba(255,255,255,0) 57%) calc(50% + var(--gx) * 1.3) 0/220% 100% no-repeat}
+  background:linear-gradient(105deg,rgba(20,24,30,0) 24%,rgba(20,24,30,.09) 35%,rgba(246,240,228,.62) 44%,rgba(246,240,228,.18) 49%,rgba(246,240,228,0) 57%) calc(50% + var(--gx) * 1.3) 0/220% 100% no-repeat}
 .logo{position:absolute;z-index:0;right:-8px;top:26px;height:172px;aspect-ratio:553/518;background:color-mix(in oklab,var(--fondo) 80%,#F6F0E4);opacity:.75;
   -webkit-mask:var(--logo) 0 0/100% 100% no-repeat;mask:var(--logo) 0 0/100% 100% no-repeat}
 :host([chiaro]) .logo{background:#E9E1D0;opacity:1}
@@ -86,9 +86,9 @@ a{display:block;color:inherit;text-decoration:none;outline:none;-webkit-user-dra
 .pezzo .bolla{transform:translateX(clamp(-2px, var(--gx) * -.08, 2px));filter:drop-shadow(clamp(1px, 3px + var(--gx) * .1, 6px) 7px 7px rgba(0,0,0,.22))}
 .pezzo .riflesso{position:absolute;inset:0;transform:translateX(clamp(-5px, var(--gx) * -.2, 5px));pointer-events:none;mix-blend-mode:screen;opacity:.55;
   -webkit-mask:var(--prod) 0 0/100% 100% no-repeat;mask:var(--prod) 0 0/100% 100% no-repeat;
-  background:linear-gradient(100deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.55) 47%,rgba(255,255,255,0) 54%) 30% 0/260% 100% no-repeat}
+  background:linear-gradient(100deg,rgba(246,240,228,0) 40%,rgba(246,240,228,.55) 47%,rgba(246,240,228,0) 54%) 30% 0/260% 100% no-repeat}
 .pezzo .lucido{position:absolute;inset:0;-webkit-mask:var(--bolla) 0 0/100% 100% no-repeat;mask:var(--bolla) 0 0/100% 100% no-repeat;
-  background:linear-gradient(100deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.7) 46%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 60%,rgba(255,255,255,.35) 63%,rgba(255,255,255,0) 66%) 50% 0/240% 100% no-repeat}   /* fermo: non esce dalla bolla inclinando */
+  background:linear-gradient(100deg,rgba(246,240,228,0) 38%,rgba(246,240,228,.7) 46%,rgba(246,240,228,0) 52%,rgba(246,240,228,0) 60%,rgba(246,240,228,.35) 63%,rgba(246,240,228,0) 66%) 50% 0/240% 100% no-repeat}   /* fermo: non esce dalla bolla inclinando */
 .vai{position:absolute;z-index:3;left:16px;bottom:14px;display:inline-flex;align-items:center;gap:9px;font:700 15px/1 var(--f-testo,"Figtree",system-ui,sans-serif);letter-spacing:-.01em}
 .vai i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#F6F0E4;color:var(--cs);transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
 :host([chiaro]) .vai i{background:#15171C;color:#F6F0E4}
