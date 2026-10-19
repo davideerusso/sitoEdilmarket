@@ -1,0 +1,451 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shop online | Edil Market Strudà</title>
+<meta name="robots" content="noindex, nofollow">   <!-- shop di prova: prezzi e disponibilità di esempio -->
+<link rel="icon" type="image/png" href="/LogoEDILMARKET.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Figtree:wght@400;500;600;700&family=Red+Hat+Mono:wght@500&display=swap">
+<style>
+/* Shop di prova con lo stile del sito: carta chiara, sezioni a colore pieno, titoli espansi giganti,
+   card come quelle dei reparti (cornice bianca, campo colorato, etichetta con il foro), piè di pagina del sito */
+:root{
+  --carta:#EDEEF2; --carta-2:#F7F7F9; --inchiostro:#15171C; --inchiostro-2:#23262E;
+  --grigio:#5A606C; --grigio-chiaro:#B7BCC6;
+  --rosso:#DF2F26; --blu:#2649B0; --bianco:#FFFFFF;
+  --f-display:"Archivo", "Arial Narrow", system-ui, sans-serif;
+  --f-testo:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"Red Hat Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --gutter:clamp(16px,4vw,64px); --r:14px; --ease:cubic-bezier(.23,1,.32,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--carta);color:var(--inchiostro);font-family:var(--f-testo);font-size:18px;line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+::selection{background:var(--rosso);color:var(--bianco)}
+:focus-visible{outline:3px solid var(--rosso);outline-offset:3px;border-radius:6px}
+.wrap{padding-inline:var(--gutter)}
+.disp{font-family:var(--f-display);font-stretch:125%;font-variation-settings:"wdth" 125;font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:.9;text-wrap:balance;margin:0}
+.mono{font-family:var(--f-mono);font-weight:500;font-variant-numeric:tabular-nums}
+.codice{font-family:var(--f-mono);font-size:13px;letter-spacing:.04em;color:var(--grigio)}
+
+/* menu: lo stesso del sito */
+.menu{position:fixed;z-index:10;left:0;right:0;top:0;padding:calc(env(safe-area-inset-top,0px) + 16px) var(--gutter) 16px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;pointer-events:none}
+.menu > *{pointer-events:auto}
+.logo{justify-self:start;display:flex;align-items:center;background:var(--bianco);border-radius:12px;padding:10px 14px;box-shadow:0 6px 20px -8px rgba(20,36,94,.25)}
+.logo img{height:30px;width:auto}
+.voci{display:flex;gap:6px;background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:999px;padding:6px;box-shadow:0 6px 20px -10px rgba(20,36,94,.25)}
+.voci a{font-weight:500;font-size:15px;text-decoration:none;padding:8px 14px;border-radius:999px;white-space:nowrap;transition:background .2s var(--ease)}
+.voci a[aria-current]{background:var(--inchiostro);color:var(--bianco)}
+@media (hover:hover) and (pointer:fine){.voci a:not([aria-current]):hover{background:var(--carta)}}
+.destra{justify-self:end;display:flex;align-items:center;gap:12px}
+.stato{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;background:rgba(255,255,255,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:10px 14px;border-radius:999px;white-space:nowrap}
+.stato i{width:8px;height:8px;border-radius:50%;background:#F2C230;box-shadow:0 0 0 4px rgba(242,194,48,.22)}
+
+/* bottoni del sito */
+.btn{--bg:var(--inchiostro);--fg:var(--bianco);display:inline-flex;align-items:center;gap:10px;background:var(--bg);color:var(--fg);font:600 16px/1 var(--f-testo);text-decoration:none;padding:16px 22px;border-radius:12px;border:0;cursor:pointer;transition:transform .16s var(--ease),background .2s var(--ease);touch-action:manipulation}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none}
+.btn.rosso{--bg:var(--rosso)}
+.btn.bianco{--bg:var(--bianco);--fg:var(--inchiostro)}
+.btn.contorno{--bg:transparent;--fg:currentColor;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn.piccolo{padding:12px 16px;font-size:15px;min-height:44px}
+.carrello{box-shadow:0 6px 20px -8px rgba(21,23,28,.4)}
+.carrello b{display:grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--rosso);color:var(--bianco);font-size:12px}
+.carrello.salta{animation:salta .5s var(--ease)}
+@keyframes salta{40%{transform:scale(1.1)}}
+
+/* testata rossa piena, come "Dove siamo" */
+.testata{background:var(--rosso);color:var(--bianco);padding:150px var(--gutter) 72px;position:relative;overflow:hidden}
+.testata h1{font-size:clamp(46px,8.4vw,150px);max-width:12ch}
+.testata-piede{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px 64px;margin-top:40px}
+.testata p{margin:0;max-width:42ch;font-size:clamp(17px,1.35vw,20px)}
+.testata .stato{background:rgba(255,255,255,.18);color:var(--bianco);backdrop-filter:none;-webkit-backdrop-filter:none;margin-bottom:22px}
+.azioni{display:flex;gap:12px;flex-wrap:wrap}
+
+/* card come le lame dei reparti: cornice bianca, campo colorato, etichetta col foro */
+.lama{--c:#E23128;--t:#fff;position:relative;background:var(--bianco);border-radius:16px;padding:10px;display:grid;grid-template-rows:1fr auto}
+.lama .campo{position:relative;background:var(--c);color:var(--t);border-radius:10px;overflow:hidden}
+.lama .etichetta{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--inchiostro);padding:16px 14px 8px}
+.lama .etichetta b{font:700 17px/1.15 var(--f-testo)}
+.foro{flex:none;width:18px;height:18px;border-radius:50%;background:var(--inchiostro);box-shadow:inset 0 0 0 5px #3a3f48}
+
+/* vetrina: un prodotto alla volta, gli altri sbucano a destra */
+.sez{padding:96px var(--gutter) 0}
+.sez-testa{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;margin-bottom:36px}
+.sez-testa h2{font-size:clamp(36px,5vw,84px);max-width:14ch}
+.sez-testa p{margin:0;max-width:40ch;color:var(--grigio)}
+.vetrina{min-height:600px}
+.vetrina .campo{display:grid;grid-template-columns:minmax(300px,.8fr) 1.2fr;transition:background .6s var(--ease),color .6s var(--ease)}
+.vetrina .campo::before{content:"";position:absolute;inset:0;background:var(--incisione) center/cover no-repeat;opacity:.14;mix-blend-mode:multiply;filter:grayscale(1) contrast(1.3);pointer-events:none}
+.scheda{position:relative;z-index:2;padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between;gap:28px}
+.scheda .cat{font:500 15px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+.scheda h3{font-size:clamp(40px,4.8vw,80px);margin-top:12px}
+.scheda p.desc{margin:16px 0 0;max-width:34ch;font-size:17px;opacity:.92}
+.pregi{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.pregi li{padding:9px 14px;border-radius:999px;background:var(--bianco);color:var(--inchiostro);font:500 15px/1 var(--f-testo)}
+.compra{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
+.prezzo{display:grid;gap:4px}
+.prezzo b{font:800 clamp(34px,3.4vw,52px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100}
+.prezzo span{font:500 13px/1 var(--f-mono);letter-spacing:.04em;opacity:.8}
+.qta{display:inline-flex;align-items:center;border-radius:12px;background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1.5px currentColor}
+.qta button{all:unset;cursor:pointer;width:40px;height:50px;display:grid;place-items:center;font-size:20px;font-weight:700}
+.qta output{min-width:22px;text-align:center;font-weight:700}
+.palco{position:relative;z-index:1;min-height:520px}
+.pezzo{position:absolute;left:14%;top:50%;width:min(44%,330px);border:0;background:none;padding:0;cursor:pointer;transform-origin:50% 60%;
+  transition:transform .8s var(--ease),filter .8s var(--ease),opacity .6s ease;filter:drop-shadow(0 30px 30px rgba(0,0,0,.35))}
+.pezzo img{width:100%;height:auto;pointer-events:none}
+.pezzo[data-pos="0"]{transform:translate(0,-55%) rotate(-6deg);z-index:3;cursor:default;animation:galleggia 6s ease-in-out infinite}
+.pezzo[data-pos="1"]{transform:translate(122%,-46%) rotate(5deg) scale(.5);z-index:2}
+.pezzo[data-pos="2"]{transform:translate(210%,-44%) rotate(9deg) scale(.4);z-index:1}
+.pezzo[data-pos="-1"]{transform:translate(-110%,-50%) rotate(-12deg) scale(.6);opacity:0;pointer-events:none}
+.pezzo[data-pos="3"],.pezzo[data-pos="4"]{transform:translate(290%,-44%) scale(.35);opacity:0;pointer-events:none}
+.pezzo.largo{width:min(66%,480px);left:6%}
+@keyframes galleggia{50%{translate:0 -10px}}
+.vetrina .etichetta{flex-wrap:wrap}
+.schede{display:flex;gap:6px;flex-wrap:wrap}
+.schede button{all:unset;cursor:pointer;font-weight:500;font-size:15px;padding:9px 14px;border-radius:999px;box-shadow:inset 0 0 0 1.5px #D3D6DC;transition:background .2s var(--ease)}
+.schede button[aria-selected="true"]{background:var(--inchiostro);color:var(--bianco);box-shadow:none}
+.avanti{display:flex;align-items:center;gap:14px}
+
+/* adesivo rotondo con la scritta che gira */
+.adesivo{position:absolute;z-index:4;width:118px;height:118px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}
+.adesivo svg.giro{position:absolute;inset:0;animation:giro 18s linear infinite}
+.adesivo .centro{position:relative;width:54%;height:54%;border-radius:50%;background:var(--c,var(--rosso));color:var(--t,#fff);display:grid;place-items:center;transition:background .6s var(--ease),color .6s var(--ease)}
+.adesivo .centro svg{width:46%;height:46%}
+@keyframes giro{to{transform:rotate(360deg)}}
+.vetrina .adesivo{right:clamp(16px,3vw,40px);top:clamp(16px,3vw,36px)}
+.kit .adesivo{right:-14px;top:-18px;--c:var(--rosso);--t:#fff}
+/* fascia scura con i dati, come nel colorificio */
+.fascia{background:var(--inchiostro);color:var(--bianco);margin-top:96px;padding:96px var(--gutter)}
+.fascia h2{font-size:clamp(36px,5vw,84px);margin-bottom:40px;max-width:16ch}
+.dati{margin:0;display:grid;border-top:2px solid currentColor}
+.dati > div{display:grid;grid-template-columns:1fr 1.6fr 1fr;align-items:baseline;gap:24px;padding:clamp(12px,2vh,22px) 0;border-bottom:1px solid color-mix(in srgb,currentColor 26%,transparent)}
+.dati dt{font:600 17px/1.3 var(--f-testo)}
+.dati dd{margin:0;min-width:0;font-size:17px;line-height:1.4;color:var(--grigio-chiaro)}
+.dati .valore{font:800 clamp(30px,4.2vw,62px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100;text-transform:uppercase;letter-spacing:-.015em;white-space:nowrap;color:var(--bianco)}
+
+/* kit */
+.kit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.kit .lama{min-height:440px}
+.kit .campo{background:linear-gradient(180deg,rgba(254,252,248,.35),rgba(254,252,248,.85)),url(img/tavola-interni.webp) center/cover}
+.kit .campo img{position:absolute}
+.kit .s1{width:44%;left:10%;bottom:12%;transform:rotate(-6deg);filter:drop-shadow(0 22px 20px rgba(0,0,0,.32))}
+.kit .s2{width:62%;right:4%;bottom:20%;transform:rotate(14deg);filter:drop-shadow(0 14px 12px rgba(0,0,0,.3))}
+.kit h2{font-size:clamp(36px,4.4vw,72px)}
+.kit p{color:var(--grigio);max-width:40ch}
+.elenco{list-style:none;margin:28px 0 32px;padding:0;border-top:2px solid var(--inchiostro)}
+.elenco li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid #CDD1D8;font-weight:500}
+
+/* catalogo: le card dei reparti */
+.filtri{display:flex;gap:6px;flex-wrap:wrap}
+.filtri button{all:unset;cursor:pointer;font-weight:500;font-size:15px;padding:9px 14px;border-radius:999px;background:var(--bianco)}
+.filtri button[aria-pressed="true"]{background:var(--inchiostro);color:var(--bianco)}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;padding-bottom:120px}
+.griglia .lama{transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+@media (hover:hover) and (pointer:fine){.griglia .lama:hover{transform:translateY(-4px);box-shadow:0 26px 40px -26px rgba(21,23,28,.45)}}
+.griglia .campo{all:unset;cursor:pointer;position:relative;display:grid;place-items:center;height:280px;padding:24px;border-radius:10px;background:var(--c);color:var(--t);overflow:hidden}
+.griglia .campo img{max-height:200px;width:auto;object-fit:contain;filter:drop-shadow(0 18px 16px rgba(0,0,0,.3));transition:transform .5s var(--ease)}
+@media (hover:hover) and (pointer:fine){.griglia .lama:hover .campo img{transform:rotate(-4deg) scale(1.05)}}
+/* prodotti lunghi e sottili (il pennello): in diagonale per riempire il riquadro */
+.griglia .campo img.largo{max-height:none;width:118%;max-width:none;transform:rotate(-28deg)}
+@media (hover:hover) and (pointer:fine){.griglia .lama:hover .campo img.largo{transform:rotate(-32deg) scale(1.05)}}
+.griglia .cat{position:absolute;left:16px;top:14px;font:500 12px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.griglia .nuovo{position:absolute;right:14px;top:12px;background:var(--bianco);color:var(--inchiostro);font:600 12px/1 var(--f-testo);padding:7px 10px;border-radius:999px}
+.griglia .etichetta > div{display:grid;gap:4px}
+.aggiungi{all:unset;cursor:pointer;flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--inchiostro);color:var(--bianco);transition:transform .2s var(--ease),background .2s}
+.aggiungi svg{width:18px;height:18px}
+.aggiungi.fatto{background:var(--rosso);transform:scale(1.08)}
+
+/* piè di pagina del sito */
+.piede{background:linear-gradient(180deg,var(--rosso) 0,var(--inchiostro) min(34vh,300px));color:var(--grigio-chiaro);padding-block:calc(56px + min(18vh,160px)) 0;overflow:hidden}
+.piede-griglia{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.piede h4{color:var(--bianco);font:700 16px/1 var(--f-testo);margin:0 0 14px}
+.piede p{margin:0;font-size:15px;line-height:1.8}
+.piede .logo{display:inline-flex;margin-bottom:20px;box-shadow:none}
+.marchio-gigante{font-size:clamp(52px,14.6vw,280px);color:var(--bianco);line-height:.78;margin-top:80px;white-space:nowrap;transform:translateY(12%)}
+.legale{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-block:20px;font-size:14px;position:relative;z-index:1;background:var(--inchiostro)}
+
+/* carrello laterale */
+.cassa{position:fixed;inset:0;z-index:50;pointer-events:none}
+.cassa::before{content:"";position:absolute;inset:0;background:rgba(21,23,28,.35);opacity:0;transition:opacity .3s}
+.cassa .pannello{position:absolute;top:10px;right:10px;bottom:10px;width:min(420px,calc(100% - 20px));background:var(--bianco);border-radius:16px;transform:translateX(110%);transition:transform .45s var(--ease);display:flex;flex-direction:column;padding:26px}
+.cassa.aperta{pointer-events:auto}
+.cassa.aperta::before{opacity:1}
+.cassa.aperta .pannello{transform:none}
+.cassa h2{font-size:34px}
+.cassa .chiudi{all:unset;cursor:pointer;position:absolute;right:16px;top:16px;width:40px;height:40px;display:grid;place-items:center;border-radius:12px}
+.cassa .chiudi svg{width:20px;height:20px}
+.voci-cassa{list-style:none;margin:20px 0;padding:0;display:grid;gap:12px;overflow:auto;flex:1;align-content:start}
+.voci-cassa li{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center}
+.voci-cassa img{width:60px;height:60px;object-fit:contain;background:var(--c);border-radius:10px;padding:6px}
+.voci-cassa p{margin:0;font-weight:700;font-size:15px;line-height:1.2}
+.voci-cassa small{font:500 12px/1 var(--f-mono);color:var(--grigio)}
+.voci-cassa .qta{box-shadow:inset 0 0 0 1.5px #D3D6DC;background:none}
+.voci-cassa .qta button{width:34px;height:40px}
+.vuoto{color:var(--grigio)}
+.totale{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid var(--inchiostro);padding-top:16px;font-weight:600}
+.totale b{font:800 32px/1 var(--f-display)}
+.cassa .nota{font-size:14px;color:var(--grigio);margin:10px 0 16px}
+.cassa .btn{justify-content:center}
+
+@media (max-width:1180px){.menu .stato{display:none}}
+@media (max-width:900px){
+  .voci{display:none}
+  .menu{grid-template-columns:1fr auto}
+  .carrello .testo{display:none}
+  .testata{padding-top:118px}
+  .vetrina .campo{grid-template-columns:1fr}
+  .palco{order:-1;min-height:380px}
+  .pezzo{left:22%;width:min(54%,250px)}
+  .pezzo.largo{left:6%;width:min(84%,380px)}
+  .pezzo[data-pos="1"]{transform:translate(106%,-40%) rotate(5deg) scale(.42)}
+  .pezzo[data-pos="2"]{opacity:0}
+  .adesivo{width:92px;height:92px}
+  .kit .adesivo{right:-6px}
+  .scheda{padding:8px 22px 28px}
+  .dati > div{grid-template-columns:1fr auto;gap:4px 16px}
+  .dati dd:last-child{grid-column:1 / -1}
+  .kit{grid-template-columns:1fr}
+  .kit .lama{min-height:360px}
+  .piede-griglia{grid-template-columns:1fr 1fr}
+  .piede-griglia > :first-child{grid-column:1 / -1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head><body>
+<header class="menu">
+  <a class="logo" href="/" aria-label="Edil Market, torna al sito"><img src="img/logo.webp" alt="Edil Market" width="220" height="47"></a>
+  <nav class="voci" aria-label="Shop">
+    <a href="#vetrina" aria-current="page">Shop</a><a href="#scaffali" data-filtro="Pitture">Pitture</a><a href="#scaffali" data-filtro="Smalti">Smalti</a><a href="#scaffali" data-filtro="Legno">Legno</a><a href="#scaffali" data-filtro="Pennelli">Pennelli</a>
+  </nav>
+  <div class="destra">
+    <span class="stato"><i></i><span>Shop in prova</span></span>
+    <button class="btn piccolo carrello" type="button" aria-label="Apri il carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg><span class="testo">Carrello</span><b id="conta">0</b></button>
+  </div>
+</header>
+
+<main>
+  <section class="testata" aria-labelledby="t-shop">
+    <span class="stato"><i></i><span>Shop in prova · prezzi di esempio</span></span>
+    <h1 class="disp" id="t-shop">Il banco, anche online.</h1>
+    <div class="testata-piede">
+      <p>Scegli qui pitture, smalti e pennelli: li prepariamo al banco, anche nella tinta che vuoi, e li ritiri a Strudà senza spese.</p>
+      <div class="azioni">
+        <a class="btn bianco" href="#scaffali">Vedi gli scaffali <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+        <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- vetrina -->
+  <section class="sez" id="vetrina" aria-labelledby="t-vetrina">
+    <div class="sez-testa">
+      <h2 class="disp" id="t-vetrina">In vetrina.</h2>
+      <p>Un prodotto alla volta, come sul banco: guardalo, scegli quanti e mettilo nel carrello.</p>
+    </div>
+    <article class="lama vetrina" aria-roledescription="vetrina">
+      <div class="campo" id="v-campo">
+        <div class="scheda">
+          <div>
+            <span class="cat" id="v-cat"></span>
+            <h3 class="disp" id="v-nome"></h3>
+            <p class="desc" id="v-desc"></p>
+          </div>
+          <ul class="pregi" id="v-pregi"></ul>
+          <div class="compra">
+            <div class="prezzo"><b id="v-prezzo"></b><span id="v-formato"></span></div>
+            <div class="qta" aria-label="Quantità"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output id="v-qta">1</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div>
+            <button class="btn bianco" type="button" id="v-aggiungi">Aggiungi al carrello</button>
+          </div>
+        </div>
+        <div class="palco" id="pista">
+          <div class="adesivo" aria-hidden="true">
+            <svg class="giro" viewBox="0 0 120 120"><defs><path id="cerchio" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="58" fill="#fff"/><text font-family="Figtree" font-weight="700" font-size="11.5" letter-spacing="2.2" fill="#15171C"><textPath href="#cerchio">LA TINTA CHE VUOI · DAL 1986 A STRUDÀ ·</textPath></text></svg>
+            <span class="centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4-7-13-7-13S5 11 5 15a7 7 0 0 0 7 7Z"/></svg></span>
+          </div>
+        </div>
+      </div>
+      <div class="etichetta">
+        <div class="schede" role="tablist" aria-label="Categorie"></div>
+        <div class="avanti"><button class="btn piccolo" type="button" id="v-prossimo">Successivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><i class="foro" aria-hidden="true"></i></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- fascia scura con i dati -->
+  <section class="fascia" aria-labelledby="t-come">
+    <h2 class="disp" id="t-come">Come funziona.</h2>
+    <dl class="dati">
+      <div><dt>Ritiro</dt><dd class="valore">Gratis</dd><dd>a Strudà, sulla Provinciale Lecce-Vernole</dd></div>
+      <div><dt>Pronto in</dt><dd class="valore">24 ore</dd><dd>ti avvisiamo noi quando è pronto</dd></div>
+      <div><dt>Tinte</dt><dd class="valore">+100.000</dd><dd>preparate al tintometro sul momento</dd></div>
+      <div><dt>Al banco</dt><dd class="valore">Dal 1986</dd><dd>il consiglio giusto, anche al telefono</dd></div>
+    </dl>
+  </section>
+
+  <!-- kit -->
+  <section class="sez kit" aria-labelledby="t-kit">
+    <article class="lama">
+      <div class="campo"><img class="s1" src="img/secchio-batrix.webp" alt="" width="273" height="286"><img class="s2" src="img/shop/pennello20-prodotto.webp" alt="" width="900" height="177"></div>
+      <div class="etichetta"><b>Kit stanza</b><i class="foro" aria-hidden="true"></i></div>
+      <div class="adesivo" aria-hidden="true">
+        <svg class="giro" viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="#fff"/><text font-family="Figtree" font-weight="700" font-size="11.5" letter-spacing="2.2" fill="#DF2F26"><textPath href="#cerchio">TUTTO PRONTO DA RITIRARE · KIT ·</textPath></text></svg>
+        <span class="centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      </div>
+    </article>
+    <div>
+      <h2 class="disp" id="t-kit">Il kit per la stanza.</h2>
+      <p>Tutto quello che serve per ridipingere una camera, pronto da ritirare. Prima di iniziare passa dal banco: ti spieghiamo come stenderla.</p>
+      <ul class="elenco">
+        <li>Pittura lavabile Boero Batrix<span class="mono">1 pz</span></li>
+        <li>Pennello da 20<span class="mono">2 pz</span></li>
+        <li>Consiglio al banco<span class="mono">gratis</span></li>
+      </ul>
+      <button class="btn rosso" type="button" id="kit">Aggiungi il kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+  </section>
+
+  <!-- catalogo -->
+  <section class="sez" id="scaffali" aria-labelledby="t-scaffali">
+    <div class="sez-testa">
+      <h2 class="disp" id="t-scaffali">Sugli scaffali.</h2>
+      <div class="filtri" role="group" aria-label="Filtra per categoria"></div>
+    </div>
+    <div class="griglia" id="griglia"></div>
+  </section>
+</main>
+
+<footer class="piede">
+  <div class="wrap piede-griglia">
+    <div><span class="logo"><img src="img/logo.webp" alt="Edil Market" width="220" height="47"></span><p>La tua ferramenta di fiducia a Strudà, dal 1986.<br>Shop in prova: prezzi e disponibilità sono di esempio.</p></div>
+    <div><h4>Contatti</h4><p>Provinciale Lecce-Vernole, Strudà<br>Edilmarket62@hotmail.it<br>+39 320 417 3656</p></div>
+    <div><h4>Orari</h4><p>Lunedì - Venerdì<br>6:30 - 13:30<br>15:30 - 19:30<br>Sabato 6:30 - 13:30<br>Domenica chiuso</p></div>
+    <div><h4>Dati aziendali</h4><p>P.IVA 02452660752<br>PEC edilmarket62@pec.it<br><a href="/privacy">Privacy Policy</a></p></div>
+  </div>
+  <div class="marchio-gigante disp" aria-hidden="true">Edil Market</div>
+  <div class="legale wrap"><span>© 2026 Edilmarket di Russo Claudio</span><span>Strudà, Lecce</span></div>
+</footer>
+
+<div class="cassa" id="cassa" aria-hidden="true">
+  <div class="pannello" role="dialog" aria-modal="true" aria-labelledby="t-cassa">
+    <h2 class="disp" id="t-cassa">Carrello</h2>
+    <button class="chiudi" type="button" aria-label="Chiudi il carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <ul class="voci-cassa" id="voci-cassa"></ul>
+    <div class="totale"><span>Totale</span><b id="totale">€ 0,00</b></div>
+    <p class="nota">Shop in prova: l'ordine non viene ancora inviato. Per ordinare chiamaci o passa al banco.</p>
+    <a class="btn rosso" href="tel:+393204173656">Chiama per ordinare</a>
+  </div>
+</div>
+
+<script>
+(function(){
+/* prodotti di prova: testi dal sito, prezzi e formati di esempio. c/t = colore del campo e del testo, come nei reparti */
+const PRODOTTI = [
+  {id:'batrix', cat:'Pitture', nome:'Boero Batrix', desc:'Pittura lavabile extra bianca per cucina, bagno e camera. Si lava e resta bianca.',
+   img:'img/secchio-batrix.webp', w:273, h:286, prezzo:39.9, formato:'5 L · prezzo di esempio', c:'#2649B0', t:'#fff', incisione:'img/tavola-interni.webp',
+   pregi:['Interni','Lavabile','Extra bianca'], nuovo:'Più venduta'},
+  {id:'kompatt', cat:'Pitture', nome:'Boero Kompatt Plus', desc:'Riempitiva per facciate: copre le piccole imperfezioni del muro. La coloriamo al tintometro nella tinta che scegli.',
+   img:'img/secchio-kompatt.webp', w:273, h:286, prezzo:64.5, formato:'14 L · prezzo di esempio', c:'#D8B57A', t:'#15171C', incisione:'img/tavola-esterni.webp',
+   pregi:['Esterni','Riempitiva','Su tinta']},
+  {id:'bioseta', cat:'Legno', nome:'Boero Bioseta', desc:'Finitura satinata per legno ad effetto cera: colora e protegge tavoli, porte, travi e persiane lasciando vedere le venature.',
+   img:'img/secchio-bioseta.webp', w:467, h:572, prezzo:24.9, formato:'0,75 L · prezzo di esempio', c:'#8C5A2E', t:'#fff', incisione:'img/tavola-legno.webp',
+   pregi:['Effetto cera','Resiste ai raggi UV','Satinato'], nuovo:'Novità'},
+  {id:'hp', cat:'Smalti', nome:'Boero HP Satinato', desc:'Smalto all’acqua ad alte prestazioni per cancelli, ringhiere e arredi da giardino. Lo prepariamo al tintometro nella tinta che scegli.',
+   img:'img/secchio-hp-ferro.webp', w:466, h:572, prezzo:21.5, formato:'0,75 L · prezzo di esempio', c:'#3A3F48', t:'#fff', incisione:'img/amb-ferro.webp',
+   pregi:['All’acqua','Superficie dura','Antisporco']},
+  {id:'pennello', cat:'Pennelli', nome:'Pennello da 20', desc:'Il pennello del banco: setole chiare che trattengono la pittura, manico ergonomico e ghiera in acciaio. Per ritocchi, bordi e smalti.',
+   img:'img/shop/pennello20-prodotto.webp', w:900, h:177, prezzo:4.9, formato:'1 pezzo · prezzo di esempio', c:'#F2C230', t:'#15171C', incisione:'img/tavola-interni.webp',
+   pregi:['Ritocchi','Angoli','Smalti'], largo:true}
+];
+const CATEGORIE = [...new Set(PRODOTTI.map(p => p.cat))];
+const euro = n => '€ ' + n.toFixed(2).replace('.', ',');
+const $ = s => document.querySelector(s);
+
+/* ---------- vetrina ---------- */
+const pista = $('#pista'), campo = $('#v-campo'), vetrina = $('#vetrina');
+let attivo = 0, qta = 1;
+const pezzi = PRODOTTI.map((p, i) => {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'pezzo' + (p.largo ? ' largo' : '');
+  b.setAttribute('aria-label', 'Mostra ' + p.nome);
+  b.innerHTML = `<img src="${p.img}" width="${p.w}" height="${p.h}" alt="${p.nome}">`;
+  b.addEventListener('click', () => { if (i !== attivo) { mostra(i); ferma(); } });
+  pista.appendChild(b); return b;
+});
+const schede = $('.schede');
+const tabs = CATEGORIE.map(c => {
+  const t = document.createElement('button'); t.type = 'button'; t.setAttribute('role', 'tab'); t.textContent = c;
+  t.addEventListener('click', () => { mostra(PRODOTTI.findIndex(p => p.cat === c)); ferma(); });
+  schede.appendChild(t); return t;
+});
+function mostra(i){
+  attivo = (i + PRODOTTI.length) % PRODOTTI.length; qta = 1; $('#v-qta').textContent = qta;
+  const p = PRODOTTI[attivo], n = PRODOTTI.length;
+  pezzi.forEach((b, k) => { let d = (k - attivo + n) % n; if (d === n - 1) d = -1; b.dataset.pos = d; b.tabIndex = d === 1 || d === 2 ? 0 : -1; });
+  campo.style.setProperty('--c', p.c); campo.style.setProperty('--t', p.t); campo.style.setProperty('--incisione', `url(${p.incisione})`);
+  $('#v-cat').textContent = p.cat; $('#v-nome').textContent = p.nome; $('#v-desc').textContent = p.desc;
+  $('#v-prezzo').textContent = euro(p.prezzo); $('#v-formato').textContent = p.formato;
+  $('#v-pregi').innerHTML = p.pregi.map(x => `<li>${x}</li>`).join('');
+  tabs.forEach(t => t.setAttribute('aria-selected', t.textContent === p.cat ? 'true' : 'false'));
+}
+let auto = setInterval(() => mostra(attivo + 1), 6000);
+function ferma(){ clearInterval(auto); }
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) ferma();
+vetrina.addEventListener('pointerdown', ferma, {once:true});
+$('#v-prossimo').addEventListener('click', () => { mostra(attivo + 1); ferma(); });
+document.querySelectorAll('.vetrina .qta button').forEach(b => b.addEventListener('click', () => { qta = Math.max(1, Math.min(20, qta + +b.dataset.q)); $('#v-qta').textContent = qta; }));
+$('#v-aggiungi').addEventListener('click', () => aggiungi(PRODOTTI[attivo].id, qta));
+
+/* ---------- catalogo ---------- */
+const griglia = $('#griglia'), filtri = $('.filtri');
+['Tutto', ...CATEGORIE].forEach((c, i) => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = c; b.setAttribute('aria-pressed', i ? 'false' : 'true');
+  b.addEventListener('click', () => filtra(c)); filtri.appendChild(b);
+});
+function filtra(c){
+  filtri.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.textContent === c ? 'true' : 'false'));
+  griglia.querySelectorAll('.lama').forEach(k => { k.hidden = c !== 'Tutto' && k.dataset.cat !== c; });
+}
+PRODOTTI.forEach((p, i) => {
+  const a = document.createElement('article'); a.className = 'lama'; a.dataset.cat = p.cat;
+  a.style.setProperty('--c', p.c); a.style.setProperty('--t', p.t);
+  a.innerHTML = `<button class="campo" type="button" aria-label="Vedi ${p.nome} in vetrina"><span class="cat">${p.cat}</span>${p.nuovo ? `<span class="nuovo">${p.nuovo}</span>` : ''}<img${p.largo ? ' class="largo"' : ''} src="${p.img}" width="${p.w}" height="${p.h}" alt="" loading="lazy"></button>
+    <div class="etichetta"><div><b>${p.nome}</b><span class="codice">${euro(p.prezzo)}</span></div><button class="aggiungi" type="button" aria-label="Aggiungi ${p.nome} al carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>`;
+  a.querySelector('.campo').addEventListener('click', () => { mostra(i); ferma(); vetrina.scrollIntoView({behavior:'smooth', block:'start'}); });
+  const piu = a.querySelector('.aggiungi');
+  piu.addEventListener('click', () => { aggiungi(p.id, 1); piu.classList.add('fatto'); setTimeout(() => piu.classList.remove('fatto'), 600); });
+  griglia.appendChild(a);
+});
+document.querySelectorAll('[data-filtro]').forEach(a => a.addEventListener('click', () => filtra(a.dataset.filtro)));
+
+/* ---------- carrello (resta nel browser) ---------- */
+let carrello = {};
+try { carrello = JSON.parse(localStorage.getItem('em-carrello') || '{}'); } catch (e) {}
+function salva(){ try { localStorage.setItem('em-carrello', JSON.stringify(carrello)); } catch (e) {} }
+function aggiungi(id, n){
+  carrello[id] = (carrello[id] || 0) + n; salva(); disegna();
+  const c = $('.carrello'); c.classList.remove('salta'); void c.offsetWidth; c.classList.add('salta');
+}
+function disegna(){
+  const voci = Object.entries(carrello).filter(([id, n]) => n > 0 && PRODOTTI.some(p => p.id === id));
+  $('#conta').textContent = voci.reduce((s, [, n]) => s + n, 0);
+  $('#voci-cassa').innerHTML = voci.length ? voci.map(([id, n]) => { const p = PRODOTTI.find(x => x.id === id);
+    return `<li style="--c:${p.c}"><img src="${p.img}" alt=""><div><p>${p.nome}</p><small>${n} × ${euro(p.prezzo)}</small></div><div class="qta"><button type="button" data-id="${id}" data-d="-1" aria-label="Uno in meno">−</button><output>${n}</output><button type="button" data-id="${id}" data-d="1" aria-label="Uno in più">+</button></div></li>`; }).join('')
+    : '<li class="vuoto">Il carrello è vuoto.</li>';
+  $('#totale').textContent = euro(voci.reduce((s, [id, n]) => s + n * PRODOTTI.find(x => x.id === id).prezzo, 0));
+}
+$('#voci-cassa').addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (!b) return; carrello[b.dataset.id] = Math.max(0, (carrello[b.dataset.id] || 0) + +b.dataset.d); salva(); disegna(); });
+$('#kit').addEventListener('click', () => { aggiungi('batrix', 1); aggiungi('pennello', 2); });
+const cassa = $('#cassa');
+function apri(){ cassa.classList.add('aperta'); cassa.setAttribute('aria-hidden', 'false'); cassa.querySelector('.chiudi').focus(); }
+function chiudi(){ cassa.classList.remove('aperta'); cassa.setAttribute('aria-hidden', 'true'); $('.carrello').focus(); }
+$('.carrello').addEventListener('click', apri);
+cassa.addEventListener('click', e => { if (e.target === cassa || e.target.closest('.chiudi')) chiudi(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && cassa.classList.contains('aperta')) chiudi(); });
+
+mostra(0); disegna();
+})();
+</script>
+</body></html>
