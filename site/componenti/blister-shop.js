@@ -205,13 +205,21 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
     _eventi() {
       this.addEventListener('pointerdown', e => {
         if (e.button !== 0) return;
+        // il perno è il foro in alto al centro: il punto afferrato segue il dito girando attorno a lui
+        const r = this.getBoundingClientRect();
+        this._px = r.left + r.width / 2; this._py = r.top + r.height * 10 / 178;
+        this._g0 = Math.atan2(e.clientX - this._px, e.clientY - this._py);
         this._tira = true; this._mosso = false; this._x0 = e.clientX; this._a0 = this._ang; this._vel = 0;
         this.classList.add('tira'); this._a.setPointerCapture(e.pointerId);   // cattura sul link: così il clic semplice lo apre ancora
       });
       this.addEventListener('pointermove', e => {
         if (this._tira) {
           const dx = e.clientX - this._x0; if (Math.abs(dx) > 4) this._mosso = true;
-          const nuovo = Math.max(-15, Math.min(15, this._a0 + dx * .24));
+          // angolo del puntatore attorno al perno, misurato dalla verticale: andando a destra sotto il perno
+          // il cartoncino gira in senso antiorario (rotateZ negativo), come un pendolo spinto da quel lato
+          const g = Math.atan2(e.clientX - this._px, e.clientY - this._py);
+          let d = g - this._g0; if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI;
+          const nuovo = Math.max(-15, Math.min(15, this._a0 - d * 180 / Math.PI));
           this._vel = (nuovo - this._ang) * 60; this._ang = nuovo; return;
         }
         if (e.pointerType !== 'mouse' || !mouseFine.matches) return;
