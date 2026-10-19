@@ -52,25 +52,27 @@
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 178'><path fill-rule='evenodd' d='" + SAGOMA + ' ' + FORO + "'/></svg>") + "\")";
 
   const CSS_TESTO = `
-:host{--cs:#8C1710;--ease:cubic-bezier(.23,1,.32,1);display:block;position:relative;width:360px;max-width:100%;color:#fff;
+:host{--cs:#8C1710;--ease:cubic-bezier(.23,1,.32,1);display:block;position:relative;width:360px;max-width:100%;color:#F6F0E4;
   cursor:grab;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;transition:--cs .7s var(--ease);
   filter:drop-shadow(0 18px 18px rgba(0,0,0,.3)) drop-shadow(0 2px 3px rgba(0,0,0,.15))}
 :host(.tira){cursor:grabbing}
 :host([presto]) a{cursor:inherit}
 :host([chiaro]){color:#15171C}
 a{display:block;color:inherit;text-decoration:none;outline:none;-webkit-user-drag:none}
-.blister{--gx:0px;position:relative;display:block;aspect-ratio:360/178;overflow:hidden;
-  background:radial-gradient(90% 120% at 20% 10%,color-mix(in oklab,var(--cs) 62%,#fff) 0%,var(--cs) 55%,color-mix(in oklab,var(--cs) 78%,#000) 100%);
+/* cartoncino colorato: tinta piatta e un po' pastello (stemperata col color carta del sito), senza lucido */
+.blister{--gx:0px;--fondo:color-mix(in oklab,var(--cs) 74%,#F6F0E4);position:relative;display:block;aspect-ratio:360/178;overflow:hidden;
+  background:var(--fondo);
   transform-origin:50% 10px;transform:perspective(820px) rotateX(7deg) rotateY(14deg);will-change:transform;touch-action:none;
   -webkit-mask:${MASCHERA} 0 0/100% 100% no-repeat;mask:${MASCHERA} 0 0/100% 100% no-repeat}
-:host([chiaro]) .blister{background:linear-gradient(165deg,#FFFFFF 0%,#F1F2F4 60%,#E4E7EB 100%)}
+:host([chiaro]) .blister{background:linear-gradient(165deg,#F6F0E4 0%,#F0E9DA 60%,#E8DFCD 100%)}   /* "bianco": il crema del sito */
 /* luce che scorre sul cartoncino quando si inclina: fascia chiara con un filo d'ombra accanto (si vede anche sul bianco);
    passa sopra il fondo e il logo ma sotto le scritte, il prodotto e la plastica (che hanno i loro riflessi fermi) */
+:host(:not([chiaro])) .blister::after{display:none}   /* il riflesso che scorre resta solo sul cartoncino bianco */
 .blister::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
   background:linear-gradient(105deg,rgba(20,24,30,0) 24%,rgba(20,24,30,.09) 35%,rgba(255,255,255,.62) 44%,rgba(255,255,255,.18) 49%,rgba(255,255,255,0) 57%) calc(50% + var(--gx) * 1.3) 0/220% 100% no-repeat}
-.logo{position:absolute;z-index:0;right:-8px;top:26px;height:172px;aspect-ratio:553/518;background:color-mix(in oklab,var(--cs) 70%,#fff);opacity:.75;
+.logo{position:absolute;z-index:0;right:-8px;top:26px;height:172px;aspect-ratio:553/518;background:color-mix(in oklab,var(--fondo) 80%,#F6F0E4);opacity:.75;
   -webkit-mask:var(--logo) 0 0/100% 100% no-repeat;mask:var(--logo) 0 0/100% 100% no-repeat}
-:host([chiaro]) .logo{background:#E2E5EA;opacity:1}
+:host([chiaro]) .logo{background:#E9E1D0;opacity:1}
 .titolo{position:absolute;z-index:1;left:16px;top:30px;font:800 25px/1 var(--f-display,"Archivo",system-ui,sans-serif);font-stretch:108%;letter-spacing:-.005em;text-transform:uppercase}
 .giostra{position:absolute;z-index:2;left:10px;right:16px;top:68px;pointer-events:none}
 .pezzo{position:absolute;inset:0;opacity:0;transform:translateX(24px) scale(.94);transition:opacity .45s ease,transform .6s var(--ease)}
@@ -88,18 +90,18 @@ a{display:block;color:inherit;text-decoration:none;outline:none;-webkit-user-dra
 .pezzo .lucido{position:absolute;inset:0;-webkit-mask:var(--bolla) 0 0/100% 100% no-repeat;mask:var(--bolla) 0 0/100% 100% no-repeat;
   background:linear-gradient(100deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.7) 46%,rgba(255,255,255,0) 52%,rgba(255,255,255,0) 60%,rgba(255,255,255,.35) 63%,rgba(255,255,255,0) 66%) 50% 0/240% 100% no-repeat}   /* fermo: non esce dalla bolla inclinando */
 .vai{position:absolute;z-index:3;left:16px;bottom:14px;display:inline-flex;align-items:center;gap:9px;font:700 15px/1 var(--f-testo,"Figtree",system-ui,sans-serif);letter-spacing:-.01em}
-.vai i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#fff;color:var(--cs);transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
-:host([chiaro]) .vai i{background:#15171C;color:#fff}
+.vai i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#F6F0E4;color:var(--cs);transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
+:host([chiaro]) .vai i{background:#15171C;color:#F6F0E4}
 .vai svg{width:12px;height:12px}
 .foro{position:absolute;z-index:6;left:44.444%;top:2.247%;width:11.111%;overflow:visible;pointer-events:none}
 .foro path{fill:none;stroke-width:1.1}
 .foro .ombra{stroke:color-mix(in oklab,var(--cs) 55%,#000);transform:translateY(-.6px)}
-.foro .luce{stroke:color-mix(in oklab,var(--cs) 45%,#fff);transform:translateY(.9px)}
-:host([chiaro]) .foro .ombra{stroke:rgba(70,78,90,.45)}
-:host([chiaro]) .foro .luce{stroke:#fff}
+.foro .luce{stroke:color-mix(in oklab,var(--cs) 45%,#F6F0E4);transform:translateY(.9px)}
+:host([chiaro]) .foro .ombra{stroke:rgba(90,78,60,.4)}
+:host([chiaro]) .foro .luce{stroke:#F6F0E4}
 a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
 @media (hover:hover) and (pointer:fine){
-  :host(:hover) .vai i{transform:rotate(45deg);background:#15171C;color:#fff}
+  :host(:hover) .vai i{transform:rotate(45deg);background:#15171C;color:#F6F0E4}
   :host([chiaro]:hover) .vai i{background:#DF2F26}}
 @media (prefers-reduced-motion:reduce){.pezzo,.vai i{transition:none}}`;
 
