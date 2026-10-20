@@ -89,11 +89,36 @@ a{display:block;color:inherit;text-decoration:none;outline:none;-webkit-user-dra
   background:linear-gradient(100deg,rgba(246,240,228,0) 40%,rgba(246,240,228,.55) 47%,rgba(246,240,228,0) 54%) 30% 0/260% 100% no-repeat}
 .pezzo .lucido{position:absolute;inset:0;-webkit-mask:var(--bolla) 0 0/100% 100% no-repeat;mask:var(--bolla) 0 0/100% 100% no-repeat;
   background:linear-gradient(100deg,rgba(246,240,228,0) 38%,rgba(246,240,228,.7) 46%,rgba(246,240,228,0) 52%,rgba(246,240,228,0) 60%,rgba(246,240,228,.35) 63%,rgba(246,240,228,0) 66%) 50% 0/240% 100% no-repeat}   /* fermo: non esce dalla bolla inclinando */
+/* cartoncino colorato: la plastica chiara staccava come un contorno bianco; al suo posto un velo nel colore del
+   cartoncino, schiarito, che segue solo le luci della bolla (calcolato da velo() a partire dall'immagine della bolla) */
+/* come la bolla, il velo scivola un poco col dondolio e una fascia di luce gli corre sopra, così il bordino luccica muovendosi */
+.pezzo .velo{position:absolute;inset:0;display:none;pointer-events:none;opacity:.8;transform:translateX(clamp(-2px, var(--gx) * -.08, 2px));
+  background:linear-gradient(105deg,transparent 30%,#F6F0E4 44%,color-mix(in oklab,var(--fondo) 20%,#F6F0E4) 49%,transparent 58%) calc(50% + var(--gx) * 1.3) 0/220% 100% no-repeat,
+    color-mix(in oklab,var(--fondo) 38%,#F6F0E4);
+  -webkit-mask:var(--velo) 0 0/100% 100% no-repeat;mask:var(--velo) 0 0/100% 100% no-repeat}
+/* punto luce sulla plastica: una macchia chiara e morbida che scorre lungo la bolla col dondolio */
+.pezzo .punto{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:.9;
+  transform:translateX(clamp(-2px, var(--gx) * -.08, 2px));
+  background:radial-gradient(closest-side,rgba(246,240,228,.95),rgba(246,240,228,.35) 45%,rgba(246,240,228,0)) calc(32% + var(--gx) * 2.2) 22%/26% 70% no-repeat;
+  -webkit-mask:var(--bolla) 0 0/100% 100% no-repeat;mask:var(--bolla) 0 0/100% 100% no-repeat}
+/* finché il velo non è pronto resta la bolla: senza maschera il velo sarebbe un rettangolo */
+:host(:not([chiaro])) .pezzo.velato .bolla{visibility:hidden}
+:host(:not([chiaro])) .pezzo.velato .velo{display:block}
+:host(:not([chiaro])) .pezzo .lucido{opacity:.45}
 .vai{position:absolute;z-index:3;left:16px;bottom:14px;display:inline-flex;align-items:center;gap:9px;font:700 15px/1 var(--f-testo,"Figtree",system-ui,sans-serif);letter-spacing:-.01em}
 .vai i{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#F6F0E4;color:var(--cs);transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease)}
 :host([chiaro]) .vai i{background:#15171C;color:#F6F0E4}
 .vai svg{width:12px;height:12px}
 .foro{position:absolute;z-index:6;left:44.444%;top:2.247%;width:11.111%;overflow:visible;pointer-events:none}
+/* spessore del cartoncino: la stessa sagoma ripetuta dietro, più scura, che spunta come il taglio del cartone.
+   Lo spostamento (--sx, --sy) lo calcola _frame dall'inclinazione: a riposo un filo a sinistra e appena sotto,
+   e cambia lato e misura mentre il blister dondola o viene trascinato */
+a{position:relative}
+.spessore{position:absolute;inset:0;aspect-ratio:360/178;pointer-events:none;translate:var(--sx,-1.2px) var(--sy,1px);transform-origin:50% 10px;
+  transform:perspective(820px) rotateX(7deg) rotateY(14deg);will-change:transform;
+  background:linear-gradient(180deg,color-mix(in oklab,var(--cs) 62%,#3A2E22) 0%,color-mix(in oklab,var(--cs) 48%,#2A2018) 100%);
+  -webkit-mask:${MASCHERA} 0 0/100% 100% no-repeat;mask:${MASCHERA} 0 0/100% 100% no-repeat;transition:background .7s var(--ease)}
+:host([chiaro]) .spessore{background:linear-gradient(180deg,#D9CDB6 0%,#C4B597 100%)}
 .foro path{fill:none;stroke-width:1.1}
 .foro .ombra{stroke:color-mix(in oklab,var(--cs) 55%,#000);transform:translateY(-.6px)}
 .foro .luce{stroke:color-mix(in oklab,var(--cs) 45%,#F6F0E4);transform:translateY(.9px)}
@@ -110,6 +135,26 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
   const quieto = matchMedia('(prefers-reduced-motion: reduce)');
   const touch = matchMedia('(pointer: coarse)');
   const mouseFine = matchMedia('(hover: hover) and (pointer: fine)');
+
+  // velo della plastica: dall'immagine della bolla tiene solo le luci (più chiaro = più coprente), come maschera
+  const veli = new Map();
+  function velo(src) {
+    if (!veli.has(src)) veli.set(src, new Promise((ok, no) => {
+      const im = new Image(); im.decoding = 'async';
+      im.onload = () => {
+        const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
+        const g = c.getContext('2d'); g.drawImage(im, 0, 0);
+        const d = g.getImageData(0, 0, c.width, c.height), p = d.data;
+        for (let i = 0; i < p.length; i += 4) {
+          const lum = (p[i] + p[i + 1] + p[i + 2]) / 3 / 240, k = Math.min(1, Math.max(0, (lum - .45) / .55));
+          p[i] = p[i + 1] = p[i + 2] = 255; p[i + 3] = p[i + 3] * k;
+        }
+        g.putImageData(d, 0, 0); ok(c.toDataURL());
+      };
+      im.onerror = no; im.src = src;
+    }));
+    return veli.get(src);
+  }
 
   class BlisterShop extends HTMLElement {
     static get observedAttributes() { return ['href', 'titolo', 'invito', 'colore', 'logo', 'presto']; }
@@ -158,6 +203,7 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
       this._pronto = true;
       this._root.innerHTML = `<style>${CSS_TESTO}</style>
         <a part="link" draggable="false">
+          <span class="spessore" aria-hidden="true"></span>
           <span class="blister" part="blister">
             <svg class="foro" viewBox="160 4 40 16" aria-hidden="true"><path class="ombra" d="${FORO}"/><path class="luce" d="${FORO}"/></svg>
             <span class="logo" aria-hidden="true"></span>
@@ -167,7 +213,7 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
           </span>
         </a>`;
       this._a = this._root.querySelector('a');
-      this._bl = this._root.querySelector('.blister');
+      this._bl = this._root.querySelector('.blister'); this._sp = this._root.querySelector('.spessore');
       this._prodotti();
       this._eventi();
       // se i prodotti (gli <img> figli) cambiano, la giostra si ricostruisce
@@ -184,9 +230,10 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
         const bolla = im.dataset.bolla || '';
         return `<span class="pezzo${k ? '' : ' attivo'}" style="--bolla:url('${bolla}');--prod:url('${im.getAttribute('src')}')">
           <img class="prod" src="${im.getAttribute('src')}" alt="" draggable="false" decoding="async"><i class="riflesso"></i>
-          ${bolla ? `<img class="bolla" src="${bolla}" alt="" draggable="false" decoding="async"><i class="lucido"></i>` : ''}</span>`;
+          ${bolla ? `<img class="bolla" src="${bolla}" alt="" draggable="false" decoding="async"><i class="velo"></i><i class="lucido"></i><i class="punto"></i>` : ''}</span>`;
       }).join('');
       this._pezzi = [...giostra.querySelectorAll('.pezzo')];
+      this._pezzi.forEach((pz, k) => { const b = prodotti[k].dataset.bolla; if (b) velo(b).then(u => { pz.style.setProperty('--velo', `url('${u}')`); pz.classList.add('velato'); }).catch(() => {}); });
       this._alt = prodotti.map(im => im.alt).filter(Boolean).join(', ');
       this._aggiorna();
     }
@@ -253,7 +300,10 @@ a:focus-visible .blister{outline:3px solid currentColor;outline-offset:-6px}
       }
       this._hx += (this._hxT - this._hx) * Math.min(1, dt * 8); this._hy += (this._hyT - this._hy) * Math.min(1, dt * 8);
       const a = this._ang;
-      this._bl.style.transform = `perspective(820px) rotateZ(${a.toFixed(2)}deg) rotateY(${(14 + a * 1.3 + this._hx).toFixed(2)}deg) rotateX(${(7 + this._hy - Math.abs(a) * .15).toFixed(2)}deg)`;
+      const ry = 14 + a * 1.3 + this._hx, rx = 7 + this._hy - Math.abs(a) * .15;
+      this._sp.style.transform = this._bl.style.transform = `perspective(820px) rotateZ(${a.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotateX(${rx.toFixed(2)}deg)`;
+      // spessore: girato verso destra si vede il taglio a sinistra, inclinato indietro si vede sotto
+      this._sp.style.setProperty('--sx', (-ry * .085).toFixed(2) + 'px'); this._sp.style.setProperty('--sy', (Math.max(0, rx) * .14 + .3).toFixed(2) + 'px');
       this._bl.style.setProperty('--gx', (-a * 7 - this._hx * 2.5).toFixed(1) + 'px');
       this._raf = requestAnimationFrame(t2 => this._frame(t2));
     }
