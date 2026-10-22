@@ -92,6 +92,29 @@
     mostraBanner();
   });
 
+  // Contatti: conta i clic su Chiama, Come arrivare, WhatsApp ed email.
+  // Parte solo se GA è attivo (consenso dato). In GA4 segnali questi eventi come "eventi chiave".
+  function tipoContatto(href) {
+    if (/^tel:/i.test(href)) return 'click_chiama';
+    if (/^mailto:/i.test(href)) return 'click_email';
+    if (/wa\.me|whatsapp\.com/i.test(href)) return 'click_whatsapp';
+    if (/maps\.google\.|google\.[a-z.]+\/maps|maps\.app\.goo\.gl|goo\.gl\/maps/i.test(href)) return 'click_indicazioni';
+    return null;
+  }
+  function posizione(a) {
+    var zona = a.closest('header, footer, section[id], [id]');
+    if (!zona) return 'pagina';
+    return zona.id || zona.tagName.toLowerCase();
+  }
+  document.addEventListener('click', function (e) {
+    if (!caricato) return;
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var evento = tipoContatto(a.getAttribute('href'));
+    if (!evento) return;
+    gtag('event', evento, { posizione: posizione(a), pagina: location.pathname });
+  }, true);
+
   var scelta = leggi();
   if (scelta === 'si') avviaGA();
   else if (scelta !== 'no') {
