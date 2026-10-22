@@ -7,7 +7,7 @@
 <meta property="og:type" content="website"><meta property="og:title" content="Edilmarket | Ferramenta e Materiali Edili">
 <meta property="og:description" content="Ferramenta, vernici con tintometro e materiali edili a Strudà (Lecce).">
 <meta property="og:image" content="https://www.edilmarket.online/LogoEDILMARKET.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HardwareStore", "name": "Ferramenta Edilmarket di Russo Claudio", "image": "https://www.edilmarket.online/logo.webp", "telephone": "+393204173656", "url": "https://www.edilmarket.online", "address": {"@type": "PostalAddress", "streetAddress": "Provinciale Lecce-Vernole", "addressLocality": "Strudà", "postalCode": "73029", "addressRegion": "LE", "addressCountry": "IT"}, "geo": {"@type": "GeoCoordinates", "latitude": 40.321024, "longitude": 18.2714368}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "06:30", "closes": "13:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "15:30", "closes": "19:30"}], "areaServed": [{"@type": "City", "name": "Lecce"}, {"@type": "City", "name": "Strudà"}, {"@type": "City", "name": "Vernole"}, {"@type": "City", "name": "Melendugno"}, {"@type": "City", "name": "Lizzanello"}, {"@type": "City", "name": "Castri di Lecce"}, {"@type": "City", "name": "Cavallino"}, {"@type": "City", "name": "San Cesario di Lecce"}, {"@type": "City", "name": "Merine"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HardwareStore", "name": "Ferramenta Edilmarket di Russo Claudio", "image": "https://www.edilmarket.online/logo.webp", "telephone": "+393204173656", "url": "https://www.edilmarket.online", "address": {"@type": "PostalAddress", "streetAddress": "Provinciale Lecce-Vernole", "addressLocality": "Strudà", "postalCode": "73029", "addressRegion": "LE", "addressCountry": "IT"}, "geo": {"@type": "GeoCoordinates", "latitude": 40.321024, "longitude": 18.2714368}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "06:30", "closes": "13:30"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "16:00", "closes": "19:30"}], "areaServed": [{"@type": "City", "name": "Lecce"}, {"@type": "City", "name": "Strudà"}, {"@type": "City", "name": "Vernole"}, {"@type": "City", "name": "Melendugno"}, {"@type": "City", "name": "Lizzanello"}, {"@type": "City", "name": "Castri di Lecce"}, {"@type": "City", "name": "Cavallino"}, {"@type": "City", "name": "San Cesario di Lecce"}, {"@type": "City", "name": "Merine"}]}</script>
 <script src="componenti/blister-shop.js" defer></script>
 <script src="/componenti/consenso-analytics.js" defer></script>
 </head><body>
@@ -752,7 +752,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
       <div class="stato-box" id="stato-box">
         <button class="stato" type="button" data-stato aria-expanded="false" aria-controls="orari-pill"><i></i><span>Orari di oggi</span><svg class="freccia" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
         <div class="orari-pill" id="orari-pill"><div><dl>
-          <div><dt>Lun – Ven</dt><dd>6:30–13:30 · 15:30–19:30</dd></div>
+          <div><dt>Lun – Ven</dt><dd>6:30–13:30 · 16:00–19:30</dd></div>
           <div><dt>Sabato</dt><dd>6:30–13:30</dd></div>
           <div><dt>Domenica</dt><dd>Chiuso</dd></div>
         </dl></div></div>
@@ -925,7 +925,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   <div class="wrap piede-griglia">
     <div><span class="logo"><img src="img/logo.webp" alt="Edil Market" width="220" height="47"></span><p>La tua ferramenta di fiducia a Strudà, dal 1986.</p></div>
     <div><h4>Contatti</h4><p>Provinciale Lecce-Vernole, Strudà<br>Edilmarket62@hotmail.it<br>+39 320 417 3656</p></div>
-    <div><h4>Orari</h4><p>Lunedì - Venerdì<br>6:30 - 13:30<br>15:30 - 19:30<br>Sabato 6:30 - 13:30<br>Domenica chiuso</p></div>
+    <div><h4>Orari</h4><p>Lunedì - Venerdì<br>6:30 - 13:30<br>16:00 - 19:30<br>Sabato 6:30 - 13:30<br>Domenica chiuso</p></div>
     <div><h4>Dati aziendali</h4><p>P.IVA 02452660752<br>PEC edilmarket62@pec.it<br><a href="/privacy">Privacy Policy</a> · <a href="#" data-preferenze-cookie>Preferenze cookie</a></p></div>
   </div>
   <div class="marchio-gigante disp" aria-hidden="true">Edil Market</div>
@@ -985,7 +985,7 @@ function oraRoma(){
   const h = +p.find(x=>x.type==='hour').value % 24, m = +p.find(x=>x.type==='minute').value;
   return {g, min:h*60+m};
 }
-const FASCE = [[390,810],[930,1170]];   // 6:30-13:30, 15:30-19:30
+const FASCE = [[390,810],[960,1170]];   // 6:30-13:30, 16:00-19:30
 const fasceDi = g => g === 0 ? [] : g === 6 ? [FASCE[0]] : FASCE;   // sabato solo mattina, domenica chiuso
 const fmt = m => `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
 function stato(){
@@ -1006,7 +1006,7 @@ const tab = document.getElementById('tab-orari');
 const oggi = oraRoma().g;
 [1,2,3,4,5,6,0].forEach(g => {
   const tr = document.createElement('tr'); if (g===oggi) tr.className = 'oggi';
-  const mat = g === 0 ? null : '6:30–13:30', pom = (g === 0 || g === 6) ? null : '15:30–19:30';
+  const mat = g === 0 ? null : '6:30–13:30', pom = (g === 0 || g === 6) ? null : '16:00–19:30';
   const cella = v => `<td class="mono ${v ? '' : 'chiuso'}">${v || 'Chiuso'}</td>`;
   tr.innerHTML = `<td>${GIORNI[g]}${g===oggi?' (oggi)':''}</td>${cella(mat)}${cella(pom)}`;
   tab.appendChild(tr);
