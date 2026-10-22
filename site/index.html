@@ -614,6 +614,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   .destra{gap:10px}
   .btn-icona,.destra .btn.mappa{display:grid;place-items:center;width:50px;height:50px;min-height:0;padding:0;border-radius:14px;box-shadow:0 10px 24px -14px rgba(22,24,29,.5)}
   .btn-icona{background:var(--bianco);color:var(--blu)}
+  .btn-icona.wa{color:#1A7F45}
   .btn-icona svg,.destra .btn.mappa svg{width:22px;height:22px}
   .destra .btn.mappa span{display:none}
   /* testata: solo stato, titolo e testo */
@@ -741,6 +742,7 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
   </nav>
   <div class="destra">
     <span class="stato menu-stato" data-stato><i></i><span>Orari di oggi</span></span>
+    <a class="btn-icona wa" href="https://wa.me/393204173656?text=Ciao%2C%20vi%20scrivo%20dal%20sito." target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp: 320 417 3656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 9.2c.2 2.6 2.9 5.4 5.6 5.7l1.2-1.3-1.9-1-.8.7c-1-.4-2-1.4-2.4-2.4l.7-.8-1-1.9z"/></svg></a>
     <a class="btn-icona tel" href="tel:+393204173656" aria-label="Chiama Edilmarket: 320 417 3656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
     <a class="btn rosso piccolo mappa" href="https://maps.google.com/?cid=6117507483099621875" target="_blank" rel="noopener" aria-label="Come arrivare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span>Come arrivare</span></a>
   </div>
@@ -906,9 +908,10 @@ blister-shop:not(:defined){display:block;width:360px;max-width:100%;aspect-ratio
           <div class="azioni">
             <a class="btn bianco" href="https://maps.google.com/?cid=6117507483099621875" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Come arrivare</a>
             <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
+            <a class="btn contorno" href="https://wa.me/393204173656?text=Ciao%2C%20vi%20scrivo%20dal%20sito." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 9.2c.2 2.6 2.9 5.4 5.6 5.7l1.2-1.3-1.9-1-.8.7c-1-.4-2-1.4-2.4-2.4l.7-.8-1-1.9z"/></svg>Scrivici su WhatsApp</a>
           </div>
           <div class="contatti">
-            <span>Telefono <span class="mono">+39 320 417 3656</span></span>
+            <span>Telefono e WhatsApp <span class="mono">+39 320 417 3656</span></span>
             <span>Email <span class="mono">Edilmarket62@hotmail.it</span></span>
           </div>
         </div>
