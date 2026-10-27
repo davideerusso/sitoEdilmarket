@@ -72,7 +72,8 @@ a{color:inherit}
 .lama .etichetta b{font:700 17px/1.15 var(--f-testo)}
 .foro{flex:none;width:18px;height:18px;border-radius:50%;background:var(--inchiostro);box-shadow:inset 0 0 0 5px #3a3f48}
 
-.sez{padding:96px var(--gutter) 0}
+/* sugli schermi larghi le sezioni non superano 1180px: kit e scaffali restano allineati */
+.sez{padding:96px max(var(--gutter), calc((100% - 1180px) / 2)) 0}
 .sez-testa{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;margin-bottom:36px}
 .sez-testa h2{font-size:clamp(36px,5vw,84px);max-width:14ch}
 .sez-testa p{margin:0;max-width:40ch;color:var(--grigio)}
@@ -83,22 +84,48 @@ a{color:inherit}
 
 /* kit in vetrina: una scheda a tutto schermo per kit, come una landing.
    Cornice bianca come le lame dei reparti, campo sfumato nel colore del prodotto; scorrendo le schede si impilano */
-.schede-v{display:grid;gap:28px}
-.vs{position:sticky;top:88px;display:grid;min-height:max(600px,min(calc(100svh - 112px),780px));background:var(--bianco);border-radius:28px;padding:10px;box-shadow:0 -18px 40px -30px rgba(21,23,28,.5)}
-.vs-giro{position:relative;overflow:hidden;border-radius:20px}
-.vs-binario{display:flex;height:100%;transition:transform .7s var(--ease)}
-.vs-binario > *{flex:0 0 100%;min-width:0}
-.vs.lista-aperta .vs-binario{transform:translateX(-100%)}
+.schede-v{position:relative}
+/* le carte storte escono ai lati: tagliate qui, senza rompere lo sticky */
+#vetrina{overflow-x:clip;padding-top:136px}
+#vetrina .sez-testa h1{font-size:clamp(36px,5vw,84px);max-width:19ch;text-wrap:balance}
+.vs{container-type:inline-size;position:sticky;top:88px;display:grid;min-height:max(600px,min(calc(100svh - 112px),780px));background:var(--bianco);border-radius:28px;padding:10px}
+/* mazzo (desktop): i kit stanno uno sopra l'altro, gli altri due storti sotto come carte sul tavolo;
+   scorrendo, la carta sotto esce dal mucchio e si posa sopra quella davanti */
+.mazzo-palco{display:grid;gap:28px}
+.schede-v.mazzo .mazzo-palco{display:block;position:sticky;top:88px;height:var(--hc)}
+.schede-v.mazzo .vs.sotto{pointer-events:none}
+
+/* la carta in cima stacca dal mucchio con un'ombra più profonda */
+/* l'ombra sta sulle facce, così gira con la card */
+.schede-v.mazzo .vs:not(.sotto) .vs-binario > *{box-shadow:0 0 0 10px var(--bianco),0 2px 8px 10px rgba(21,23,28,.12),0 30px 60px -6px rgba(21,23,28,.5),0 70px 140px -20px rgba(21,23,28,.45)}
+.schede-v.mazzo .vs{position:absolute;top:0;left:0;right:0;min-height:var(--hc);transform-origin:50% 60%;will-change:transform;box-shadow:none}
+.schede-v.mazzo .vs .vs-binario > *{box-shadow:0 0 0 10px var(--bianco),0 30px 60px -24px rgba(21,23,28,.6)}
+/* la card si gira su se stessa: davanti il kit, sul retro la lista. La cornice bianca è di ogni faccia, così gira con lei */
+.vs{background:transparent}
+.vs-giro{position:relative;border-radius:20px;perspective:2400px}
+.vs-binario{display:grid;height:100%;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.65,0,.25,1)}
+.vs-binario > *{grid-area:1 / 1;min-width:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;box-shadow:0 0 0 10px var(--bianco),0 -18px 40px -20px rgba(21,23,28,.5)}
+.vs-lista{transform:rotateY(180deg)}
+.vs.lista-aperta .vs-binario{transform:rotateY(180deg)}
 .vs-campo{position:relative;overflow:hidden;border-radius:20px;color:var(--t);
   background:radial-gradient(36% 56% at 73% 54%,var(--c3) 0,transparent 72%),radial-gradient(60% 70% at 4% 100%,var(--c2) 0,transparent 70%),linear-gradient(140deg,var(--c1),var(--c2));
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);grid-template-rows:auto auto auto 1fr auto;gap:14px clamp(20px,3vw,40px);padding:clamp(22px,3vw,40px)}
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);grid-template-rows:auto auto auto auto 1fr auto;gap:14px clamp(20px,3.3cqi,40px);padding:clamp(22px,3.3cqi,40px)}
 .vs-top{grid-column:1/-1;grid-row:1;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;line-height:1.3;font-weight:500}
 .vs-marca{display:flex;align-items:center;gap:14px}
 .vs-marca svg{width:26px;height:26px;flex:none}
 .vs-pill{text-decoration:none;font-weight:600;font-size:13px;padding:9px 16px;border-radius:999px;box-shadow:inset 0 0 0 1.5px currentColor;white-space:nowrap}
+/* targhette in alto a destra: come si riceve il kit */
+.vs-targhe{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.vs-targhe li{display:flex;align-items:center;gap:7px;font-weight:600;font-size:13px;padding:8px 14px 8px 11px;border-radius:999px;box-shadow:inset 0 0 0 1.5px currentColor;white-space:nowrap}
+.vs-targhe svg{width:16px;height:16px;flex:none}
 .vs-nome{grid-column:1/-1;grid-row:2;z-index:2;display:flex;align-items:flex-start;gap:18px}
-.vs-nome h3{font-size:min(150px,10vw,calc(58vw / (var(--n) * .9)));line-height:.82}
-.vs-nome span{font-size:15px;line-height:1.3;font-weight:500;padding-top:.6em;max-width:16ch}
+.vs-nome h3{font-size:min(150px,11cqi,calc(63.8cqi / (var(--n) * .9)));line-height:.82}
+/* targa "KIT" davanti al nome, perché si capisca subito che è un kit; conta come due lettere nel calcolo della grandezza */
+.vs-nome h3{display:flex;align-items:center;gap:.14em}
+.vs-nome .vs-kit{flex:none;font-size:.36em;line-height:1;padding:.2em .36em .14em;border-radius:.28em;background:transparent;color:var(--t);box-shadow:inset 0 0 0 .07em currentColor;letter-spacing:.01em}
+/* prova: il badge ruotato a sinistra, come un'etichetta appoggiata, con un angolo sopra la prima lettera */
+.vs-nome .vs-kit{position:relative;z-index:1;rotate:-9deg;margin-right:-.8em;translate:0 .1em;background:var(--c1);box-shadow:inset 0 0 0 .07em currentColor}
+.vs-nome > span{font-size:15px;line-height:1.3;font-weight:500;padding-top:.6em;max-width:16ch}
 .vs-testo{grid-column:1;grid-row:3;align-self:start;z-index:4;display:grid;gap:18px}
 .vs-testo p{margin:0;max-width:34ch;font-size:16px;line-height:1.5;opacity:.9}
 .vs-pregi{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
@@ -112,7 +139,7 @@ a{color:inherit}
 .vs-pregi .ic svg{width:17px;height:17px}
 .vs-pregi b{display:block;font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .vs-pregi small{display:block;font:500 12px/1.3 var(--f-mono);opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.vs-palco{grid-column:2;grid-row:2/5;z-index:3;position:relative;min-height:420px}
+.vs-palco{grid-column:2;grid-row:2/6;z-index:3;position:relative;min-height:420px}
 .vs-palco::before{content:"";position:absolute;inset:8% 2%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c3) 70%,#fff),transparent);opacity:.75;filter:blur(8px)}
 /* l'ambiente del kit come una cartolina, con i pezzi del kit che galleggiano intorno */
 .vs-palco .quadro{position:absolute;left:44%;top:50%;width:min(64%,320px);aspect-ratio:2/3;translate:-50% -50%;rotate:-6deg;margin:0;background:#fff;padding:8px 8px 34px;border-radius:6px;box-shadow:0 34px 40px -18px rgba(0,0,0,.45)}
@@ -134,37 +161,109 @@ a{color:inherit}
 .vs-palco .v1{left:0;bottom:10%}
 .vs-palco .v2{right:0;top:30%;animation-delay:-1.7s}
 .vs-palco .v3{right:4%;bottom:8%;animation-delay:-3.4s}
+/* con la foto dei prodotti l'adesivo sta in alto a sinistra: le etichette prendono i posti dei vantaggi */
+.vs-palco .foto ~ .p1{top:auto;bottom:10%}
+.vs-palco .foto ~ .p2{top:30%}
+.vs-palco .foto ~ .p3{left:auto;right:4%;bottom:8%}
 .vs-palco .adesivo{right:10%;bottom:4%}
 .vs-palco .prodotto ~ .adesivo{right:auto;bottom:auto;left:-2%;top:38%}
-.vs-palco .foto ~ .adesivo{right:auto;bottom:auto;left:calc(1% + 15px);top:calc(7% + 15px);width:88px;height:88px}
+.vs-palco .foto ~ .adesivo{left:auto;bottom:auto;right:9%;top:4.5%;width:88px;height:88px}
 .vs-dati{grid-column:1;grid-row:4;align-self:start;justify-self:start;width:min(100%,300px);margin-top:14px;z-index:4;display:grid;grid-template-columns:1fr;row-gap:6px;padding:20px;border-radius:18px;background:color-mix(in srgb,var(--t2) 22%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--t) 18%,transparent)}
 .vs-et{font:500 12px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;opacity:.8}
-.vs-prezzo{font:800 clamp(40px,3.6vw,58px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100;margin:4px 0 2px}
+.vs-prezzo{font:800 clamp(40px,4cqi,58px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100;margin:4px 0 2px}
 .vs-dati > .vs-et,.vs-dati > .vs-prezzo{grid-column:1}
+/* frase sotto il prezzo: al massimo due righe */
+.vs-nota{margin:2px 0 0;font-size:14px;line-height:1.35;opacity:.88;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;overflow:hidden}
 .vs-compra{display:flex;flex-wrap:nowrap;gap:10px;margin-top:10px}
-.vs-compra .btn{--bg:var(--t);--fg:var(--t2);flex:none;width:50px;height:50px;padding:0;justify-content:center}
-.vs-compra .btn svg{width:22px;height:22px}
+.vs-compra .btn{--bg:var(--t);--fg:var(--t2);flex:1;height:50px;padding:0 18px;justify-content:center;gap:10px}
+.vs-compra .btn svg,.vs-tutto svg{width:22px;height:22px;flex:none}
+.vs-tutto{gap:10px}
+/* bottone lista accanto al carrello: solo su telefono, al posto di "Guarda cosa c'è dentro" */
+.vs-compra .vs-elenco{display:none;flex:none;width:50px;padding:0;--bg:transparent;--fg:var(--t);box-shadow:inset 0 0 0 1.5px currentColor}
+.vs-compra .vs-elenco svg{width:28px;height:28px}
+/* già nel carrello: il pulsante si svuota e resta solo il contorno */
+.vs-compra .btn.dentro,.vs-tutto.dentro{--bg:transparent;--fg:var(--t);box-shadow:inset 0 0 0 1.5px currentColor}
 .vs-info{grid-column:1/-1;list-style:none;margin:10px 0 0;padding:12px 0 0;border-top:1px solid color-mix(in srgb,currentColor 25%,transparent);display:grid;gap:4px;font-size:13px}
 .vs-info li::before{content:"✓  "}
-.vs-apri{all:unset;cursor:pointer;position:absolute;right:clamp(14px,1.6vw,22px);top:50%;translate:0 -50%;z-index:6;display:grid;justify-items:center;gap:8px;font:600 13px/1.2 var(--f-testo);color:var(--t);text-align:center}
-.vs-apri .cerchio{width:58px;height:58px;border-radius:50%;background:var(--t);color:var(--t2);display:grid;place-items:center;box-shadow:0 16px 30px -12px rgba(0,0,0,.55);transition:transform .25s var(--ease)}
-.vs-apri svg{width:26px;height:26px}
-.vs-apri:focus-visible .cerchio{outline:3px solid var(--t);outline-offset:3px}
-@media (hover:hover) and (pointer:fine){.vs-apri:hover .cerchio{transform:translateX(4px)}}
+.vs-apri{all:unset;box-sizing:border-box;cursor:pointer;grid-column:1;grid-row:5;align-self:start;width:min(100%,300px);z-index:6;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 20px;border-radius:18px;font:600 15px/1.2 var(--f-testo);color:var(--t);background:color-mix(in srgb,var(--t2) 22%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--t) 30%,transparent);transition:background .2s var(--ease)}
+.vs-apri .cerchio{flex:none;width:40px;height:40px;border-radius:50%;background:var(--t);color:var(--t2);display:grid;place-items:center;box-shadow:0 16px 30px -12px rgba(0,0,0,.55);transition:transform .25s var(--ease)}
+.vs-apri svg{width:20px;height:20px}
+.vs-apri:focus-visible{outline:3px solid var(--t);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){.vs-apri:hover{background:color-mix(in srgb,var(--t2) 32%,transparent)}.vs-apri:hover .cerchio{transform:translateX(4px)}}
 /* faccia dietro: tutti i prodotti del kit, cliccabili */
-.vs-lista{color:var(--t);background:radial-gradient(60% 70% at 100% 0,color-mix(in srgb,var(--c3) 35%,transparent),transparent 70%),linear-gradient(140deg,var(--c1),var(--c2));border-radius:20px;padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;gap:22px}
+.vs-lista{color:var(--t);background:radial-gradient(60% 70% at 100% 0,color-mix(in srgb,var(--c3) 35%,transparent),transparent 70%),linear-gradient(140deg,var(--c1),var(--c2));border-radius:20px;padding:clamp(22px,3.3cqi,40px);display:flex;flex-direction:column;gap:14px}
 .vs-lista-testa{display:flex;justify-content:space-between;align-items:center;gap:16px}
 .vs-lista-testa .vs-et{text-align:right}
 .vs-torna{all:unset;cursor:pointer;flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;padding:9px 16px 9px 10px;border-radius:999px;box-shadow:inset 0 0 0 1.5px currentColor}
 .vs-torna svg{width:18px;height:18px}
 .vs-torna:focus-visible{outline:3px solid currentColor;outline-offset:3px}
-.vs-lista h3{font-size:clamp(48px,6.4vw,104px)}
-.vs-lista .vs-pregi{margin:0;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.vs-lista .vs-pezzo{width:100%;margin:0;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--t2) 16%,transparent)}
+.vs-lista h3{font-size:clamp(40px,5cqi,72px)}
+/* card dei prodotti, come i piatti di un menu: il prodotto scontornato sporge sopra, poi nome, formato, prezzo e + */
+.vc-griglia{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,2fr);gap:24px 40px;align-items:center}
+.vc-top,.vc-acc{list-style:none;margin:0;padding:0;display:grid}
+.vc-top{grid-column:1;grid-row:1;gap:16px;padding-left:20px}
+.vc-acc{grid-column:2;grid-row:1;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:48px 16px;padding-top:36px;margin-bottom:36px}
+.vc{position:relative;border-radius:22px;background:color-mix(in srgb,#fff 13%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,#fff 24%,transparent);padding:58px 14px 14px;display:flex;flex-direction:column;gap:8px;transition:transform .3s var(--ease),background .3s}
+.vc-foto{position:absolute;left:50%;top:-44px;translate:-50% 0;width:104px;height:104px;display:grid;place-items:center;pointer-events:none}
+.vc-foto img{max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 16px 14px rgba(0,0,0,.38))}
+.vc-icona{color:var(--t);opacity:.9}
+.vc-icona svg{width:48px;height:48px;stroke-width:1.5}
+.vc-testo{display:grid;gap:3px}
+.vc b{font-size:15px;line-height:1.2}
+.vc small{font:500 12px/1.3 var(--f-mono);opacity:.8}
+/* descrizioni intere: lunghe nelle card grandi, una frase breve nelle piccole */
+.vc-desc{font-size:12.5px;line-height:1.4;opacity:.85;margin-top:4px;text-wrap:pretty}
+.vc-grande .vc-desc{font-size:14px;line-height:1.45;margin-top:6px}
+.vc-desc:empty{display:none}
+.vc-piede{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.vc-prezzo{white-space:nowrap;font:800 18px/1 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100}
+/* tutta la card apre il dettaglio; il + resta sopra */
+.vc .vs-pezzo{all:unset;position:absolute;inset:0;z-index:1;border-radius:22px;cursor:pointer}
+.vc .vs-pezzo:focus-visible{outline:3px solid var(--t);outline-offset:2px}
+@media (hover:hover) and (pointer:fine){.vc:hover{transform:translateY(-4px);background:color-mix(in srgb,#fff 20%,transparent)}}
+/* prodotti principali: card larghe, prodotto grande a sinistra */
+.vc-grande{padding:20px 22px 18px 148px;min-height:180px}
+.vc-grande .vc-foto{left:-32px;top:50%;translate:0 -56%;width:168px;height:200px}
+.vc-grande .vc-icona svg{width:64px;height:64px}
+.vc-grande b{font-size:19px}
+.vc-grande .vc-prezzo{font-size:26px}
+.vs-tinte{display:grid;justify-items:start;gap:6px}
+.tinta-nome{font:600 13px/1.2 var(--f-testo);min-width:0}
+.tinte{display:flex;gap:14px;flex:none;padding-left:3px}
+/* col pallini delle tinte il riquadro del prezzo si stringe, così la card resta alta come le altre */
+/* tinte: nome e pallini stretti tra loro, 14px sopra e sotto come gruppo a sé */
+.vs-dati .vs-tinte{margin-top:8px;gap:10px}
+.vs-dati .vs-tinte + .vs-compra{margin-top:8px}
+.tinta{all:unset;position:relative;z-index:2;cursor:pointer;width:24px;height:24px;border-radius:50%;background:var(--tc);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55);transition:transform .2s var(--ease),box-shadow .2s}
+.tinta[aria-checked="true"]{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55),0 0 0 3px var(--c2),0 0 0 5px var(--t)}
+.tinta:focus-visible{outline:3px solid var(--t);outline-offset:4px}
+@media (hover:hover) and (pointer:fine){.tinta:hover{transform:scale(1.12)}}
+.vc .vs-tinte{margin:11px 0 6px;gap:10px}
+.vc .tinte{gap:12px}
+.vc .vs-tinte .tinta-nome{font-size:12px}
+.vc .tinta{width:22px;height:22px}
+/* Legno ed Esterni: pochi accessori, in righe orizzontali che arrivano al bordo destro come il tasto del kit */
+#vs-kit-legno .vc-griglia,#vs-kit-esterni .vc-griglia{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#vs-kit-legno .vc-acc,#vs-kit-esterni .vc-acc{grid-template-columns:minmax(0,1fr);gap:16px;padding:0;margin:0}
+#vs-kit-legno .vc-acc .vc,#vs-kit-esterni .vc-acc .vc{flex-direction:row;align-items:center;padding:12px 16px 12px 96px;min-height:88px;gap:12px}
+/* Interni: otto accessori in due colonne di righe; nome e prezzo in alto, la descrizione sotto per tutta la larghezza */
+#vs-kit-interni .vc-griglia{grid-template-columns:minmax(0,1.4fr) minmax(0,2fr)}
+#vs-kit-interni .vc-acc{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;gap:12px;padding:0;margin:0}
+#vs-kit-interni .vc-acc .vc{display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:center;column-gap:10px;row-gap:2px;padding:12px 14px 12px 72px;min-height:0}
+#vs-kit-interni .vc-acc .vc-testo{display:contents}
+#vs-kit-interni .vc-acc .vc-testo b{grid-column:1;grid-row:1}
+#vs-kit-interni .vc-acc .vc-testo small{grid-column:1;grid-row:2}
+#vs-kit-interni .vc-acc .vc-desc{grid-column:1 / -1;grid-row:3;margin-top:4px}
+#vs-kit-interni .vc-acc .vc-piede{grid-column:2;grid-row:1;margin:0}
+#vs-kit-interni .vc-acc .vc-foto{left:-10px;top:50%;translate:0 -50%;width:76px;height:76px}
+#vs-kit-interni .vc-acc .vc-icona svg{width:38px;height:38px}
+#vs-kit-legno .vc-acc .vc-foto,#vs-kit-esterni .vc-acc .vc-foto{left:-14px;top:50%;translate:0 -50%;width:96px;height:96px}
+#vs-kit-legno .vc-acc .vc-testo,#vs-kit-esterni .vc-acc .vc-testo{flex:1}
+#vs-kit-legno .vc-acc .vc-piede,#vs-kit-esterni .vc-acc .vc-piede{margin:0;gap:14px}
 .vs-lista-piede{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:16px 24px;flex-wrap:wrap}
 .vs-lista-piede > div{display:grid;gap:4px}
 .vs-tutto{--bg:var(--t);--fg:var(--t2)}
-.vs-piede{grid-column:1/-1;grid-row:5;display:flex;justify-content:space-between;font:500 12px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;opacity:.75}
+.vs-piede{grid-column:1/-1;grid-row:6;display:flex;justify-content:space-between;font:500 12px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;opacity:.75}
 
 /* adesivo rotondo con la scritta che gira */
 .adesivo{position:absolute;z-index:4;width:118px;height:118px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}
@@ -251,9 +350,9 @@ a{color:inherit}
 .d-compra{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .d-prezzo{display:grid;gap:3px;margin-right:auto;font:800 28px/1 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100}
 .d-prezzo small{font:500 12px/1 var(--f-mono);color:var(--grigio)}
-.d-compra .qta{background:var(--bianco);box-shadow:inset 0 0 0 1.5px #D3D6DC}
-.d-compra .qta button{width:36px;height:46px}
-.d-compra .btn{min-width:112px;justify-content:center}
+.d-solo-kit{display:grid;gap:12px;margin-top:18px}
+.d-solo-kit p{margin:0;font-size:15px;line-height:1.5;color:var(--inchiostro-2)}
+.d-solo-kit .btn{justify-content:center}
 
 @media (max-width:1180px){.menu .stato{display:none}}
 @media (max-width:900px){
@@ -263,27 +362,87 @@ a{color:inherit}
   .testata{padding-top:118px}
   /* su telefono le schede non si impilano: una sotto l'altra, in colonna */
   .vs{position:relative;top:auto;min-height:0;border-radius:22px}
-  .vs-campo{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"top" "nome" "palco" "testo" "dati" "apri" "piede";gap:20px;
+  .vs-binario{align-items:start;height:auto}
+  .vs-giro{transition:height .5s var(--ease)}
+  /* etichette sulla foto: una in alto a sinistra, due a destra, così su schermo stretto non si toccano */
+  .vs-palco .v1{bottom:auto;top:4%}
+  .vs-palco .v2{top:34%}
+  .vs-palco .v3{right:0;bottom:4%}
+  /* su telefono niente bollino che gira sulla foto */
+  .vs-palco .adesivo{display:none}
+  .vs-campo{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"top" "nome" "palco" "dati";gap:20px;
     background:radial-gradient(70% 34% at 50% 34%,var(--c3) 0,transparent 72%),linear-gradient(170deg,var(--c1),var(--c2))}
   .vs-top{grid-area:top}.vs-nome{grid-area:nome}.vs-palco{grid-area:palco}.vs-testo{grid-area:testo}.vs-dati{grid-area:dati}.vs-piede{grid-area:piede}
-  .vs-nome{flex-direction:column;gap:10px}
+  .vs-nome{flex-direction:column;align-items:flex-start;gap:10px}
+  /* KIT sopra il nome, come un'etichetta appoggiata sull'angolo */
+  .vs-nome h3{flex-direction:column;align-items:flex-start;gap:0}
+  .vs-nome .vs-kit{margin:0 0 -.12em .5em;font-size:.42em;translate:0 0}
+  .vs-nome > span{text-align:left}
   .scheda-prodotto .pannello{padding:22px 18px}
   .scheda-prodotto h2{font-size:26px}
   .d-art{padding:14px}
   .vs-dati{width:100%;margin-top:0}
-  .vs-apri{grid-area:apri;position:static;translate:none;display:flex;justify-content:center;align-items:center;gap:12px;padding:10px;border-radius:14px;box-shadow:inset 0 0 0 1.5px currentColor;font-size:15px}
-  .vs-apri span:last-child{order:-1}
-  .vs-apri .cerchio{width:36px;height:36px;box-shadow:none}
-  .vs-apri svg{width:20px;height:20px}
-  .vs-lista .vs-pregi{grid-template-columns:1fr}
+  .vs-apri{display:none}
+  .vs-compra .vs-elenco{display:inline-flex}
   .vs-lista h3{font-size:44px}
-  .vs-marca span{display:none}
-  .vs-nome h3{font-size:min(22vw,calc(82vw / (var(--n) * .9)))}
-  .vs-nome span{padding-top:0;max-width:none}
-  .vs-palco{min-height:340px}
+  .vc-griglia{grid-template-columns:minmax(0,1fr);gap:28px}
+  .vc-top,.vc-acc{grid-column:auto;grid-row:auto}
+  .vc-top{padding-left:0}
+  .vc-acc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #vs-kit-legno .vc-griglia,#vs-kit-esterni .vc-griglia,#vs-kit-interni .vc-griglia{grid-template-columns:minmax(0,1fr)}
+  /* nella card stretta i pallini delle tinte vanno a capo invece di uscire */
+  .vc .tinte{flex-wrap:wrap;gap:8px}
+  #vs-kit-interni .vc-acc{grid-template-columns:minmax(0,1fr)}
+  #vs-kit-legno .vc-acc,#vs-kit-esterni .vc-acc{grid-template-columns:minmax(0,1fr)}
+  #vs-kit-legno .vc-acc .vc,#vs-kit-esterni .vc-acc .vc{padding:14px 12px 14px 64px;min-height:80px}
+  #vs-kit-legno .vc-acc .vc-foto,#vs-kit-esterni .vc-acc .vc-foto{left:-8px;width:72px;height:72px}
+  #vs-kit-legno .vc-acc .vc-icona svg,#vs-kit-esterni .vc-acc .vc-icona svg{width:36px;height:36px}
+  .vc-grande{padding:20px 18px 18px 120px;min-height:170px}
+  .vc-grande .vc-foto{left:-18px;width:124px;height:150px}
+  /* lista su telefono: tutte le card uguali, in riga (foto, nome e formato, prezzo), senza descrizioni */
+  #schede-v .vc-griglia{gap:12px}
+  #schede-v .vc-top,#schede-v .vc-acc{gap:12px;padding:0;margin:0}
+  #schede-v .vs-lista .vc{display:flex;flex-direction:row;align-items:center;gap:12px;padding:12px 14px 12px 74px;min-height:78px}
+  #schede-v .vs-lista .vc-testo{display:grid;flex:1;min-width:0;gap:2px}
+  #schede-v .vs-lista .vc-desc,#schede-v .vs-lista .vs-tinte{display:none}
+  /* sul retro su telefono restano solo il tasto per tornare e la lista: niente titolo né prezzo finale */
+  .vs-lista > h3,.vs-lista-piede{display:none}
+  .vs-lista-testa{flex-direction:row-reverse}
+  .vs-lista-testa .vs-et{text-align:left}
+  #schede-v .vs-lista .vc-piede{margin:0;flex:none}
+  #schede-v .vs-lista .vc-foto{left:-4px;top:50%;translate:0 -50%;width:68px;height:68px}
+  #schede-v .vs-lista .vc-icona svg{width:34px;height:34px}
+  #schede-v .vs-lista .vc b{font-size:15px}
+  #schede-v .vs-lista .vc-prezzo{font-size:17px}
+  .vc-grande .vc-prezzo{font-size:21px}
+  .vc-grande b{font-size:17px}
+  /* su telefono in alto resta solo "Ordina e ritira", a destra; il titolo sale verso di lui */
+  .vs-marca{display:none}
+  .vs-campo > .vs-piede{display:none}
+  .vs-top{justify-content:flex-end}
+  .vs-campo > .vs-nome{margin-top:-35px}
+  /* KIT non sta più sulla stessa riga: il nome può essere più grande */
+  .vs-nome h3{font-size:min(22vw,calc(80vw / ((var(--n) - 1.5) * .9)))}
+  .vs-nome > span{padding-top:0;max-width:none}
+  /* la foto è più grande e tagliata ai lati; titolo e descrizione ci salgono sopra, su un velo che la sfoca */
+  .vs-palco{min-height:0;margin:-48px 0 -72px;z-index:1}
+  /* il riquadro del prezzo sale sulla foto: sotto, la foto sfuma e si sfoca come sotto il titolo */
+  .vs-palco::after{content:"";position:absolute;left:-26px;right:-26px;bottom:-80px;height:185px;pointer-events:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--c2) 40%,transparent) 45%,color-mix(in srgb,var(--c2) 40%,transparent) 70%,transparent);
+    -webkit-mask-image:linear-gradient(to bottom,transparent,#000 40%,#000 66%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 40%,#000 66%,transparent)}
+  .vs-dati{position:relative;z-index:2}
+  /* su telefono niente descrizione del kit: dopo la foto c'è subito il prezzo */
+  .vs-campo > .vs-testo{display:none}
+  .vs-nome,.vs-testo{position:relative;z-index:2}
+  .vs-nome::before,.vs-testo::before{content:"";position:absolute;left:-26px;right:-26px;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .vs-nome::before{top:-30px;bottom:-60px;background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--c1) 55%,transparent) 30%,color-mix(in srgb,var(--c1) 40%,transparent) 60%,transparent);-webkit-mask-image:linear-gradient(to bottom,transparent,#000 22%,#000 55%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 22%,#000 55%,transparent)}
+  .vs-testo::before{top:-70px;bottom:-30px;background:linear-gradient(to top,transparent,color-mix(in srgb,var(--c2) 55%,transparent) 25%,color-mix(in srgb,var(--c2) 40%,transparent) 60%,transparent);-webkit-mask-image:linear-gradient(to top,transparent,#000 20%,#000 60%,transparent);mask-image:linear-gradient(to top,transparent,#000 20%,#000 60%,transparent)}
+  /* su telefono niente etichette fluttuanti: la foto resta pulita */
+  .vs-palco .pezzo{display:none}
   .vs-palco .quadro{width:min(52%,190px)}
   .vs-palco .prodotto{width:min(36%,140px)}
-  .vs-palco .foto{width:100%;left:50%}
+  /* la foto segue la sua altezza e non supera 460px: sui tablet non diventa enorme sotto i testi */
+  .vs-palco .foto{position:relative;left:50%;top:auto;translate:-50% 0;width:min(122%,460px)}
   .vs-palco .targa{font-size:10px;gap:4px;padding:3px 8px 3px 3px}
   .vs-palco .targa i{width:18px;height:18px}
   .vs-palco .targa svg{width:11px;height:11px}
@@ -310,23 +469,12 @@ a{color:inherit}
 </header>
 
 <main>
-  <section class="testata" aria-labelledby="t-shop">
-    <span class="stato"><i></i><span>Shop in prova · prezzi di esempio</span></span>
-    <h1 class="disp" id="t-shop">Il banco, anche online.</h1>
-    <div class="testata-piede">
-      <p>Scegli qui pitture, smalti e pennelli: li prepariamo al banco, anche nella tinta che vuoi, e li ritiri a Strudà senza spese.</p>
-      <div class="azioni">
-        <a class="btn bianco" href="#vetrina">Vedi i kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-        <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
-      </div>
-    </div>
-  </section>
 
   <!-- vetrina -->
   <section class="sez" id="vetrina" aria-labelledby="t-vetrina">
     <div class="sez-testa">
-      <h2 class="disp" id="t-vetrina">I kit del banco.</h2>
-      <p>Tutto quello che serve per un lavoro, già messo insieme: scegli il kit, lo prepariamo al banco e lo ritiri a Strudà.</p>
+      <h1 class="disp" id="t-vetrina">Scegli il lavoro, il kit è pronto.</h1>
+      <p>I prodotti che servono, già messi insieme in un kit: scegli il tuo, lo prepariamo al banco e lo ritiri a Strudà.</p>
     </div>
     <!-- il cerchio su cui gira la scritta degli adesivi  -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="cerchio" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs></svg>
@@ -430,81 +578,228 @@ const ICONE = {
   griglia:'<path d="M5 3h14l-2 18H7Z"/><path d="M6 9h12M6.5 15h11M10 3l-1 18M14 3l1 18"/>',
   pennello:'<path d="M9 3h6v7H9z"/><path d="M8 10h8l-1 4H9Z"/><path d="M10 14l-1 7h6l-1-7"/>',
   casa:'<path d="M3 11 12 4l9 7M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
-  orologio:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+  orologio:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  furgone:'<path d="M2 6h11v10H2z"/><path d="M13 9h4l4 4v3h-8"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>'
 };
 const KIT = [
-  {id:'kit-esterni', nome:'Kit esterni', grande:'Esterni', sotto:'Kit per facciate e muri',
+  {id:'kit-esterni', nome:'Kit esterni', grande:'Esterni', sotto:'Kit per facciate e muri', nota:'prodotti per rifare una facciata: stucco, fissativo, quarzo e attrezzi.',
    desc:'Per rifare una facciata o un muro di cinta: si stucca, si fissa e si stende il quarzo. Prima di iniziare passa dal banco: ti spieghiamo come stenderlo.',
    c1:'#C8703F', c2:'#8E3E22', c3:'#FFD3A6', t:'#FFFFFF', t2:'#15171C', c:'#C8703F', img:'img/amb-esterni.webp', w:843, h:1264,
+   /* per ora la stessa foto dei prodotti del kit interni, finché non c'è quella dei suoi */
+   foto:{img:'img/shop/kit-interni.webp?v=7', w:1000, h:789},
    adesivo:'PER FACCIATE E MURI · KIT ESTERNI ·', icona:'secchio',
+   testi:['Resiste al sole e si stacca senza lasciare colla.',
+          'Pittura al quarzo Ecoeasy Venus: rivestimento riempitivo per facciate e muri esterni. Copre le piccole irregolarità dell’intonaco e la coloriamo al tintometro nella tinta che scegli.',
+          'In nylon con il palmo in nitrile, per una presa salda.',
+          'In polvere: si impasta con acqua per chiudere crepe e sbrecciature.',
+          'Lama in acciaio da 80 mm per stuccare e raschiare.',
+          'Si stende prima della pittura: consolida l’intonaco e uniforma l’assorbimento del muro, così il quarzo aderisce meglio e ne serve meno.'],
    pezzi:[['nastro','Nastro in carta per esterno','1 rotolo',5,'ART-000266'],['secchio','Pittura al quarzo','14 l',45,'ART-001545'],['guanti','Guanti','taglia 9',1.5,'ART-000832'],
           ['stucco','Stucco per esterni','1 kg',2.5,'ART-000072'],['spatola','Spatola rigida','80 mm',4.5,'ART-000079'],['fissativo','Fissativo','5 l',30,'ART-001523']],
-   intorno:[[1,'Quarzo'],[4,'Spatola'],[0,'Nastro']]},
-  {id:'kit-interni', nome:'Kit interni', grande:'Interni', sotto:'Kit per preparare la stanza',
-   desc:'Tutto per rifare una stanza: si copre, si stucca, si carteggia, si fissa e si pittura con il Boerobianco.',
+   intorno:[], vantaggi:[['casa','Per facciate e muri di cinta'],['secchio','Pittura al quarzo inclusa'],['orologio','Pronto da ritirare in 24 ore']]},
+  {id:'kit-interni', nome:'Kit interni', grande:'Interni', sotto:'Kit per preparare la stanza', nota:'prodotti per rifare una stanza: pittura, fissativo, stucco e attrezzi.',
+   desc:'Tutto per rifare una stanza: si copre, si stucca, si carteggia, si fissa e si pittura con il Boerobianco. Dieci pezzi già pronti al banco: passa a ritirarli e ti spieghiamo da dove cominciare.',
    c1:'#178C82', c2:'#0B4F4A', c3:'#81D8D0', t:'#FFFFFF', t2:'#15171C', c:'#178C82', img:'img/amb-interni.webp', w:848, h:1233,
    foto:{img:'img/shop/kit-interni.webp?v=7', w:1000, h:789},
    adesivo:'TUTTO PRONTO DA RITIRARE · KIT ·', icona:'telo',
-   pezzi:[['secchio','Boerobianco Plus','5 l',25,'ART-000338'],['stucco','Stucco in pasta','0,5 kg',2,'ART-001306'],['fissativo','Fissativo','1 l',null,'manca nel gestionale (Idroacril solo 5 l)'],
+   testi:['Idropittura bianca per pareti e soffitti interni: si diluisce con acqua e si stende a rullo o a pennello. Ti diciamo noi quanta ne serve per la tua stanza.',
+          'Pronto all’uso, per chiudere piccoli buchi e difetti.',
+          'Va dato prima della pittura sui muri nuovi, stuccati o che spolverano: consolida la superficie e uniforma l’assorbimento, così il bianco copre in modo omogeneo.',
+          'Minirullo per angoli, bordi e zone strette.',
+          'Copre bordi, battiscopa e infissi mentre pitturi.',
+          'Pennellessa da 40 mm per angoli e ritocchi.',
+          'Due teli 4x4 m per pavimenti e mobili.',
+          'Quattro misure, da 50 a 120 mm.',
+          'Grana fine per levigare lo stucco asciutto.',
+          'Toglie dal rullo la pittura in eccesso.'],
+   pezzi:[['secchio','Boerobianco Plus','5 l',25,'ART-000338'],['stucco','Stucco in pasta','0,5 kg',2,'ART-001306'],['fissativo','Fissativo','1 l',8,'BANCO-fissativo-1l'],
           ['rullo','Rullo con manico','15 cm',4.5,'ART-001176 + ART-000906'],['nastro','Carta con nastro adesivo','2 rotoli',3,'ART-000311 ×2'],
           ['pennello','Pennello','n. 40',1.3,'ART-000414'],['telo','Teli copritutto','2 pz',2,'ART-001339 ×2'],
           ['spatola','Set spatole','4 pz',3.8,'ART-001281'],['carta','Carta abrasiva','grana 120',1.2,'ART-000569'],['griglia','Griglia per rullo','20 cm',1.5,'ART-001143']],
    intorno:[], vantaggi:[['casa','Tutto per una stanza'],['secchio','Pittura Boerobianco inclusa'],['orologio','Pronto da ritirare in 24 ore']]},
-  {id:'kit-legno', nome:'Kit legno', grande:'Legno', sotto:'Kit per travi, perline e infissi',
+  {id:'kit-legno', nome:'Kit legno', grande:'Legno', sotto:'Kit per travi, perline e infissi', nota:'prodotti per il legno: carteggi, impregni e proteggi con un solo kit.',
    desc:'Per travi, perline, staccionate e infissi: si carteggia, si impregna e si protegge. Ti diciamo noi quante mani dare.',
    c1:'#9A5F2C', c2:'#5E3718', c3:'#F2C487', t:'#FFFFFF', t2:'#15171C', c:'#9A5F2C', img:'img/amb-legno.webp', w:683, h:1024,
-   prodotto:{img:'img/secchio-novolegno.webp', w:422, h:467, alt:'Impregnante Arreghini Novolegno Classic'},
+   /* per ora la stessa foto dei prodotti del kit interni, finché non c'è quella dei suoi */
+   foto:{img:'img/shop/kit-interni.webp?v=7', w:1000, h:789}, immagini:{0:'img/secchio-novolegno.webp'},
    adesivo:'PROTEGGE IL LEGNO · DENTRO E FUORI ·', icona:'venature',
-   pezzi:[['secchio','Impregnante, tinta a scelta','0,75 l',9,'ART-001529'],['guanti','Guanti','taglia 9',1.5,'ART-000832'],['telo','Telo copritutto','4x4 m',1,'ART-001339'],
+   /* tinte = l'impregnante (pezzo p) si sceglie tra le tinte da 0,75 l allo stesso prezzo; la prima volta è noce antico */
+   tinte:{p:0, scelte:[['ART-000625','Noce chiaro','#B07A45'],['ART-001527','Douglas','#BF6E36'],['ART-001529','Noce antico','#5A3820'],['ART-000626','Castagno, all’acqua','#7B4B2A'],['ART-001531','Mogano, all’acqua','#6E2B1D']]},
+   testi:['Impregnante Arreghini: penetra nel legno, lo protegge da acqua e sole e lo colora lasciando vedere le venature. Per travi, perline, infissi e mobili da giardino.',
+          'In nylon con il palmo in nitrile, per una presa salda.',
+          'Protegge il pavimento dalle gocce.',
+          'Grana fine per levigare il legno prima di impregnarlo.',
+          'Finitura trasparente da dare sopra l’impregnante asciutto: protegge il legno dalle intemperie senza cambiarne il colore.'],
+   pezzi:[['secchio','Impregnante','0,75 l',9,'ART-001529'],['guanti','Guanti','taglia 9',1.5,'ART-000832'],['telo','Telo copritutto','4x4 m',1,'ART-001339'],
           ['carta','Carta abrasiva','grana 120',1.2,'ART-000569'],['scudo','Protettivo trasparente','0,75 l',16,'ART-002741']],
-   intorno:[[3,'Carta vetrata'],[4,'Protettivo'],[1,'Guanti']]}
+   intorno:[], vantaggi:[['venature','Tinta a scelta'],['scudo','Protegge da acqua e sole'],['orologio','Pronto da ritirare in 24 ore']]}
 ];
 /* il prezzo del kit è la somma dei pezzi, ai prezzi del banco; finché manca qualche prezzo è provvisorio */
 KIT.forEach(k => { k.prezzo = Math.round(k.pezzi.reduce((s, x) => s + (x[3] || 0), 0) * 100) / 100; k.mancano = k.pezzi.filter(x => x[3] == null).length; });
 const ARTICOLI = [...PRODOTTI, ...KIT];
+/* un kit con la tinta a scelta entra nel carrello come riga a sé per ogni tinta */
+KIT.forEach(k => k.tinte && k.tinte.scelte.forEach(([c, n]) => ARTICOLI.push({...k, id:`${k.id}@${c}`, nome:`${k.nome} · tinta ${n.toLowerCase()}`})));
+const idKit = k => k.tinte ? `${k.id}@${k.pezzi[k.tinte.p][4]}` : k.id;
+const tintaDi = k => k.tinte.scelte.find(t => t[0] === k.pezzi[k.tinte.p][4]);
+/* pallini delle tinte: davanti accanto al prezzo, dietro nella card dell'impregnante */
+function tinte(k, i){
+  if (!k.tinte) return '';
+  return `<div class="vs-tinte"><span class="tinta-nome" aria-live="polite">${tintaDi(k)[1]}</span><div class="tinte" role="radiogroup" aria-label="Tinta dell’impregnante">${k.tinte.scelte.map(([c, n, hex]) =>
+    `<button class="tinta" type="button" role="radio" aria-checked="${c === k.pezzi[k.tinte.p][4]}" aria-label="${n}" title="${n}" data-k="${i}" data-cod="${c}" style="--tc:${hex}"></button>`).join('')}</div></div>`;
+}
 const svg = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const due = n => String(n).padStart(2, '0');
-const schedeV = $('#schede-v');
+const BORSA = svg('<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/>'), BORSA_OK = svg('<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="m8.5 13.5 2.5 2.5 4.5-5"/>');
+const PIU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+      SPUNTA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const schedeV = $('#schede-v'), palcoKit = document.createElement('div');
+palcoKit.className = 'mazzo-palco'; schedeV.appendChild(palcoKit);
+/* il mazzo dei kit: due posti nel mucchio, a sinistra e a destra. Chi sale prende il posto lasciato libero
+   da chi viene coperto, così sotto la carta davanti se ne vedono sempre due, una per lato */
+function mazzo(){
+  const carte = [...palcoKit.children], n = carte.length, desktop = matchMedia('(min-width: 901px) and (prefers-reduced-motion: no-preference)');
+  const POSTO = {sx:{x:-11, y:6, r:-6}, dx:{x:11, y:8, r:5}}, posto = i => i % 2 ? 'dx' : 'sx';
+  let tratto = 0;
+  /* fuoco: 0 = nitida, 1 = sfocata come le carte del mucchio */
+  const SFOCA = 3.5;
+  const posa = (c, x, y, r, sc, z, rx = 0, ry = 0, fuoco = 0) => { c.style.transform = `perspective(1800px) translate(${x}%, ${y}%) rotateX(${rx}deg) rotateY(${ry}deg) rotate(${r}deg) scale(${sc})`; c.style.zIndex = z; c.style.filter = fuoco > .02 ? `blur(${(fuoco * SFOCA).toFixed(2)}px)` : ''; };
+  const mix = (a, b, t) => a + (b - a) * t, giu = t => 1 - Math.pow(1 - t, 3);
+  /* pos: a che punto è il mazzo (0 = primo kit davanti, 1 = secondo…); si muove da solo verso meta, a tempo */
+  let pos = 0, meta = 0, tween = null;
+  const DURATA = 1100, morbido = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  function disegna(){
+    if (!schedeV.classList.contains('mazzo')) return;
+    const r = pos;
+    const u = k => Math.max(0, Math.min(1, r - k));
+    carte.forEach((c, i) => {
+      const sale = i ? u(i - 1) : 1, copre = i < n - 1 ? u(i) : 0, da = POSTO[posto(i)], va = POSTO[posto(i + 1)];
+      if (sale < 1) {
+        /* esce dal mucchio verso il basso, poi passa sopra e si raddrizza */
+        if (sale < .45) { const t = giu(sale / .45); posa(c, mix(da.x, da.x * 1.6, t), mix(da.y, 62, t), mix(da.r, da.r * 1.8, t), .96, 10 - i, 0, 0, 1 - t * .6); }
+        else { const t = giu((sale - .45) / .55); posa(c, mix(da.x * 1.6, 0, t), mix(62, 0, t), mix(da.r * 1.8, 0, t), mix(.96, 1, t), 50, 0, 0, .4 * (1 - t)); }
+        c.classList.toggle('sotto', sale < .45);
+      } else {
+        /* appena la carta sotto parte, quella davanti si rimpicciolisce e si piega all'indietro verso il suo posto nel mucchio */
+        /* tutto nel primo 60% del passaggio: piegata e piccola al 30%, già al suo posto nel mucchio al 70% */
+        const t = giu(Math.max(0, Math.min(1, (copre - .2) / .5))), p = Math.sin(Math.PI * Math.min(1, copre / .6)), lato = Math.sign(va.x);
+        posa(c, mix(0, va.x, t), mix(0, va.y, t), mix(0, va.r, t), mix(1, .96, t) - .1 * p, copre ? 40 - (copre >= 1 ? 20 - i : 0) : 50, 9 * p, -lato * 12 * p, giu(Math.min(1, copre / .6)));
+        c.classList.toggle('sotto', copre > .45);
+      }
+    });
+  }
+  function misura(){
+    const on = desktop.matches; schedeV.classList.toggle('mazzo', on);
+    if (!on) { schedeV.style.height = ''; carte.forEach(c => { c.style.transform = c.style.zIndex = c.style.filter = ''; c.classList.remove('sotto'); }); return; }
+    /* tutte le carte alte come la più alta: si misura senza l'altezza imposta, poi la si rimette */
+    schedeV.style.removeProperty('--hc');
+    const hc = Math.max(...carte.map(c => c.offsetHeight));
+    tratto = Math.round(innerHeight * .7);
+    schedeV.style.setProperty('--hc', hc + 'px'); schedeV.style.height = (hc + (n - 1) * tratto) + 'px';
+    /* alla misura il mazzo si mette subito dove è la pagina, senza animazione */
+    pos = meta = Math.max(0, Math.min(n - 1, Math.round((88 - schedeV.getBoundingClientRect().top) / tratto)));
+    disegna();
+  }
+  function anima(ora){
+    if (!tween) return;
+    const t = Math.min(1, (ora - tween.t0) / DURATA);
+    pos = tween.da + (tween.a - tween.da) * morbido(t); disegna();
+    if (t < 1) requestAnimationFrame(anima); else tween = null;
+  }
+  function vai(k){
+    meta = k; tween = {da:pos, a:k, t0:performance.now()}; requestAnimationFrame(anima);
+  }
+  /* lo scroll decide solo avanti o indietro: appena la pagina entra nel tratto di un'altra carta, il passaggio parte
+     e va fino in fondo da solo; intanto la pagina si posa sul punto di quella carta */
+  let blocco = 0;
+  addEventListener('scroll', () => {
+    if (!schedeV.classList.contains('mazzo') || blocco > performance.now()) return;
+    const r = (88 - schedeV.getBoundingClientRect().top) / tratto;
+    let k = meta;
+    if (r <= 0) k = 0; else if (r >= n - 1) k = n - 1;
+    else if (r > meta + .04) k = Math.min(n - 1, meta + 1);
+    else if (r < meta - .04) k = Math.max(0, meta - 1);
+    if (k === meta) return;
+    vai(k);
+    if (r > 0 && r < n - 1) {
+      blocco = performance.now() + DURATA * .8;
+      scrollTo({top: scrollY + (k - r) * tratto, behavior: 'smooth'});
+    }
+  }, {passive:true});
+  addEventListener('resize', misura); desktop.addEventListener('change', misura);
+  /* col tab si può arrivare a una carta sotto: la pagina scorre finché quella carta è davanti */
+  palcoKit.addEventListener('focusin', e => {
+    const c = e.target.closest('.vs'); if (!c || !c.classList.contains('sotto') || !schedeV.classList.contains('mazzo')) return;
+    scrollTo(0, scrollY + schedeV.getBoundingClientRect().top - 88 + carte.indexOf(c) * tratto);
+  });
+  misura();
+}
+/* lista dei prodotti dietro la card: pitture e fissativi in grande, gli accessori in card piccole */
+const principale = x => ['secchio', 'fissativo', 'scudo'].includes(x[0]);
+/* foto del prodotto scontornata (png/webp trasparente, indice del pezzo → file); finché non c'è, l'icona */
+function visuale(k, j, ic){
+  const im = k.immagini && k.immagini[j];
+  return im ? `<span class="vc-foto"><img src="${im}" alt=""></span>` : `<span class="vc-foto vc-icona">${svg(ICONE[ic])}</span>`;
+}
+function carta(k, i, j, grande){
+  const [ic, t, f, pr, cod] = k.pezzi[j];
+  return `<li class="vc${grande ? ' vc-grande' : ''}">${visuale(k, j, ic)}
+    <div class="vc-testo"><b>${t}</b><small>${f}</small>${k.testi && k.testi[j] ? `<span class="vc-desc">${k.testi[j]}</span>` : ''}${k.tinte && k.tinte.p === j ? tinte(k, i) : ''}</div>
+    <div class="vc-piede"><span class="vc-prezzo">${pr == null ? 'Al banco' : euro(pr)}</span></div>
+    <button class="vs-pezzo" type="button" data-k="${i}" data-p="${j}" aria-label="${t}: vedi il dettaglio"></button></li>`;
+}
+/* il titolo ha la stessa grandezza in tutti i kit: la decide il nome più lungo */
+const NOME_MAX = Math.max(...KIT.map(k => k.grande.length));
 KIT.forEach((k, i) => {
   const a = document.createElement('article'); a.className = 'vs'; a.id = 'vs-' + k.id; a.setAttribute('aria-label', k.nome);
-  a.style.cssText = `--c1:${k.c1};--c2:${k.c2};--c3:${k.c3};--t:${k.t};--t2:${k.t2};--n:${k.grande.length}`;
+  a.style.cssText = `--c1:${k.c1};--c2:${k.c2};--c3:${k.c3};--t:${k.t};--t2:${k.t2};--n:${NOME_MAX + 2}`;
   /* due facce che scorrono in orizzontale: davanti il kit, dietro la lista di tutti i prodotti */
   a.innerHTML = `<div class="vs-giro"><div class="vs-binario"><div class="vs-campo">
-    <div class="vs-top"><span class="vs-marca"><svg viewBox="0 0 26 26" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="3"/><circle cx="13" cy="5" r="3"/><circle cx="21" cy="5" r="3"/><circle cx="9" cy="13" r="3"/><circle cx="17" cy="13" r="3"/><circle cx="13" cy="21" r="3"/></svg><span>Al banco dal 1986.<br>Pronto in 24 ore.</span></span><a class="vs-pill" href="tel:+393204173656">Chiedi al banco</a></div>
-    <div class="vs-nome"><h3 class="disp">${k.grande}</h3><span>${k.sotto}</span></div>
+    <div class="vs-top"><span class="vs-marca"><svg viewBox="0 0 26 26" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="3"/><circle cx="13" cy="5" r="3"/><circle cx="21" cy="5" r="3"/><circle cx="9" cy="13" r="3"/><circle cx="17" cy="13" r="3"/><circle cx="13" cy="21" r="3"/></svg><span>Al banco dal 1986.<br>Pronto in 24 ore.</span></span><ul class="vs-targhe" aria-label="Come ricevere il kit"><li>${svg(ICONE.casa)}Ordina e ritira a Strudà</li></ul></div>
+    <div class="vs-nome"><h3 class="disp"><span class="vs-kit">Kit</span>${k.grande}</h3><span>${k.sotto}</span></div>
     <div class="vs-testo"><p>${k.desc}</p></div>
-    <button class="vs-apri" type="button" aria-label="Vedi tutti i prodotti del ${k.nome.toLowerCase()}"><span class="cerchio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span><span>Tutti i prodotti</span></button>
+    <button class="vs-apri" type="button" aria-label="Vedi tutti i prodotti del ${k.nome.toLowerCase()}"><span>Guarda cosa c’è dentro</span><span class="cerchio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span></button>
     <div class="vs-palco" aria-hidden="true">
       ${k.foto ? `<div class="foto"><img src="${k.foto.img}" width="${k.foto.w}" height="${k.foto.h}" alt="">${(k.etichette || []).map(([n, et, x, y]) => `<span class="targa" style="left:${x}%;top:${y}%"><i>${svg(ICONE[k.pezzi[n][0]])}</i>${et}</span>`).join('')}</div>` : `<figure class="quadro"><img src="${k.img}" width="${k.w}" height="${k.h}" alt=""><figcaption>${k.nome}</figcaption></figure>`}
       ${k.prodotto ? `<img class="prodotto" src="${k.prodotto.img}" width="${k.prodotto.w}" height="${k.prodotto.h}" alt="">` : ''}
       ${k.intorno.map(([n, et], j) => `<span class="pezzo p${j + 1}"><i>${svg(ICONE[k.pezzi[n][0]])}</i>${et}</span>`).join('')}
       ${(k.vantaggi || []).map(([ic, t], j) => `<span class="pezzo v${j + 1}"><i>${svg(ICONE[ic])}</i>${t}</span>`).join('')}
       <div class="adesivo"><svg class="giro" viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="#fff"/><text font-family="Figtree" font-weight="700" font-size="11.5" letter-spacing="2.2" fill="#15171C"><textPath href="#cerchio">${k.adesivo}</textPath></text></svg><span class="centro">${svg(ICONE[k.icona])}</span></div></div>
-    <div class="vs-dati"><span class="vs-et">Kit completo</span><b class="vs-prezzo">${euro(k.prezzo)}</b><span class="vs-et">${k.mancano ? `Provvisorio: ${k.mancano === 1 ? 'manca 1 prezzo' : `mancano ${k.mancano} prezzi`}` : `${k.pezzi.length} pezzi ai prezzi del banco`}</span>
-      <div class="vs-compra"><div class="qta" aria-label="Quantità"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output>1</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div><button class="btn" type="button" aria-label="Aggiungi il kit al carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></button></div>
+    <div class="vs-dati"><span class="vs-et">Kit completo</span><b class="vs-prezzo">${euro(k.prezzo)}</b>${k.mancano ? `<span class="vs-et">Provvisorio: ${k.mancano === 1 ? 'manca 1 prezzo' : `mancano ${k.mancano} prezzi`}</span>` : `<p class="vs-nota">${k.pezzi.length} ${k.nota}</p>`}
+      ${tinte(k, i)}<div class="vs-compra"><button class="btn vs-metti" type="button"></button><button class="btn vs-elenco" type="button" aria-label="Vedi i prodotti del ${k.nome.toLowerCase()}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 11V6.5h4V11"/><path d="M8 8h4"/><path d="M15 11V3.5"/><path d="M13.6 3.5h2.8"/><path d="M4 11h16v8.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5Z"/><path d="M4 11 2.5 8h3.5M20 11l1.5-3H18"/><path d="M10 15h4"/></svg></button></div>
       <ul class="vs-info"><li>Ritiro gratis a Strudà</li><li>Ti spieghiamo come usarlo</li></ul></div>
     <div class="vs-piede"><span>${k.nome} · shop in prova</span><span>${due(i + 1)} / ${due(KIT.length)}</span></div>
   </div>
   <div class="vs-lista" inert>
     <div class="vs-lista-testa"><button class="vs-torna" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Torna al kit</button><span class="vs-et">${k.nome} · ${k.pezzi.length} pezzi</span></div>
     <h3 class="disp">Nel kit.</h3>
-    <ul class="vs-pregi" aria-label="Prodotti del ${k.nome.toLowerCase()}">${k.pezzi.map(([ic, t, f, pr], j) => `<li><button class="vs-pezzo" type="button" data-k="${i}" data-p="${j}" aria-label="${t}: vedi il dettaglio"><span class="ic">${svg(ICONE[ic])}</span><span><b>${t}</b><small>${f} · ${pr == null ? 'prezzo da inserire' : euro(pr)}</small></span><svg class="freccia" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>`).join('')}</ul>
+    <div class="vc-griglia">
+      <ul class="vc-top" aria-label="Prodotti principali">${k.pezzi.map((x, j) => principale(x) ? carta(k, i, j, true) : '').join('')}</ul>
+      <ul class="vc-acc" aria-label="Accessori">${k.pezzi.map((x, j) => principale(x) ? '' : carta(k, i, j, false)).join('')}</ul>
+    </div>
     <div class="vs-lista-piede"><div><span class="vs-et">Kit completo</span><b class="vs-prezzo">${euro(k.prezzo)}</b></div><button class="btn vs-tutto" type="button">Aggiungi il kit</button></div>
   </div></div></div>`;
-  let qta = 1; const out = a.querySelector('output');
-  a.querySelectorAll('.qta button').forEach(b => b.addEventListener('click', () => { qta = Math.max(1, Math.min(20, qta + +b.dataset.q)); out.textContent = qta; }));
-  a.querySelector('.vs-compra .btn').addEventListener('click', () => aggiungi(k.id, qta));
-  a.querySelector('.vs-tutto').addEventListener('click', () => aggiungi(k.id, 1));
+  /* se il kit (in quella tinta) è già nel carrello, il pulsante lo dice e apre il carrello invece di aggiungerne un altro */
+  a.querySelectorAll('.vs-metti, .vs-tutto').forEach(b => b.addEventListener('click', () => carrello[idKit(k)] ? apri() : aggiungi(idKit(k), 1)));
   /* freccia: la card scorre sulla lista; la faccia nascosta è inerte, così il tab non ci finisce dentro */
   const faccia = a.querySelector('.vs-campo'), lista = a.querySelector('.vs-lista');
-  const gira = aperta => { a.classList.toggle('lista-aperta', aperta); faccia.inert = aperta; lista.inert = !aperta; (aperta ? lista.querySelector('.vs-torna') : faccia.querySelector('.vs-apri')).focus({preventScroll:true}); };
-  a.querySelector('.vs-apri').addEventListener('click', () => gira(true));
+  /* su telefono le due facce hanno altezze molto diverse: la card prende quella della faccia che si vede */
+  const giro = a.querySelector('.vs-giro'), telefono = matchMedia('(max-width: 900px)');
+  const misuraGiro = () => { giro.style.height = telefono.matches ? (a.classList.contains('lista-aperta') ? lista : faccia).offsetHeight + 'px' : ''; };
+  new ResizeObserver(misuraGiro).observe(faccia); new ResizeObserver(misuraGiro).observe(lista); telefono.addEventListener('change', misuraGiro);
+  const gira = aperta => { a.classList.toggle('lista-aperta', aperta); faccia.inert = aperta; lista.inert = !aperta; misuraGiro();
+    /* su telefono, se l'inizio della card è sopra lo schermo, ci si torna mentre gira */
+    if (telefono.matches && a.getBoundingClientRect().top < 70) scrollTo({top: scrollY + a.getBoundingClientRect().top - 80, behavior: 'smooth'});
+    (aperta ? lista.querySelector('.vs-torna') : faccia.querySelector(telefono.matches ? '.vs-elenco' : '.vs-apri')).focus({preventScroll:true}); };
+  a.querySelectorAll('.vs-apri, .vs-elenco').forEach(b => b.addEventListener('click', () => gira(true)));
   a.querySelector('.vs-torna').addEventListener('click', () => gira(false));
-  schedeV.appendChild(a);
+  palcoKit.appendChild(a);
 });
+mazzo();
 
 /* articoli dei kit dal gestionale (export del 26/10/2026): nome, descrizione, marca, categoria, prezzo di vendita, unità. Niente costi. */
 const CATALOGO = {
+  /* non ancora nel gestionale: prezzo dato dal banco il 27/10/2026, codice da assegnare */
+  'BANCO-fissativo-1l':{"nome": "Fissativo - 1 l", "desc": "", "marca": "", "cat": "Pitture per muri", "prezzo": 8.0, "unita": "PZ"},
   'ART-000266':{"nome": "Nastro in carta per esterno", "desc": "Nastro di carta per esterno: adesivo per mascheratura resistente ai raggi UV, si usa per verniciature all'aperto senza lasciare residui di colla.", "marca": "ADS", "cat": "Nastri adesivi", "prezzo": 5.0, "unita": "PZ"},
   'ART-001545':{"nome": "Ecoeasy Venus al quarzo - 14 l", "desc": "Pittura al quarzo Ecoeasy Venus, 14 litri: rivestimento murale riempitivo per facciate e pareti esterne.", "marca": "", "cat": "Pitture per muri", "prezzo": 45.0, "unita": "PZ"},
   'ART-000832':{"nome": "Guanti in nylon spalmati NBR grigi - taglia 9", "desc": "Guanti in nylon spalmati in NBR (nitrile) grigio, taglia 9: palmo rivestito per una presa salda in lavori di manutenzione, montaggio e movimentazione.", "marca": "", "cat": "Guanti", "prezzo": 1.5, "unita": "PZ"},
@@ -521,15 +816,20 @@ const CATALOGO = {
   'ART-001281':{"nome": "Spatole in acciaio - set da 4 (50-80-100-120 mm)", "desc": "Set di 4 spatole in acciaio, larghezze 50-80-100-120 mm; per stuccare, rasare e rimuovere vernice e residui.", "marca": "", "cat": "Attrezzi da cantiere", "prezzo": 3.8, "unita": "PZ"},
   'ART-000569':{"nome": "Carta abrasiva AW-C grana 120 - rotolo h 12 cm x 100 m", "desc": "Rotolo di carta abrasiva Sait linea AW-C, grana 120, altezza 12 cm, lunghezza 100 metri: per levigatura fine di legno e superfici verniciate.", "marca": "Sait", "cat": "Abrasivi e dischi", "prezzo": 1.2, "unita": "MT"},
   'ART-001143':{"nome": "Retina in plastica per rullo 20 cm", "desc": "Retina in plastica per vaschetta portarullo, 20 cm: griglia da inserire nella vaschetta per stendere il rullo e togliere la vernice in eccesso prima di applicarla.", "marca": "", "cat": "Pennelli e rulli", "prezzo": 1.5, "unita": "PZ"},
+  'ART-000625':{"nome": "Impregnante Classic 072 noce chiaro - 0,75 l", "desc": "Impregnante Arreghini linea \"Classic\", colore noce chiaro, da 0,750 litri: prodotto protettivo e colorante per il legno esterno, come recinzioni, pergole e infissi, che ne esalta la venatura.", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 9.0, "unita": "PZ"},
+  'ART-001527':{"nome": "Impregnante Classic 077 douglas - 0,75 l", "desc": "Impregnante per legno linea Classic, tinta 077 douglas, 0,750 litri: protegge e colora infissi, travi, perline e mobili da giardino.", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 9.0, "unita": "PZ"},
+  'ART-000626':{"nome": "Impregnante Classic W 080 castagno - 0,75 l", "desc": "Impregnante Arreghini linea \"Classic W\" (versione ad acqua), colore castagno, da 0,750 litri: prodotto protettivo e colorante per il legno esterno, come recinzioni, pergole e infissi.", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 9.0, "unita": "PZ"},
+  'ART-001531':{"nome": "Impregnante Classic W 075 mogano - 0,75 l", "desc": "Impregnante all'acqua per legno linea Classic W, tinta 075 mogano, 0,750 litri: protegge e colora il legno con poco odore, anche in interni.", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 9.0, "unita": "PZ"},
   'ART-001529':{"nome": "Impregnante Classic 079 noce antico - 0,75 l", "desc": "Impregnante per legno linea Classic, tinta 079 noce antico, 0,750 litri: protegge e colora infissi, travi, perline e mobili da giardino.", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 9.0, "unita": "PZ"},
   'ART-002741':{"nome": "Finitura Special UV Matt 070 incolore - 0,75 l", "desc": "", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 16.0, "unita": "PZ"},
 };
 
 /* ---------- dettaglio dei pezzi del kit ---------- */
 /* il codice di un pezzo può essere 'ART-x', 'ART-x ×2' o 'ART-x + ART-y': da qui gli articoli veri e quanti ne servono al kit */
-const articoliDi = s => (s || '').split('+').map(x => { const c = x.match(/ART-\d+/); return c && [c[0], +((x.match(/×\s*(\d+)/) || [])[1] || 1)]; }).filter(Boolean);
+/* gli articoli BANCO-… hanno il prezzo del banco ma non ancora un codice nel gestionale */
+const articoliDi = s => (s || '').split('+').map(x => { const c = x.match(/ART-\d+|BANCO-[\w-]+/); return c && [c[0], +((x.match(/×\s*(\d+)/) || [])[1] || 1)]; }).filter(Boolean);
 /* ogni articolo dei kit si può comprare anche da solo: entra nel carrello con l'icona e il colore del suo kit */
-KIT.forEach(k => k.pezzi.forEach(x => articoliDi(x[4]).forEach(([cod]) => {
+KIT.forEach(k => [...k.pezzi, ...(k.tinte ? k.tinte.scelte.map(([c]) => [k.pezzi[k.tinte.p][0], , , , c]) : [])].forEach(x => articoliDi(x[4]).forEach(([cod]) => {
   if (CATALOGO[cod] && !ARTICOLI.some(a => a.id === cod)) ARTICOLI.push({id:cod, nome:CATALOGO[cod].nome, prezzo:CATALOGO[cod].prezzo, c:k.c1, icona:x[0]});
 })));
 const dettaglio = $('#dettaglio'), dArticoli = $('#d-articoli');
@@ -541,22 +841,29 @@ function apriDettaglio(ki, pi, da){
   dArticoli.innerHTML = arts.length ? arts.map(([c, n]) => { const a = CATALOGO[c]; return `<article class="d-art" data-id="${c}">
       <div class="d-testa"><span class="d-ic">${svg(ICONE[ic])}</span><div><span class="d-et">${[a.cat, a.marca].filter(Boolean).join(' · ')}</span><h3>${a.nome}</h3></div></div>
       ${a.desc ? `<p>${a.desc}</p>` : ''}
-      <div class="d-compra"><b class="d-prezzo">${euro(a.prezzo)}<small>${a.unita === 'MT' ? 'al metro' : 'al pezzo'}</small></b>
-        <div class="qta" aria-label="Quantità"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output>${n}</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div>
-        <button class="btn" type="button" aria-label="Aggiungi ${a.nome} al carrello">Aggiungi</button></div>
-      <span class="codice">Cod. ${c}${n > 1 ? ` · nel kit ne trovi ${n}` : ''}</span></article>`; }).join('')
+      <div class="d-compra"><b class="d-prezzo">${euro(a.prezzo)}<small>${a.unita === 'MT' ? 'al metro' : 'al pezzo'}</small></b></div>
+      <span class="codice">${c.startsWith('BANCO-') ? 'Al banco' : `Cod. ${c}`}${n > 1 ? ` · nel kit ne trovi ${n}` : ''}</span></article>`; }).join('')
     : `<div class="d-art"><p>Questo pezzo non è ancora nello shop online: lo trovi al banco. Chiamaci e te lo prepariamo.</p><a class="btn rosso" href="tel:+393204173656">Chiama 320 417 3656</a></div>`;
+  /* i pezzi del kit non si vendono da soli: dal dettaglio si prende il kit intero */
+  dArticoli.insertAdjacentHTML('beforeend', `<div class="d-solo-kit"><p>Questo prodotto si vende solo nel ${k.nome.toLowerCase()}${k.tinte && k.tinte.p === pi ? `, tinta ${tintaDi(k)[1].toLowerCase()}` : ''}.</p><button class="btn" type="button" data-kit="${ki}">Aggiungi il kit · ${euro(k.prezzo)}</button></div>`);
   tornaA = da; dettaglio.classList.add('aperta'); dettaglio.setAttribute('aria-hidden', 'false'); dettaglio.querySelector('.chiudi').focus();
 }
 function chiudiDettaglio(){ dettaglio.classList.remove('aperta'); dettaglio.setAttribute('aria-hidden', 'true'); if (tornaA) tornaA.focus(); }
 schedeV.addEventListener('click', e => { const b = e.target.closest('.vs-pezzo'); if (b) apriDettaglio(+b.dataset.k, +b.dataset.p, b); });
+/* scegliere una tinta cambia l'articolo dell'impregnante nel kit: dettaglio e carrello seguono la scelta */
+schedeV.addEventListener('click', e => {
+  const b = e.target.closest('.tinta'); if (!b) return;
+  const k = KIT[+b.dataset.k], art = b.closest('.vs');
+  k.pezzi[k.tinte.p][4] = b.dataset.cod;
+  art.querySelectorAll('.tinta').forEach(x => x.setAttribute('aria-checked', x.dataset.cod === b.dataset.cod));
+  art.querySelectorAll('.tinta-nome').forEach(x => { x.textContent = tintaDi(k)[1]; });
+  segna();
+});
 dettaglio.addEventListener('click', e => {
   if (e.target === dettaglio || e.target.closest('.chiudi')) return chiudiDettaglio();
-  const art = e.target.closest('.d-art[data-id]'); if (!art) return;
-  const out = art.querySelector('output'), q = e.target.closest('.qta button');
-  if (q) { out.textContent = Math.max(1, Math.min(99, +out.textContent + +q.dataset.q)); return; }
-  const add = e.target.closest('.d-compra .btn');
-  if (add) { aggiungi(art.dataset.id, +out.textContent); add.textContent = 'Aggiunto ✓'; setTimeout(() => { add.textContent = 'Aggiungi'; }, 1200); }
+  const add = e.target.closest('[data-kit]'); if (!add) return;
+  const testo = add.textContent; aggiungi(idKit(KIT[+add.dataset.kit]), 1);
+  add.textContent = 'Kit aggiunto ✓'; setTimeout(() => { add.textContent = testo; }, 1200);
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && dettaglio.classList.contains('aperta')) chiudiDettaglio(); });
 
@@ -579,7 +886,8 @@ PRODOTTI.forEach((p, i) => {
     <div class="etichetta"><div><b>${p.nome}</b><span class="codice">${euro(p.prezzo)}</span></div><button class="aggiungi" type="button" aria-label="Aggiungi ${p.nome} al carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>`;
   if (scheda) a.querySelector('.campo').addEventListener('click', () => scheda.scrollIntoView({behavior:'smooth', block:'start'}));
   const piu = a.querySelector('.aggiungi');
-  piu.addEventListener('click', () => { aggiungi(p.id, 1); piu.classList.add('fatto'); setTimeout(() => piu.classList.remove('fatto'), 600); });
+  piu.dataset.id = p.id;
+  piu.addEventListener('click', () => { if (carrello[p.id]) return apri(); aggiungi(p.id, 1); piu.classList.add('fatto'); setTimeout(() => piu.classList.remove('fatto'), 600); });
   griglia.appendChild(a);
 });
 document.querySelectorAll('[data-filtro]').forEach(a => a.addEventListener('click', () => filtra(a.dataset.filtro)));
@@ -599,6 +907,22 @@ function disegna(){
     return `<li style="--c:${p.c}">${p.img ? `<img src="${p.img}" alt="">` : `<span class="ico">${svg(ICONE[p.icona])}</span>`}<div><p>${p.nome}</p><small>${n} × ${euro(p.prezzo)}</small></div><div class="qta"><button type="button" data-id="${id}" data-d="-1" aria-label="Uno in meno">−</button><output>${n}</output><button type="button" data-id="${id}" data-d="1" aria-label="Uno in più">+</button></div></li>`; }).join('')
     : '<li class="vuoto">Il carrello è vuoto.</li>';
   $('#totale').textContent = euro(voci.reduce((s, [id, n]) => s + n * ARTICOLI.find(x => x.id === id).prezzo, 0));
+  segna();
+}
+/* i pulsanti "aggiungi" cambiano icona quando l'articolo è già nel carrello */
+function segna(){
+  KIT.forEach(k => {
+    const a = document.getElementById('vs-' + k.id); if (!a) return;
+    const c = !!carrello[idKit(k)], m = a.querySelector('.vs-metti'), t = a.querySelector('.vs-tutto');
+    m.innerHTML = `${c ? BORSA_OK : BORSA}<span>${c ? 'Nel carrello' : 'Aggiungi il kit'}</span>`; m.classList.toggle('dentro', c);
+    m.setAttribute('aria-label', c ? `${k.nome} è nel carrello: apri il carrello` : `Aggiungi il ${k.nome.toLowerCase()} al carrello`);
+    t.innerHTML = c ? `${BORSA_OK}<span>Nel carrello</span>` : 'Aggiungi il kit'; t.classList.toggle('dentro', c);
+  });
+  document.querySelectorAll('.lama .aggiungi[data-id]').forEach(b => {
+    const c = !!carrello[b.dataset.id], nome = b.closest('.lama').querySelector('b').textContent;
+    b.innerHTML = c ? SPUNTA : PIU; b.classList.toggle('dentro', c);
+    b.setAttribute('aria-label', c ? `${nome} è nel carrello: apri il carrello` : `Aggiungi ${nome} al carrello`);
+  });
 }
 $('#voci-cassa').addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (!b) return; carrello[b.dataset.id] = Math.max(0, (carrello[b.dataset.id] || 0) + +b.dataset.d); salva(); disegna(); });
 const cassa = $('#cassa');
