@@ -72,43 +72,99 @@ a{color:inherit}
 .lama .etichetta b{font:700 17px/1.15 var(--f-testo)}
 .foro{flex:none;width:18px;height:18px;border-radius:50%;background:var(--inchiostro);box-shadow:inset 0 0 0 5px #3a3f48}
 
-/* vetrina: un prodotto alla volta, gli altri sbucano a destra */
 .sez{padding:96px var(--gutter) 0}
 .sez-testa{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px 48px;margin-bottom:36px}
 .sez-testa h2{font-size:clamp(36px,5vw,84px);max-width:14ch}
 .sez-testa p{margin:0;max-width:40ch;color:var(--grigio)}
-.vetrina{min-height:600px}
-.vetrina .campo{display:grid;grid-template-columns:minmax(300px,.8fr) 1.2fr;transition:background .6s var(--ease),color .6s var(--ease)}
-.vetrina .campo::before{content:"";position:absolute;inset:0;background:var(--incisione) center/cover no-repeat;opacity:.14;mix-blend-mode:multiply;filter:grayscale(1) contrast(1.3);pointer-events:none}
-.scheda{position:relative;z-index:2;padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:space-between;gap:28px}
-.scheda .cat{font:500 15px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;opacity:.8}
-.scheda h3{font-size:clamp(40px,4.8vw,80px);margin-top:12px}
-.scheda p.desc{margin:16px 0 0;max-width:34ch;font-size:17px;opacity:.92}
-.pregi{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.pregi li{padding:9px 14px;border-radius:999px;background:var(--bianco);color:var(--inchiostro);font:500 15px/1 var(--f-testo)}
-.compra{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px}
-.prezzo{display:grid;gap:4px}
-.prezzo b{font:800 clamp(34px,3.4vw,52px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100}
-.prezzo span{font:500 13px/1 var(--f-mono);letter-spacing:.04em;opacity:.8}
 .qta{display:inline-flex;align-items:center;border-radius:12px;background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1.5px currentColor}
 .qta button{all:unset;cursor:pointer;width:40px;height:50px;display:grid;place-items:center;font-size:20px;font-weight:700}
 .qta output{min-width:22px;text-align:center;font-weight:700}
-.palco{position:relative;z-index:1;min-height:520px}
-.pezzo{position:absolute;left:14%;top:50%;width:min(44%,330px);border:0;background:none;padding:0;cursor:pointer;transform-origin:50% 60%;
-  transition:transform .8s var(--ease),filter .8s var(--ease),opacity .6s ease;filter:drop-shadow(0 30px 30px rgba(0,0,0,.35))}
-.pezzo img{width:100%;height:auto;pointer-events:none}
-.pezzo[data-pos="0"]{transform:translate(0,-55%) rotate(-6deg);z-index:3;cursor:default;animation:galleggia 6s ease-in-out infinite}
-.pezzo[data-pos="1"]{transform:translate(122%,-46%) rotate(5deg) scale(.5);z-index:2}
-.pezzo[data-pos="2"]{transform:translate(210%,-44%) rotate(9deg) scale(.4);z-index:1}
-.pezzo[data-pos="-1"]{transform:translate(-110%,-50%) rotate(-12deg) scale(.6);opacity:0;pointer-events:none}
-.pezzo[data-pos="3"],.pezzo[data-pos="4"]{transform:translate(290%,-44%) scale(.35);opacity:0;pointer-events:none}
-.pezzo.largo{width:min(66%,480px);left:6%}
 @keyframes galleggia{50%{translate:0 -10px}}
-.vetrina .etichetta{flex-wrap:wrap}
-.schede{display:flex;gap:6px;flex-wrap:wrap}
-.schede button{all:unset;cursor:pointer;font-weight:500;font-size:15px;padding:9px 14px;border-radius:999px;box-shadow:inset 0 0 0 1.5px #D3D6DC;transition:background .2s var(--ease)}
-.schede button[aria-selected="true"]{background:var(--inchiostro);color:var(--bianco);box-shadow:none}
-.avanti{display:flex;align-items:center;gap:14px}
+
+/* kit in vetrina: una scheda a tutto schermo per kit, come una landing.
+   Cornice bianca come le lame dei reparti, campo sfumato nel colore del prodotto; scorrendo le schede si impilano */
+.schede-v{display:grid;gap:28px}
+.vs{position:sticky;top:88px;display:grid;min-height:max(600px,min(calc(100svh - 112px),780px));background:var(--bianco);border-radius:28px;padding:10px;box-shadow:0 -18px 40px -30px rgba(21,23,28,.5)}
+.vs-giro{position:relative;overflow:hidden;border-radius:20px}
+.vs-binario{display:flex;height:100%;transition:transform .7s var(--ease)}
+.vs-binario > *{flex:0 0 100%;min-width:0}
+.vs.lista-aperta .vs-binario{transform:translateX(-100%)}
+.vs-campo{position:relative;overflow:hidden;border-radius:20px;color:var(--t);
+  background:radial-gradient(36% 56% at 73% 54%,var(--c3) 0,transparent 72%),radial-gradient(60% 70% at 4% 100%,var(--c2) 0,transparent 70%),linear-gradient(140deg,var(--c1),var(--c2));
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);grid-template-rows:auto auto auto 1fr auto;gap:14px clamp(20px,3vw,40px);padding:clamp(22px,3vw,40px)}
+.vs-top{grid-column:1/-1;grid-row:1;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;line-height:1.3;font-weight:500}
+.vs-marca{display:flex;align-items:center;gap:14px}
+.vs-marca svg{width:26px;height:26px;flex:none}
+.vs-pill{text-decoration:none;font-weight:600;font-size:13px;padding:9px 16px;border-radius:999px;box-shadow:inset 0 0 0 1.5px currentColor;white-space:nowrap}
+.vs-nome{grid-column:1/-1;grid-row:2;z-index:2;display:flex;align-items:flex-start;gap:18px}
+.vs-nome h3{font-size:min(150px,10vw,calc(58vw / (var(--n) * .9)));line-height:.82}
+.vs-nome span{font-size:15px;line-height:1.3;font-weight:500;padding-top:.6em;max-width:16ch}
+.vs-testo{grid-column:1;grid-row:3;align-self:start;z-index:4;display:grid;gap:18px}
+.vs-testo p{margin:0;max-width:34ch;font-size:16px;line-height:1.5;opacity:.9}
+.vs-pregi{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.vs-pregi li{min-width:0}
+.vs-pezzo{all:unset;box-sizing:border-box;width:calc(100% + 12px);cursor:pointer;position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:center;margin:-3px -6px;padding:3px 6px;border-radius:10px;transition:background .2s var(--ease)}
+.vs-pezzo:focus-visible{outline:2px solid currentColor;outline-offset:1px}
+/* la freccia non occupa spazio: compare al passaggio del mouse, sul bordo destro */
+.vs-pezzo .freccia{position:absolute;right:6px;top:50%;translate:0 -50%;width:14px;height:14px;opacity:0;transition:transform .2s var(--ease),opacity .2s}
+@media (hover:hover) and (pointer:fine){.vs-pezzo:hover{background:color-mix(in srgb,currentColor 12%,transparent)}.vs-pezzo:hover .freccia{opacity:1;transform:translateX(2px)}}
+.vs-pregi .ic{width:34px;height:34px;border-radius:50%;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,currentColor 55%,transparent);display:grid;place-items:center}
+.vs-pregi .ic svg{width:17px;height:17px}
+.vs-pregi b{display:block;font-size:14px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs-pregi small{display:block;font:500 12px/1.3 var(--f-mono);opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vs-palco{grid-column:2;grid-row:2/5;z-index:3;position:relative;min-height:420px}
+.vs-palco::before{content:"";position:absolute;inset:8% 2%;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c3) 70%,#fff),transparent);opacity:.75;filter:blur(8px)}
+/* l'ambiente del kit come una cartolina, con i pezzi del kit che galleggiano intorno */
+.vs-palco .quadro{position:absolute;left:44%;top:50%;width:min(64%,320px);aspect-ratio:2/3;translate:-50% -50%;rotate:-6deg;margin:0;background:#fff;padding:8px 8px 34px;border-radius:6px;box-shadow:0 34px 40px -18px rgba(0,0,0,.45)}
+.vs-palco .quadro img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+.vs-palco .quadro figcaption{position:absolute;left:12px;bottom:11px;font:500 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--grigio)}
+.vs-palco .foto{position:absolute;left:25%;top:55%;width:min(138%,750px);translate:-50% -50%}
+.vs-palco .foto img{display:block;width:100%;height:auto;filter:drop-shadow(0 28px 26px rgba(0,0,0,.28))}
+/* targhetta accanto a ogni prodotto della foto: x/y in % della foto, centro della targhetta */
+.vs-palco .targa{position:absolute;translate:-50% -50%;display:flex;align-items:center;gap:6px;padding:5px 11px 5px 5px;border-radius:999px;background:#fff;color:var(--inchiostro);font:600 12px/1 var(--f-testo);white-space:nowrap;box-shadow:0 10px 18px -10px rgba(0,0,0,.5)}
+.vs-palco .targa i{width:22px;height:22px;border-radius:50%;background:var(--c1);color:var(--t);display:grid;place-items:center}
+.vs-palco .targa svg{width:13px;height:13px}
+.vs-palco .prodotto{position:absolute;right:0;bottom:4%;width:min(42%,200px);height:auto;rotate:8deg;filter:drop-shadow(0 30px 26px rgba(0,0,0,.4));animation:galleggia 6s ease-in-out infinite}
+.vs-palco .pezzo{position:absolute;display:flex;align-items:center;gap:8px;padding:7px 14px 7px 7px;border-radius:999px;background:#fff;color:var(--inchiostro);font:600 13px/1 var(--f-testo);white-space:nowrap;box-shadow:0 14px 24px -12px rgba(0,0,0,.45);animation:galleggia 5s ease-in-out infinite}
+.vs-palco .pezzo i{width:30px;height:30px;border-radius:50%;background:var(--c1);color:var(--t);display:grid;place-items:center}
+.vs-palco .pezzo svg{width:16px;height:16px}
+.vs-palco .p1{left:0;top:14%}
+.vs-palco .p2{right:0;top:40%;animation-delay:-1.7s}
+.vs-palco .p3{left:6%;bottom:12%;animation-delay:-3.4s}
+.vs-palco .v1{left:0;bottom:10%}
+.vs-palco .v2{right:0;top:30%;animation-delay:-1.7s}
+.vs-palco .v3{right:4%;bottom:8%;animation-delay:-3.4s}
+.vs-palco .adesivo{right:10%;bottom:4%}
+.vs-palco .prodotto ~ .adesivo{right:auto;bottom:auto;left:-2%;top:38%}
+.vs-palco .foto ~ .adesivo{right:auto;bottom:auto;left:calc(1% + 15px);top:calc(7% + 15px);width:88px;height:88px}
+.vs-dati{grid-column:1;grid-row:4;align-self:start;justify-self:start;width:min(100%,300px);margin-top:14px;z-index:4;display:grid;grid-template-columns:1fr;row-gap:6px;padding:20px;border-radius:18px;background:color-mix(in srgb,var(--t2) 22%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--t) 18%,transparent)}
+.vs-et{font:500 12px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;opacity:.8}
+.vs-prezzo{font:800 clamp(40px,3.6vw,58px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100;margin:4px 0 2px}
+.vs-dati > .vs-et,.vs-dati > .vs-prezzo{grid-column:1}
+.vs-compra{display:flex;flex-wrap:nowrap;gap:10px;margin-top:10px}
+.vs-compra .btn{--bg:var(--t);--fg:var(--t2);flex:none;width:50px;height:50px;padding:0;justify-content:center}
+.vs-compra .btn svg{width:22px;height:22px}
+.vs-info{grid-column:1/-1;list-style:none;margin:10px 0 0;padding:12px 0 0;border-top:1px solid color-mix(in srgb,currentColor 25%,transparent);display:grid;gap:4px;font-size:13px}
+.vs-info li::before{content:"✓  "}
+.vs-apri{all:unset;cursor:pointer;position:absolute;right:clamp(14px,1.6vw,22px);top:50%;translate:0 -50%;z-index:6;display:grid;justify-items:center;gap:8px;font:600 13px/1.2 var(--f-testo);color:var(--t);text-align:center}
+.vs-apri .cerchio{width:58px;height:58px;border-radius:50%;background:var(--t);color:var(--t2);display:grid;place-items:center;box-shadow:0 16px 30px -12px rgba(0,0,0,.55);transition:transform .25s var(--ease)}
+.vs-apri svg{width:26px;height:26px}
+.vs-apri:focus-visible .cerchio{outline:3px solid var(--t);outline-offset:3px}
+@media (hover:hover) and (pointer:fine){.vs-apri:hover .cerchio{transform:translateX(4px)}}
+/* faccia dietro: tutti i prodotti del kit, cliccabili */
+.vs-lista{color:var(--t);background:radial-gradient(60% 70% at 100% 0,color-mix(in srgb,var(--c3) 35%,transparent),transparent 70%),linear-gradient(140deg,var(--c1),var(--c2));border-radius:20px;padding:clamp(22px,3vw,40px);display:flex;flex-direction:column;gap:22px}
+.vs-lista-testa{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.vs-lista-testa .vs-et{text-align:right}
+.vs-torna{all:unset;cursor:pointer;flex:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px;padding:9px 16px 9px 10px;border-radius:999px;box-shadow:inset 0 0 0 1.5px currentColor}
+.vs-torna svg{width:18px;height:18px}
+.vs-torna:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+.vs-lista h3{font-size:clamp(48px,6.4vw,104px)}
+.vs-lista .vs-pregi{margin:0;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.vs-lista .vs-pezzo{width:100%;margin:0;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--t2) 16%,transparent)}
+.vs-lista-piede{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:16px 24px;flex-wrap:wrap}
+.vs-lista-piede > div{display:grid;gap:4px}
+.vs-tutto{--bg:var(--t);--fg:var(--t2)}
+.vs-piede{grid-column:1/-1;grid-row:5;display:flex;justify-content:space-between;font:500 12px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;opacity:.75}
 
 /* adesivo rotondo con la scritta che gira */
 .adesivo{position:absolute;z-index:4;width:118px;height:118px;display:grid;place-items:center;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}
@@ -116,8 +172,6 @@ a{color:inherit}
 .adesivo .centro{position:relative;width:54%;height:54%;border-radius:50%;background:var(--c,var(--rosso));color:var(--t,#fff);display:grid;place-items:center;transition:background .6s var(--ease),color .6s var(--ease)}
 .adesivo .centro svg{width:46%;height:46%}
 @keyframes giro{to{transform:rotate(360deg)}}
-.vetrina .adesivo{right:clamp(16px,3vw,40px);top:clamp(16px,3vw,36px)}
-.kit .adesivo{right:-14px;top:-18px;--c:var(--rosso);--t:#fff}
 /* fascia scura con i dati, come nel colorificio */
 .fascia{background:var(--inchiostro);color:var(--bianco);margin-top:96px;padding:96px var(--gutter)}
 .fascia h2{font-size:clamp(36px,5vw,84px);margin-bottom:40px;max-width:16ch}
@@ -126,18 +180,6 @@ a{color:inherit}
 .dati dt{font:600 17px/1.3 var(--f-testo)}
 .dati dd{margin:0;min-width:0;font-size:17px;line-height:1.4;color:var(--grigio-chiaro)}
 .dati .valore{font:800 clamp(30px,4.2vw,62px)/.95 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100;text-transform:uppercase;letter-spacing:-.015em;white-space:nowrap;color:var(--bianco)}
-
-/* kit */
-.kit{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
-.kit .lama{min-height:440px}
-.kit .campo{background:linear-gradient(180deg,rgba(254,252,248,.35),rgba(254,252,248,.85)),url(img/tavola-interni.webp) center/cover}
-.kit .campo img{position:absolute}
-.kit .s1{width:44%;left:10%;bottom:12%;transform:rotate(-6deg);filter:drop-shadow(0 22px 20px rgba(0,0,0,.32))}
-.kit .s2{width:62%;right:4%;bottom:20%;transform:rotate(14deg);filter:drop-shadow(0 14px 12px rgba(0,0,0,.3))}
-.kit h2{font-size:clamp(36px,4.4vw,72px)}
-.kit p{color:var(--grigio);max-width:40ch}
-.elenco{list-style:none;margin:28px 0 32px;padding:0;border-top:2px solid var(--inchiostro)}
-.elenco li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid #CDD1D8;font-weight:500}
 
 /* catalogo: le card dei reparti */
 .filtri{display:flex;gap:6px;flex-wrap:wrap}
@@ -181,6 +223,8 @@ a{color:inherit}
 .voci-cassa{list-style:none;margin:20px 0;padding:0;display:grid;gap:12px;overflow:auto;flex:1;align-content:start}
 .voci-cassa li{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center}
 .voci-cassa img{width:60px;height:60px;object-fit:contain;background:var(--c);border-radius:10px;padding:6px}
+.voci-cassa .ico{width:60px;height:60px;border-radius:10px;background:var(--c);color:#fff;display:grid;place-items:center}
+.voci-cassa .ico svg{width:26px;height:26px}
 .voci-cassa p{margin:0;font-weight:700;font-size:15px;line-height:1.2}
 .voci-cassa small{font:500 12px/1 var(--f-mono);color:var(--grigio)}
 .voci-cassa .qta{box-shadow:inset 0 0 0 1.5px #D3D6DC;background:none}
@@ -190,6 +234,26 @@ a{color:inherit}
 .totale b{font:800 32px/1 var(--f-display)}
 .cassa .nota{font-size:14px;color:var(--grigio);margin:10px 0 16px}
 .cassa .btn{justify-content:center}
+/* dettaglio di un pezzo del kit: finestra al centro dello schermo, sopra la pagina scurita */
+.scheda-prodotto::before{background:rgba(21,23,28,.55)}
+.scheda-prodotto .pannello{top:50%;left:50%;right:auto;bottom:auto;width:min(560px,calc(100% - 24px));max-height:calc(100% - 48px);overflow:auto;padding:30px;border-radius:20px;
+  transform:translate(-50%,-46%) scale(.96);opacity:0;transition:transform .35s var(--ease),opacity .25s ease;box-shadow:0 40px 80px -30px rgba(0,0,0,.5)}
+.scheda-prodotto.aperta .pannello{transform:translate(-50%,-50%);opacity:1}
+.scheda-prodotto .d-kit{font:500 12px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--grigio);padding-right:48px}
+.scheda-prodotto h2{margin-top:8px;padding-right:40px}
+.d-art{display:grid;gap:14px;padding:18px;border-radius:14px;background:var(--carta);margin-top:18px}
+.d-testa{display:flex;gap:14px;align-items:flex-start}
+.d-ic{flex:none;width:54px;height:54px;border-radius:12px;background:var(--c);color:#fff;display:grid;place-items:center}
+.d-ic svg{width:26px;height:26px}
+.d-et{font:500 12px/1.2 var(--f-mono);letter-spacing:.04em;color:var(--grigio)}
+.d-art h3{margin:4px 0 0;font:700 17px/1.25 var(--f-testo)}
+.d-art p{margin:0;font-size:15px;line-height:1.5;color:var(--inchiostro-2)}
+.d-compra{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.d-prezzo{display:grid;gap:3px;margin-right:auto;font:800 28px/1 var(--f-display);font-stretch:100%;font-variation-settings:"wdth" 100}
+.d-prezzo small{font:500 12px/1 var(--f-mono);color:var(--grigio)}
+.d-compra .qta{background:var(--bianco);box-shadow:inset 0 0 0 1.5px #D3D6DC}
+.d-compra .qta button{width:36px;height:46px}
+.d-compra .btn{min-width:112px;justify-content:center}
 
 @media (max-width:1180px){.menu .stato{display:none}}
 @media (max-width:900px){
@@ -197,19 +261,36 @@ a{color:inherit}
   .menu{grid-template-columns:1fr auto}
   .carrello .testo{display:none}
   .testata{padding-top:118px}
-  .vetrina .campo{grid-template-columns:1fr}
-  .palco{order:-1;min-height:380px}
-  .pezzo{left:22%;width:min(54%,250px)}
-  .pezzo.largo{left:6%;width:min(84%,380px)}
-  .pezzo[data-pos="1"]{transform:translate(106%,-40%) rotate(5deg) scale(.42)}
-  .pezzo[data-pos="2"]{opacity:0}
+  /* su telefono le schede non si impilano: una sotto l'altra, in colonna */
+  .vs{position:relative;top:auto;min-height:0;border-radius:22px}
+  .vs-campo{grid-template-columns:1fr;grid-template-rows:none;grid-template-areas:"top" "nome" "palco" "testo" "dati" "apri" "piede";gap:20px;
+    background:radial-gradient(70% 34% at 50% 34%,var(--c3) 0,transparent 72%),linear-gradient(170deg,var(--c1),var(--c2))}
+  .vs-top{grid-area:top}.vs-nome{grid-area:nome}.vs-palco{grid-area:palco}.vs-testo{grid-area:testo}.vs-dati{grid-area:dati}.vs-piede{grid-area:piede}
+  .vs-nome{flex-direction:column;gap:10px}
+  .scheda-prodotto .pannello{padding:22px 18px}
+  .scheda-prodotto h2{font-size:26px}
+  .d-art{padding:14px}
+  .vs-dati{width:100%;margin-top:0}
+  .vs-apri{grid-area:apri;position:static;translate:none;display:flex;justify-content:center;align-items:center;gap:12px;padding:10px;border-radius:14px;box-shadow:inset 0 0 0 1.5px currentColor;font-size:15px}
+  .vs-apri span:last-child{order:-1}
+  .vs-apri .cerchio{width:36px;height:36px;box-shadow:none}
+  .vs-apri svg{width:20px;height:20px}
+  .vs-lista .vs-pregi{grid-template-columns:1fr}
+  .vs-lista h3{font-size:44px}
+  .vs-marca span{display:none}
+  .vs-nome h3{font-size:min(22vw,calc(82vw / (var(--n) * .9)))}
+  .vs-nome span{padding-top:0;max-width:none}
+  .vs-palco{min-height:340px}
+  .vs-palco .quadro{width:min(52%,190px)}
+  .vs-palco .prodotto{width:min(36%,140px)}
+  .vs-palco .foto{width:100%;left:50%}
+  .vs-palco .targa{font-size:10px;gap:4px;padding:3px 8px 3px 3px}
+  .vs-palco .targa i{width:18px;height:18px}
+  .vs-palco .targa svg{width:11px;height:11px}
+  .vs-palco .pezzo{font-size:12px}
   .adesivo{width:92px;height:92px}
-  .kit .adesivo{right:-6px}
-  .scheda{padding:8px 22px 28px}
   .dati > div{grid-template-columns:1fr auto;gap:4px 16px}
   .dati dd:last-child{grid-column:1 / -1}
-  .kit{grid-template-columns:1fr}
-  .kit .lama{min-height:360px}
   .piede-griglia{grid-template-columns:1fr 1fr}
   .piede-griglia > :first-child{grid-column:1 / -1}
 }
@@ -235,7 +316,7 @@ a{color:inherit}
     <div class="testata-piede">
       <p>Scegli qui pitture, smalti e pennelli: li prepariamo al banco, anche nella tinta che vuoi, e li ritiri a Strudà senza spese.</p>
       <div class="azioni">
-        <a class="btn bianco" href="#scaffali">Vedi gli scaffali <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+        <a class="btn bianco" href="#vetrina">Vedi i kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
         <a class="btn contorno" href="tel:+393204173656"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Chiama 320 417 3656</a>
       </div>
     </div>
@@ -244,36 +325,12 @@ a{color:inherit}
   <!-- vetrina -->
   <section class="sez" id="vetrina" aria-labelledby="t-vetrina">
     <div class="sez-testa">
-      <h2 class="disp" id="t-vetrina">In vetrina.</h2>
-      <p>Un prodotto alla volta, come sul banco: guardalo, scegli quanti e mettilo nel carrello.</p>
+      <h2 class="disp" id="t-vetrina">I kit del banco.</h2>
+      <p>Tutto quello che serve per un lavoro, già messo insieme: scegli il kit, lo prepariamo al banco e lo ritiri a Strudà.</p>
     </div>
-    <article class="lama vetrina" aria-roledescription="vetrina">
-      <div class="campo" id="v-campo">
-        <div class="scheda">
-          <div>
-            <span class="cat" id="v-cat"></span>
-            <h3 class="disp" id="v-nome"></h3>
-            <p class="desc" id="v-desc"></p>
-          </div>
-          <ul class="pregi" id="v-pregi"></ul>
-          <div class="compra">
-            <div class="prezzo"><b id="v-prezzo"></b><span id="v-formato"></span></div>
-            <div class="qta" aria-label="Quantità"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output id="v-qta">1</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div>
-            <button class="btn bianco" type="button" id="v-aggiungi">Aggiungi al carrello</button>
-          </div>
-        </div>
-        <div class="palco" id="pista">
-          <div class="adesivo" aria-hidden="true">
-            <svg class="giro" viewBox="0 0 120 120"><defs><path id="cerchio" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><circle cx="60" cy="60" r="58" fill="#fff"/><text font-family="Figtree" font-weight="700" font-size="11.5" letter-spacing="2.2" fill="#15171C"><textPath href="#cerchio">LA TINTA CHE VUOI · DAL 1986 A STRUDÀ ·</textPath></text></svg>
-            <span class="centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-4-7-13-7-13S5 11 5 15a7 7 0 0 0 7 7Z"/></svg></span>
-          </div>
-        </div>
-      </div>
-      <div class="etichetta">
-        <div class="schede" role="tablist" aria-label="Categorie"></div>
-        <div class="avanti"><button class="btn piccolo" type="button" id="v-prossimo">Successivo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><i class="foro" aria-hidden="true"></i></div>
-      </div>
-    </article>
+    <!-- il cerchio su cui gira la scritta degli adesivi  -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="cerchio" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs></svg>
+    <div class="schede-v" id="schede-v"></div>
   </section>
 
   <!-- fascia scura con i dati -->
@@ -285,28 +342,6 @@ a{color:inherit}
       <div><dt>Tinte</dt><dd class="valore">+100.000</dd><dd>preparate al tintometro sul momento</dd></div>
       <div><dt>Al banco</dt><dd class="valore">Dal 1986</dd><dd>il consiglio giusto, anche al telefono</dd></div>
     </dl>
-  </section>
-
-  <!-- kit -->
-  <section class="sez kit" aria-labelledby="t-kit">
-    <article class="lama">
-      <div class="campo"><img class="s1" src="img/secchio-batrix.webp" alt="" width="273" height="286"><img class="s2" src="img/shop/pennello20-prodotto.webp" alt="" width="900" height="178"></div>
-      <div class="etichetta"><b>Kit stanza</b><i class="foro" aria-hidden="true"></i></div>
-      <div class="adesivo" aria-hidden="true">
-        <svg class="giro" viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="#fff"/><text font-family="Figtree" font-weight="700" font-size="11.5" letter-spacing="2.2" fill="#DF2F26"><textPath href="#cerchio">TUTTO PRONTO DA RITIRARE · KIT ·</textPath></text></svg>
-        <span class="centro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-      </div>
-    </article>
-    <div>
-      <h2 class="disp" id="t-kit">Il kit per la stanza.</h2>
-      <p>Tutto quello che serve per ridipingere una camera, pronto da ritirare. Prima di iniziare passa dal banco: ti spieghiamo come stenderla.</p>
-      <ul class="elenco">
-        <li>Pittura lavabile Boero Batrix<span class="mono">1 pz</span></li>
-        <li>Pennello da 20<span class="mono">2 pz</span></li>
-        <li>Consiglio al banco<span class="mono">gratis</span></li>
-      </ul>
-      <button class="btn rosso" type="button" id="kit">Aggiungi il kit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
-    </div>
   </section>
 
   <!-- catalogo -->
@@ -341,6 +376,15 @@ a{color:inherit}
   </div>
 </div>
 
+<div class="cassa scheda-prodotto" id="dettaglio" aria-hidden="true">
+  <div class="pannello" role="dialog" aria-modal="true" aria-labelledby="t-dettaglio">
+    <span class="d-kit" id="d-kit"></span>
+    <h2 class="disp" id="t-dettaglio"></h2>
+    <button class="chiudi" type="button" aria-label="Chiudi il dettaglio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div id="d-articoli"></div>
+  </div>
+</div>
+
 <script>
 (function(){
 /* prodotti di prova: testi dal sito, prezzi e formati di esempio. c/t = colore del campo e del testo, come nei reparti */
@@ -365,39 +409,156 @@ const CATEGORIE = [...new Set(PRODOTTI.map(p => p.cat))];
 const euro = n => '€ ' + n.toFixed(2).replace('.', ',');
 const $ = s => document.querySelector(s);
 
-/* ---------- vetrina ---------- */
-const pista = $('#pista'), campo = $('#v-campo'), vetrina = $('#vetrina');
-let attivo = 0, qta = 1;
-const pezzi = PRODOTTI.map((p, i) => {
-  const b = document.createElement('button'); b.type = 'button'; b.className = 'pezzo' + (p.largo ? ' largo' : '');
-  b.setAttribute('aria-label', 'Mostra ' + p.nome);
-  b.innerHTML = `<img src="${p.img}" width="${p.w}" height="${p.h}" alt="${p.nome}">`;
-  b.addEventListener('click', () => { if (i !== attivo) { mostra(i); ferma(); } });
-  pista.appendChild(b); return b;
+/* ---------- kit in vetrina ---------- */
+/* un kit = i pezzi per un lavoro, venduto come un articolo solo. Pezzi, formati e prezzi dal gestionale (export del 26/10/2026);
+   ogni pezzo è [icona, nome, formato, prezzo, codice articolo]; prezzo null = articolo non ancora nel gestionale.
+   intorno = [pezzo, etichetta corta] dei tre che galleggiano; vantaggi = [icona, testo] dei punti di forza che galleggiano al loro posto
+   grande = la parola gigante; c1/c2/c3 = sfumatura del campo (c3 è la luce dietro la cartolina); t/t2 = testo e il suo contrario;
+   quadro = l'ambiente del sito; foto = illustrazione scontornata del kit al posto della cartolina; prodotto = foto scontornata davanti, se c'è */
+const ICONE = {
+  nastro:'<circle cx="11" cy="11" r="7"/><circle cx="11" cy="11" r="2.5"/><path d="M11 18h10"/>',
+  secchio:'<path d="M5 8h14l-1.5 12h-11Z"/><path d="M5 8c0-3.5 14-3.5 14 0"/>',
+  guanti:'<path d="M8 21v-4l-3-5V8a1.5 1.5 0 0 1 3 0V5a1.5 1.5 0 0 1 3 0V4a1.5 1.5 0 0 1 3 0v1a1.5 1.5 0 0 1 3 0v8l-2 4v4"/>',
+  stucco:'<rect x="5" y="9" width="14" height="11" rx="2"/><path d="M4 6h16v3H4z"/>',
+  spatola:'<path d="M4 20l6-6"/><path d="M9 15l3-9 6 6-9 3Z"/>',
+  fissativo:'<path d="M10 3h4v3l2 3v12H8V9l2-3Z"/><path d="M8 13h8"/>',
+  telo:'<path d="M4 6c3-2 5 2 8 0s5 2 8 0v12c-3 2-5-2-8 0s-5-2-8 0Z"/>',
+  carta:'<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h.01M13 9h.01M11 13h.01M15 13h.01M9 17h.01M13 17h.01"/>',
+  venature:'<path d="M3 7c4 0 5 4 9 4s5-4 9-4M3 13c4 0 5 4 9 4s5-4 9-4"/>',
+  scudo:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/>',
+  rullo:'<rect x="3" y="3" width="15" height="6" rx="2"/><path d="M18 6h2v5h-8v3"/><path d="M11 14h2v7h-2z"/>',
+  griglia:'<path d="M5 3h14l-2 18H7Z"/><path d="M6 9h12M6.5 15h11M10 3l-1 18M14 3l1 18"/>',
+  pennello:'<path d="M9 3h6v7H9z"/><path d="M8 10h8l-1 4H9Z"/><path d="M10 14l-1 7h6l-1-7"/>',
+  casa:'<path d="M3 11 12 4l9 7M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',
+  orologio:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'
+};
+const KIT = [
+  {id:'kit-esterni', nome:'Kit esterni', grande:'Esterni', sotto:'Kit per facciate e muri',
+   desc:'Per rifare una facciata o un muro di cinta: si stucca, si fissa e si stende il quarzo. Prima di iniziare passa dal banco: ti spieghiamo come stenderlo.',
+   c1:'#C8703F', c2:'#8E3E22', c3:'#FFD3A6', t:'#FFFFFF', t2:'#15171C', c:'#C8703F', img:'img/amb-esterni.webp', w:843, h:1264,
+   adesivo:'PER FACCIATE E MURI · KIT ESTERNI ·', icona:'secchio',
+   pezzi:[['nastro','Nastro in carta per esterno','1 rotolo',5,'ART-000266'],['secchio','Pittura al quarzo','14 l',45,'ART-001545'],['guanti','Guanti','taglia 9',1.5,'ART-000832'],
+          ['stucco','Stucco per esterni','1 kg',2.5,'ART-000072'],['spatola','Spatola rigida','80 mm',4.5,'ART-000079'],['fissativo','Fissativo','5 l',30,'ART-001523']],
+   intorno:[[1,'Quarzo'],[4,'Spatola'],[0,'Nastro']]},
+  {id:'kit-interni', nome:'Kit interni', grande:'Interni', sotto:'Kit per preparare la stanza',
+   desc:'Tutto per rifare una stanza: si copre, si stucca, si carteggia, si fissa e si pittura con il Boerobianco.',
+   c1:'#178C82', c2:'#0B4F4A', c3:'#81D8D0', t:'#FFFFFF', t2:'#15171C', c:'#178C82', img:'img/amb-interni.webp', w:848, h:1233,
+   foto:{img:'img/shop/kit-interni.webp?v=7', w:1000, h:789},
+   adesivo:'TUTTO PRONTO DA RITIRARE · KIT ·', icona:'telo',
+   pezzi:[['secchio','Boerobianco Plus','5 l',25,'ART-000338'],['stucco','Stucco in pasta','0,5 kg',2,'ART-001306'],['fissativo','Fissativo','1 l',null,'manca nel gestionale (Idroacril solo 5 l)'],
+          ['rullo','Rullo con manico','15 cm',4.5,'ART-001176 + ART-000906'],['nastro','Carta con nastro adesivo','2 rotoli',3,'ART-000311 ×2'],
+          ['pennello','Pennello','n. 40',1.3,'ART-000414'],['telo','Teli copritutto','2 pz',2,'ART-001339 ×2'],
+          ['spatola','Set spatole','4 pz',3.8,'ART-001281'],['carta','Carta abrasiva','grana 120',1.2,'ART-000569'],['griglia','Griglia per rullo','20 cm',1.5,'ART-001143']],
+   intorno:[], vantaggi:[['casa','Tutto per una stanza'],['secchio','Pittura Boerobianco inclusa'],['orologio','Pronto da ritirare in 24 ore']]},
+  {id:'kit-legno', nome:'Kit legno', grande:'Legno', sotto:'Kit per travi, perline e infissi',
+   desc:'Per travi, perline, staccionate e infissi: si carteggia, si impregna e si protegge. Ti diciamo noi quante mani dare.',
+   c1:'#9A5F2C', c2:'#5E3718', c3:'#F2C487', t:'#FFFFFF', t2:'#15171C', c:'#9A5F2C', img:'img/amb-legno.webp', w:683, h:1024,
+   prodotto:{img:'img/secchio-novolegno.webp', w:422, h:467, alt:'Impregnante Arreghini Novolegno Classic'},
+   adesivo:'PROTEGGE IL LEGNO · DENTRO E FUORI ·', icona:'venature',
+   pezzi:[['secchio','Impregnante, tinta a scelta','0,75 l',9,'ART-001529'],['guanti','Guanti','taglia 9',1.5,'ART-000832'],['telo','Telo copritutto','4x4 m',1,'ART-001339'],
+          ['carta','Carta abrasiva','grana 120',1.2,'ART-000569'],['scudo','Protettivo trasparente','0,75 l',16,'ART-002741']],
+   intorno:[[3,'Carta vetrata'],[4,'Protettivo'],[1,'Guanti']]}
+];
+/* il prezzo del kit è la somma dei pezzi, ai prezzi del banco; finché manca qualche prezzo è provvisorio */
+KIT.forEach(k => { k.prezzo = Math.round(k.pezzi.reduce((s, x) => s + (x[3] || 0), 0) * 100) / 100; k.mancano = k.pezzi.filter(x => x[3] == null).length; });
+const ARTICOLI = [...PRODOTTI, ...KIT];
+const svg = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const due = n => String(n).padStart(2, '0');
+const schedeV = $('#schede-v');
+KIT.forEach((k, i) => {
+  const a = document.createElement('article'); a.className = 'vs'; a.id = 'vs-' + k.id; a.setAttribute('aria-label', k.nome);
+  a.style.cssText = `--c1:${k.c1};--c2:${k.c2};--c3:${k.c3};--t:${k.t};--t2:${k.t2};--n:${k.grande.length}`;
+  /* due facce che scorrono in orizzontale: davanti il kit, dietro la lista di tutti i prodotti */
+  a.innerHTML = `<div class="vs-giro"><div class="vs-binario"><div class="vs-campo">
+    <div class="vs-top"><span class="vs-marca"><svg viewBox="0 0 26 26" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5" r="3"/><circle cx="13" cy="5" r="3"/><circle cx="21" cy="5" r="3"/><circle cx="9" cy="13" r="3"/><circle cx="17" cy="13" r="3"/><circle cx="13" cy="21" r="3"/></svg><span>Al banco dal 1986.<br>Pronto in 24 ore.</span></span><a class="vs-pill" href="tel:+393204173656">Chiedi al banco</a></div>
+    <div class="vs-nome"><h3 class="disp">${k.grande}</h3><span>${k.sotto}</span></div>
+    <div class="vs-testo"><p>${k.desc}</p></div>
+    <button class="vs-apri" type="button" aria-label="Vedi tutti i prodotti del ${k.nome.toLowerCase()}"><span class="cerchio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span><span>Tutti i prodotti</span></button>
+    <div class="vs-palco" aria-hidden="true">
+      ${k.foto ? `<div class="foto"><img src="${k.foto.img}" width="${k.foto.w}" height="${k.foto.h}" alt="">${(k.etichette || []).map(([n, et, x, y]) => `<span class="targa" style="left:${x}%;top:${y}%"><i>${svg(ICONE[k.pezzi[n][0]])}</i>${et}</span>`).join('')}</div>` : `<figure class="quadro"><img src="${k.img}" width="${k.w}" height="${k.h}" alt=""><figcaption>${k.nome}</figcaption></figure>`}
+      ${k.prodotto ? `<img class="prodotto" src="${k.prodotto.img}" width="${k.prodotto.w}" height="${k.prodotto.h}" alt="">` : ''}
+      ${k.intorno.map(([n, et], j) => `<span class="pezzo p${j + 1}"><i>${svg(ICONE[k.pezzi[n][0]])}</i>${et}</span>`).join('')}
+      ${(k.vantaggi || []).map(([ic, t], j) => `<span class="pezzo v${j + 1}"><i>${svg(ICONE[ic])}</i>${t}</span>`).join('')}
+      <div class="adesivo"><svg class="giro" viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="#fff"/><text font-family="Figtree" font-weight="700" font-size="11.5" letter-spacing="2.2" fill="#15171C"><textPath href="#cerchio">${k.adesivo}</textPath></text></svg><span class="centro">${svg(ICONE[k.icona])}</span></div></div>
+    <div class="vs-dati"><span class="vs-et">Kit completo</span><b class="vs-prezzo">${euro(k.prezzo)}</b><span class="vs-et">${k.mancano ? `Provvisorio: ${k.mancano === 1 ? 'manca 1 prezzo' : `mancano ${k.mancano} prezzi`}` : `${k.pezzi.length} pezzi ai prezzi del banco`}</span>
+      <div class="vs-compra"><div class="qta" aria-label="Quantità"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output>1</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div><button class="btn" type="button" aria-label="Aggiungi il kit al carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></button></div>
+      <ul class="vs-info"><li>Ritiro gratis a Strudà</li><li>Ti spieghiamo come usarlo</li></ul></div>
+    <div class="vs-piede"><span>${k.nome} · shop in prova</span><span>${due(i + 1)} / ${due(KIT.length)}</span></div>
+  </div>
+  <div class="vs-lista" inert>
+    <div class="vs-lista-testa"><button class="vs-torna" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>Torna al kit</button><span class="vs-et">${k.nome} · ${k.pezzi.length} pezzi</span></div>
+    <h3 class="disp">Nel kit.</h3>
+    <ul class="vs-pregi" aria-label="Prodotti del ${k.nome.toLowerCase()}">${k.pezzi.map(([ic, t, f, pr], j) => `<li><button class="vs-pezzo" type="button" data-k="${i}" data-p="${j}" aria-label="${t}: vedi il dettaglio"><span class="ic">${svg(ICONE[ic])}</span><span><b>${t}</b><small>${f} · ${pr == null ? 'prezzo da inserire' : euro(pr)}</small></span><svg class="freccia" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button></li>`).join('')}</ul>
+    <div class="vs-lista-piede"><div><span class="vs-et">Kit completo</span><b class="vs-prezzo">${euro(k.prezzo)}</b></div><button class="btn vs-tutto" type="button">Aggiungi il kit</button></div>
+  </div></div></div>`;
+  let qta = 1; const out = a.querySelector('output');
+  a.querySelectorAll('.qta button').forEach(b => b.addEventListener('click', () => { qta = Math.max(1, Math.min(20, qta + +b.dataset.q)); out.textContent = qta; }));
+  a.querySelector('.vs-compra .btn').addEventListener('click', () => aggiungi(k.id, qta));
+  a.querySelector('.vs-tutto').addEventListener('click', () => aggiungi(k.id, 1));
+  /* freccia: la card scorre sulla lista; la faccia nascosta è inerte, così il tab non ci finisce dentro */
+  const faccia = a.querySelector('.vs-campo'), lista = a.querySelector('.vs-lista');
+  const gira = aperta => { a.classList.toggle('lista-aperta', aperta); faccia.inert = aperta; lista.inert = !aperta; (aperta ? lista.querySelector('.vs-torna') : faccia.querySelector('.vs-apri')).focus({preventScroll:true}); };
+  a.querySelector('.vs-apri').addEventListener('click', () => gira(true));
+  a.querySelector('.vs-torna').addEventListener('click', () => gira(false));
+  schedeV.appendChild(a);
 });
-const schede = $('.schede');
-const tabs = CATEGORIE.map(c => {
-  const t = document.createElement('button'); t.type = 'button'; t.setAttribute('role', 'tab'); t.textContent = c;
-  t.addEventListener('click', () => { mostra(PRODOTTI.findIndex(p => p.cat === c)); ferma(); });
-  schede.appendChild(t); return t;
-});
-function mostra(i){
-  attivo = (i + PRODOTTI.length) % PRODOTTI.length; qta = 1; $('#v-qta').textContent = qta;
-  const p = PRODOTTI[attivo], n = PRODOTTI.length;
-  pezzi.forEach((b, k) => { let d = (k - attivo + n) % n; if (d === n - 1) d = -1; b.dataset.pos = d; b.tabIndex = d === 1 || d === 2 ? 0 : -1; });
-  campo.style.setProperty('--c', p.c); campo.style.setProperty('--t', p.t); campo.style.setProperty('--incisione', `url(${p.incisione})`);
-  $('#v-cat').textContent = p.cat; $('#v-nome').textContent = p.nome; $('#v-desc').textContent = p.desc;
-  $('#v-prezzo').textContent = euro(p.prezzo); $('#v-formato').textContent = p.formato;
-  $('#v-pregi').innerHTML = p.pregi.map(x => `<li>${x}</li>`).join('');
-  tabs.forEach(t => t.setAttribute('aria-selected', t.textContent === p.cat ? 'true' : 'false'));
+
+/* articoli dei kit dal gestionale (export del 26/10/2026): nome, descrizione, marca, categoria, prezzo di vendita, unità. Niente costi. */
+const CATALOGO = {
+  'ART-000266':{"nome": "Nastro in carta per esterno", "desc": "Nastro di carta per esterno: adesivo per mascheratura resistente ai raggi UV, si usa per verniciature all'aperto senza lasciare residui di colla.", "marca": "ADS", "cat": "Nastri adesivi", "prezzo": 5.0, "unita": "PZ"},
+  'ART-001545':{"nome": "Ecoeasy Venus al quarzo - 14 l", "desc": "Pittura al quarzo Ecoeasy Venus, 14 litri: rivestimento murale riempitivo per facciate e pareti esterne.", "marca": "", "cat": "Pitture per muri", "prezzo": 45.0, "unita": "PZ"},
+  'ART-000832':{"nome": "Guanti in nylon spalmati NBR grigi - taglia 9", "desc": "Guanti in nylon spalmati in NBR (nitrile) grigio, taglia 9: palmo rivestito per una presa salda in lavori di manutenzione, montaggio e movimentazione.", "marca": "", "cat": "Guanti", "prezzo": 1.5, "unita": "PZ"},
+  'ART-000072':{"nome": "Stucco in polvere restauro esterni - 1 kg", "desc": "Stucco in polvere K2 da 1 kg per restauro esterni: si impasta con acqua per rasare, riparare crepe, sbrecciature e piccole mancanze su intonaci e murature esposte.", "marca": "K2", "cat": "Stucchi", "prezzo": 2.5, "unita": "PZ"},
+  'ART-000079':{"nome": "Spatola rigida 80 mm", "desc": "Spatola rigida Ancora da 80 mm: lama in acciaio con manico, per stendere stucchi e rasanti, raschiare vecchie pitture, carte da parati e residui dalle superfici.", "marca": "Ancora", "cat": "Attrezzi da cantiere", "prezzo": 4.5, "unita": "PZ"},
+  'ART-001523':{"nome": "Idroacril - 5 l", "desc": "", "marca": "Boero", "cat": "Pitture per muri", "prezzo": 30.0, "unita": "PZ"},
+  'ART-000338':{"nome": "Boerobianco Plus bianco base BC - 5 l", "desc": "", "marca": "Boero", "cat": "Pitture per muri", "prezzo": 25.0, "unita": "PZ"},
+  'ART-001306':{"nome": "Stucco in pasta - 0,5 kg", "desc": "Stucco in pasta K2 per carrozzeria, confezione da 0,5 kg: stucco poliestere per riparare ammaccature e piccoli difetti sulla lamiera, da miscelare con l'apposito indurente.", "marca": "K2", "cat": "Stucchi", "prezzo": 2.0, "unita": "PZ"},
+  'ART-001176':{"nome": "Rullo in perlon pelo 12 mm 15 cm", "desc": "Rullotto in perlon, 15 cm, pelo alto 12 mm: rullo di piccolo formato con tessuto sintetico a pelo lungo, adatto a smalti e vernici anche dense su superfici ridotte.", "marca": "", "cat": "Pennelli e rulli", "prezzo": 3.0, "unita": "PZ"},
+  'ART-000906':{"nome": "Manico per rullino 15 cm", "desc": "Manico per minirullo, 15 cm: impugnatura per rullini di piccole dimensioni, usata per verniciare angoli, bordi e superfici strette.", "marca": "", "cat": "Pennelli e rulli", "prezzo": 1.5, "unita": "PZ"},
+  'ART-000311':{"nome": "Bobina di carta con nastro adesivo 18 cm x 20 m - sfusa", "desc": "Bobinetta di carta con nastro adesivo per mascheratura, dimensioni 18 cm x 20 metri, venduta sfusa: protegge superfici e bordi durante la verniciatura a spruzzo.", "marca": "", "cat": "Nastri adesivi", "prezzo": 1.5, "unita": "PZ"},
+  'ART-000414':{"nome": "Pennellessa tripla MPP n. 40", "desc": "Pennellessa (pennello piatto largo) a setole triple, linea MPP, misura 40 mm; per stendere vernici e idropitture su grandi superfici.", "marca": "", "cat": "Pennelli e rulli", "prezzo": 1.3, "unita": "PZ"},
+  'ART-001339':{"nome": "Telo copritutto LDPE 4x4 m 200 g", "desc": "Telo copritutto in polietilene LDPE, 16 mq (4x4 metri), grammatura 200 g/mq; si usa per proteggere pavimenti e superfici durante lavori di pittura e imbiancatura.", "marca": "", "cat": "Teli e coperture", "prezzo": 1.0, "unita": "PZ"},
+  'ART-001281':{"nome": "Spatole in acciaio - set da 4 (50-80-100-120 mm)", "desc": "Set di 4 spatole in acciaio, larghezze 50-80-100-120 mm; per stuccare, rasare e rimuovere vernice e residui.", "marca": "", "cat": "Attrezzi da cantiere", "prezzo": 3.8, "unita": "PZ"},
+  'ART-000569':{"nome": "Carta abrasiva AW-C grana 120 - rotolo h 12 cm x 100 m", "desc": "Rotolo di carta abrasiva Sait linea AW-C, grana 120, altezza 12 cm, lunghezza 100 metri: per levigatura fine di legno e superfici verniciate.", "marca": "Sait", "cat": "Abrasivi e dischi", "prezzo": 1.2, "unita": "MT"},
+  'ART-001143':{"nome": "Retina in plastica per rullo 20 cm", "desc": "Retina in plastica per vaschetta portarullo, 20 cm: griglia da inserire nella vaschetta per stendere il rullo e togliere la vernice in eccesso prima di applicarla.", "marca": "", "cat": "Pennelli e rulli", "prezzo": 1.5, "unita": "PZ"},
+  'ART-001529':{"nome": "Impregnante Classic 079 noce antico - 0,75 l", "desc": "Impregnante per legno linea Classic, tinta 079 noce antico, 0,750 litri: protegge e colora infissi, travi, perline e mobili da giardino.", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 9.0, "unita": "PZ"},
+  'ART-002741':{"nome": "Finitura Special UV Matt 070 incolore - 0,75 l", "desc": "", "marca": "Arreghini", "cat": "Smalti e vernici", "prezzo": 16.0, "unita": "PZ"},
+};
+
+/* ---------- dettaglio dei pezzi del kit ---------- */
+/* il codice di un pezzo può essere 'ART-x', 'ART-x ×2' o 'ART-x + ART-y': da qui gli articoli veri e quanti ne servono al kit */
+const articoliDi = s => (s || '').split('+').map(x => { const c = x.match(/ART-\d+/); return c && [c[0], +((x.match(/×\s*(\d+)/) || [])[1] || 1)]; }).filter(Boolean);
+/* ogni articolo dei kit si può comprare anche da solo: entra nel carrello con l'icona e il colore del suo kit */
+KIT.forEach(k => k.pezzi.forEach(x => articoliDi(x[4]).forEach(([cod]) => {
+  if (CATALOGO[cod] && !ARTICOLI.some(a => a.id === cod)) ARTICOLI.push({id:cod, nome:CATALOGO[cod].nome, prezzo:CATALOGO[cod].prezzo, c:k.c1, icona:x[0]});
+})));
+const dettaglio = $('#dettaglio'), dArticoli = $('#d-articoli');
+let tornaA = null;
+function apriDettaglio(ki, pi, da){
+  const k = KIT[ki], [ic, nome, formato, , cod] = k.pezzi[pi], arts = articoliDi(cod);
+  $('#d-kit').textContent = `${k.nome} · ${formato}`; $('#t-dettaglio').textContent = nome;
+  dettaglio.style.setProperty('--c', k.c1);
+  dArticoli.innerHTML = arts.length ? arts.map(([c, n]) => { const a = CATALOGO[c]; return `<article class="d-art" data-id="${c}">
+      <div class="d-testa"><span class="d-ic">${svg(ICONE[ic])}</span><div><span class="d-et">${[a.cat, a.marca].filter(Boolean).join(' · ')}</span><h3>${a.nome}</h3></div></div>
+      ${a.desc ? `<p>${a.desc}</p>` : ''}
+      <div class="d-compra"><b class="d-prezzo">${euro(a.prezzo)}<small>${a.unita === 'MT' ? 'al metro' : 'al pezzo'}</small></b>
+        <div class="qta" aria-label="Quantità"><button type="button" data-q="-1" aria-label="Uno in meno">−</button><output>${n}</output><button type="button" data-q="1" aria-label="Uno in più">+</button></div>
+        <button class="btn" type="button" aria-label="Aggiungi ${a.nome} al carrello">Aggiungi</button></div>
+      <span class="codice">Cod. ${c}${n > 1 ? ` · nel kit ne trovi ${n}` : ''}</span></article>`; }).join('')
+    : `<div class="d-art"><p>Questo pezzo non è ancora nello shop online: lo trovi al banco. Chiamaci e te lo prepariamo.</p><a class="btn rosso" href="tel:+393204173656">Chiama 320 417 3656</a></div>`;
+  tornaA = da; dettaglio.classList.add('aperta'); dettaglio.setAttribute('aria-hidden', 'false'); dettaglio.querySelector('.chiudi').focus();
 }
-let auto = setInterval(() => mostra(attivo + 1), 6000);
-function ferma(){ clearInterval(auto); }
-if (matchMedia('(prefers-reduced-motion: reduce)').matches) ferma();
-vetrina.addEventListener('pointerdown', ferma, {once:true});
-$('#v-prossimo').addEventListener('click', () => { mostra(attivo + 1); ferma(); });
-document.querySelectorAll('.vetrina .qta button').forEach(b => b.addEventListener('click', () => { qta = Math.max(1, Math.min(20, qta + +b.dataset.q)); $('#v-qta').textContent = qta; }));
-$('#v-aggiungi').addEventListener('click', () => aggiungi(PRODOTTI[attivo].id, qta));
+function chiudiDettaglio(){ dettaglio.classList.remove('aperta'); dettaglio.setAttribute('aria-hidden', 'true'); if (tornaA) tornaA.focus(); }
+schedeV.addEventListener('click', e => { const b = e.target.closest('.vs-pezzo'); if (b) apriDettaglio(+b.dataset.k, +b.dataset.p, b); });
+dettaglio.addEventListener('click', e => {
+  if (e.target === dettaglio || e.target.closest('.chiudi')) return chiudiDettaglio();
+  const art = e.target.closest('.d-art[data-id]'); if (!art) return;
+  const out = art.querySelector('output'), q = e.target.closest('.qta button');
+  if (q) { out.textContent = Math.max(1, Math.min(99, +out.textContent + +q.dataset.q)); return; }
+  const add = e.target.closest('.d-compra .btn');
+  if (add) { aggiungi(art.dataset.id, +out.textContent); add.textContent = 'Aggiunto ✓'; setTimeout(() => { add.textContent = 'Aggiungi'; }, 1200); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && dettaglio.classList.contains('aperta')) chiudiDettaglio(); });
 
 /* ---------- catalogo ---------- */
 const griglia = $('#griglia'), filtri = $('.filtri');
@@ -412,9 +573,11 @@ function filtra(c){
 PRODOTTI.forEach((p, i) => {
   const a = document.createElement('article'); a.className = 'lama'; a.dataset.cat = p.cat;
   a.style.setProperty('--c', p.c); a.style.setProperty('--t', p.t);
-  a.innerHTML = `<button class="campo" type="button" aria-label="Vedi ${p.nome} in vetrina"><span class="cat">${p.cat}</span>${p.nuovo ? `<span class="nuovo">${p.nuovo}</span>` : ''}<img${p.largo ? ' class="largo"' : ''} src="${p.img}" width="${p.w}" height="${p.h}" alt="" loading="lazy"></button>
+  /* il riquadro porta alla sua scheda in vetrina, se ce l'ha */
+  const scheda = document.getElementById('vs-' + p.id), tag = scheda ? 'button' : 'div';
+  a.innerHTML = `<${tag} class="campo"${scheda ? ` type="button" aria-label="Vedi ${p.nome} in vetrina"` : ''}><span class="cat">${p.cat}</span>${p.nuovo ? `<span class="nuovo">${p.nuovo}</span>` : ''}<img${p.largo ? ' class="largo"' : ''} src="${p.img}" width="${p.w}" height="${p.h}" alt="" loading="lazy"></${tag}>
     <div class="etichetta"><div><b>${p.nome}</b><span class="codice">${euro(p.prezzo)}</span></div><button class="aggiungi" type="button" aria-label="Aggiungi ${p.nome} al carrello"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>`;
-  a.querySelector('.campo').addEventListener('click', () => { mostra(i); ferma(); vetrina.scrollIntoView({behavior:'smooth', block:'start'}); });
+  if (scheda) a.querySelector('.campo').addEventListener('click', () => scheda.scrollIntoView({behavior:'smooth', block:'start'}));
   const piu = a.querySelector('.aggiungi');
   piu.addEventListener('click', () => { aggiungi(p.id, 1); piu.classList.add('fatto'); setTimeout(() => piu.classList.remove('fatto'), 600); });
   griglia.appendChild(a);
@@ -430,15 +593,14 @@ function aggiungi(id, n){
   const c = $('.carrello'); c.classList.remove('salta'); void c.offsetWidth; c.classList.add('salta');
 }
 function disegna(){
-  const voci = Object.entries(carrello).filter(([id, n]) => n > 0 && PRODOTTI.some(p => p.id === id));
+  const voci = Object.entries(carrello).filter(([id, n]) => n > 0 && ARTICOLI.some(p => p.id === id));
   $('#conta').textContent = voci.reduce((s, [, n]) => s + n, 0);
-  $('#voci-cassa').innerHTML = voci.length ? voci.map(([id, n]) => { const p = PRODOTTI.find(x => x.id === id);
-    return `<li style="--c:${p.c}"><img src="${p.img}" alt=""><div><p>${p.nome}</p><small>${n} × ${euro(p.prezzo)}</small></div><div class="qta"><button type="button" data-id="${id}" data-d="-1" aria-label="Uno in meno">−</button><output>${n}</output><button type="button" data-id="${id}" data-d="1" aria-label="Uno in più">+</button></div></li>`; }).join('')
+  $('#voci-cassa').innerHTML = voci.length ? voci.map(([id, n]) => { const p = ARTICOLI.find(x => x.id === id);
+    return `<li style="--c:${p.c}">${p.img ? `<img src="${p.img}" alt="">` : `<span class="ico">${svg(ICONE[p.icona])}</span>`}<div><p>${p.nome}</p><small>${n} × ${euro(p.prezzo)}</small></div><div class="qta"><button type="button" data-id="${id}" data-d="-1" aria-label="Uno in meno">−</button><output>${n}</output><button type="button" data-id="${id}" data-d="1" aria-label="Uno in più">+</button></div></li>`; }).join('')
     : '<li class="vuoto">Il carrello è vuoto.</li>';
-  $('#totale').textContent = euro(voci.reduce((s, [id, n]) => s + n * PRODOTTI.find(x => x.id === id).prezzo, 0));
+  $('#totale').textContent = euro(voci.reduce((s, [id, n]) => s + n * ARTICOLI.find(x => x.id === id).prezzo, 0));
 }
 $('#voci-cassa').addEventListener('click', e => { const b = e.target.closest('button[data-id]'); if (!b) return; carrello[b.dataset.id] = Math.max(0, (carrello[b.dataset.id] || 0) + +b.dataset.d); salva(); disegna(); });
-$('#kit').addEventListener('click', () => { aggiungi('batrix', 1); aggiungi('pennello', 2); });
 const cassa = $('#cassa');
 function apri(){ cassa.classList.add('aperta'); cassa.setAttribute('aria-hidden', 'false'); cassa.querySelector('.chiudi').focus(); }
 function chiudi(){ cassa.classList.remove('aperta'); cassa.setAttribute('aria-hidden', 'true'); $('.carrello').focus(); }
@@ -446,7 +608,7 @@ $('.carrello').addEventListener('click', apri);
 cassa.addEventListener('click', e => { if (e.target === cassa || e.target.closest('.chiudi')) chiudi(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && cassa.classList.contains('aperta')) chiudi(); });
 
-mostra(0); disegna();
+disegna();
 })();
 </script>
 </body></html>
