@@ -361,7 +361,12 @@ a{color:inherit}
   .carrello .testo{display:none}
   .testata{padding-top:118px}
   /* su telefono le schede non si impilano: una sotto l'altra, in colonna */
-  .vs{position:relative;top:auto;min-height:0;border-radius:22px}
+  .vs{position:relative;top:auto;min-height:0;border-radius:24px}
+  /* telefono, griglia da 8: cornice 8, padding 16, raggi 24 fuori e 16 dentro */
+  .vs{padding:8px}
+  .vs-giro,.vs-campo,.vs-lista{border-radius:16px}
+  .vs-binario > *{box-shadow:0 0 0 8px var(--bianco),0 -16px 40px -24px rgba(21,23,28,.5)}
+  .vs-lista{padding:16px;gap:16px}
   .vs-binario{align-items:start;height:auto}
   .vs-giro{transition:height .5s var(--ease)}
   /* etichette sulla foto: una in alto a sinistra, due a destra, così su schermo stretto non si toccano */
@@ -370,7 +375,7 @@ a{color:inherit}
   .vs-palco .v3{right:0;bottom:4%}
   /* su telefono niente bollino che gira sulla foto */
   .vs-palco .adesivo{display:none}
-  .vs-campo{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-template-areas:"top" "nome" "palco" "dati";gap:20px;padding:14px;
+  .vs-campo{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-template-areas:"top" "nome" "palco" "dati";gap:16px;padding:16px;
     background:radial-gradient(70% 34% at 50% 34%,var(--c3) 0,transparent 72%),linear-gradient(170deg,var(--c1),var(--c2))}
   .vs-top{grid-area:top}.vs-nome{grid-area:nome}.vs-palco{grid-area:palco}.vs-testo{grid-area:testo}.vs-dati{grid-area:dati}.vs-piede{grid-area:piede}
   .vs-nome{flex-direction:column;align-items:flex-start;gap:10px}
@@ -385,7 +390,7 @@ a{color:inherit}
   .vs-apri{display:none}
   .vs-compra .vs-elenco{display:inline-flex}
   /* il riquadro del prezzo resta dentro la card: stessi 22px a sinistra, a destra e sotto */
-  .vs-dati{min-width:0;padding:16px;grid-template-columns:minmax(0,1fr)}
+  .vs-dati{min-width:0;padding:16px;border-radius:16px;grid-template-columns:minmax(0,1fr)}
   .vs-compra{min-width:0}
   .vs-compra .vs-metti{min-width:0;padding:0 14px;white-space:nowrap}
   .vs-lista h3{font-size:44px}
@@ -404,9 +409,9 @@ a{color:inherit}
   .vc-grande{padding:20px 18px 18px 120px;min-height:170px}
   .vc-grande .vc-foto{left:-18px;width:124px;height:150px}
   /* lista su telefono: tutte le card uguali, in riga (foto, nome e formato, prezzo), senza descrizioni */
-  #schede-v .vc-griglia{gap:12px}
-  #schede-v .vc-top,#schede-v .vc-acc{gap:12px;padding:0;margin:0}
-  #schede-v .vs-lista .vc{display:flex;flex-direction:row;align-items:center;gap:12px;padding:12px 14px 12px 74px;min-height:78px}
+  #schede-v .vc-griglia{gap:8px}
+  #schede-v .vc-top,#schede-v .vc-acc{gap:8px;padding:0;margin:0}
+  #schede-v .vs-lista .vc{display:flex;flex-direction:row;align-items:center;gap:8px;padding:8px 16px 8px 64px;min-height:72px;border-radius:16px}
   #schede-v .vs-lista .vc-testo{display:grid;flex:1;min-width:0;gap:2px}
   #schede-v .vs-lista .vc-desc,#schede-v .vs-lista .vs-tinte{display:none}
   /* sul retro su telefono restano solo il tasto per tornare e la lista: niente titolo né prezzo finale */
@@ -414,8 +419,8 @@ a{color:inherit}
   .vs-lista-testa{flex-direction:row-reverse}
   .vs-lista-testa .vs-et{text-align:left}
   #schede-v .vs-lista .vc-piede{margin:0;flex:none}
-  #schede-v .vs-lista .vc-foto{left:-4px;top:50%;translate:0 -50%;width:68px;height:68px}
-  #schede-v .vs-lista .vc-icona svg{width:34px;height:34px}
+  #schede-v .vs-lista .vc-foto{left:0;top:50%;translate:0 -50%;width:64px;height:64px}
+  #schede-v .vs-lista .vc-icona svg{width:32px;height:32px}
   #schede-v .vs-lista .vc b{font-size:15px}
   #schede-v .vs-lista .vc-prezzo{font-size:17px}
   .vc-grande .vc-prezzo{font-size:21px}
@@ -425,7 +430,7 @@ a{color:inherit}
   .vs-top{min-width:0}
   .vs-campo > .vs-piede{display:none}
   .vs-top{justify-content:flex-end}
-  .vs-campo > .vs-nome{margin-top:-28px}
+  .vs-campo > .vs-nome{margin-top:-24px}
   /* KIT non sta più sulla stessa riga: il nome può essere più grande */
   .vs-nome h3{font-size:min(22vw,calc(80vw / ((var(--n) - 1.5) * .9)))}
   .vs-nome > span{padding-top:0;max-width:none}
